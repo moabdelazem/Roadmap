@@ -1,0 +1,14 @@
+services:
+  roadmap:
+    build: .
+    image: roadmap-site
+    container_name: roadmap
+    restart: always
+    ports:
+      - "127.0.0.1:8080:80"
+    # Serve the working copy, so edits to README.md or site/ show up on refresh
+    # without rebuilding. The whole directory is mounted (not single files) so
+    # edits that replace a file, like git pull, are still picked up. nginx only
+    # serves site/ and README.md from it. The image also works without this mount.
+    volumes:
+      - .:/srv/roadmap:ro
