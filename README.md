@@ -35,12 +35,12 @@ Read this section at every quarterly review. It is what you agreed to.
 |---|---|
 | **Starting point** | Working DevOps engineer, early in the career. On-prem datacenters, S3-compatible object storage, real hardware. **Comfortable with:** Linux + Bash, Docker, CI/CD, Kubernetes (as a user). **Not yet:** Terraform/Ansible, Prometheus/Grafana, SLOs, Go, cloud. |
 | **The gap to senior** | Depth (internals, not commands), design (systems, not tickets), reliability math (SLOs, error budgets, capacity), and influence (written work that changes how others build). |
-| **Time budget** | 12–15 focused hours per week: the main track plus 3 h of **Back to Basics Saturday**. Non-negotiable floor: 11 hours (8 main + 3 Saturday). |
-| **Horizon** | ~1,120 hours on the main track. At ~11–12 h/week on it, that takes about 2 years; at ~8 h/week, about 3. Back to Basics runs alongside and never ends. |
+| **Time budget** | 12–15 focused hours per week: the main track plus 3 h of **Back to Basics Saturday**. Non-negotiable floor: 12 hours (9 main + 3 Saturday). |
+| **Horizon** | ~1,240 hours on the main track. At ~12 h/week on it, that takes about 2 years; at ~9 h/week, about 3. Back to Basics runs alongside and never ends. |
 | **Standing track** | **Back to Basics Saturday:** computer science from the start, plus LeetCode, every week. It keeps you relevant when tools change and keeps you interview-ready at all times. |
 | **Progression** | **Gates, not dates.** A topic is done when its "done when" check passes. A phase is done when its gate passes. Topics you already use at work start with a **Prove it** test. |
 | **Order** | Fundamentals, then platform, then reliability, and **cloud last**. Cloud gets easier once you already know Linux, Kubernetes and Terraform. |
-| **Languages** | Python for automation first, then **Go** as the production language. |
+| **Languages** | Python for automation first, then **Go** as the production language, then **Rust** as the specialization that sets you apart (Phase 5). |
 | **Target markets** | EU relocation (DE / NL / IE) and remote-first international roles. |
 | **Definition of done** | You can walk into a systems-design interview and a production-debugging interview and be the one explaining, not the one guessing. |
 
@@ -96,7 +96,7 @@ on the same foundations, so this plan builds both on one shared spine.
                  ┌────────────────────▼─────────────────────┐
                  │   DEPTH & CONVERGENCE  (Phase 5)         │
                  │ Distributed systems · Platform-as-product│
-                 │ Go operators · Multi-region reliability  │
+                 │ Go operators · Rust · Multi-region       │
                  └────────────────────┬─────────────────────┘
                                       │
                  ┌────────────────────▼─────────────────────┐
@@ -219,9 +219,9 @@ Read the Core list  →  Build the artifact  →  Explain it (note / post)
 | **2** | Platform lane: K8s internals, IaC, GitOps, observability | ~230 h | **CKA** + GitOps-managed lab platform |
 | **3** | Reliability lane: SLOs, incidents, data, performance, Go | ~250 h | SLO-driven service + postmortem collection |
 | **4** | Cloud: AWS, mapped onto everything above | ~120 h | **AWS SAA-C03** + lab platform running on AWS |
-| **5** | Depth: distributed systems, platform-as-product, Go in prod | ~200 h | Operator + golden-path platform |
+| **5** | Depth: distributed systems, platform-as-product, Go in prod, Rust | ~320 h | Operator + golden-path platform + Rust exporter |
 | **6** | Market entry | ~70 h prep, then campaign | Offers |
-| | **Total (main track)** | **~1,120 h** | |
+| | **Total (main track)** | **~1,240 h** | |
 | **∞** | **Back to Basics Saturday** (runs alongside every phase) | ~3 h/week | CS fundamentals + NeetCode 150 |
 
 Phases 0–2 are shorter than they'd be for a beginner because you already use
@@ -236,7 +236,7 @@ Progress:
 - [ ] Phase 2: Platform Lane
 - [ ] Phase 3: Reliability Lane
 - [ ] Phase 4: Cloud (AWS)
-- [ ] Phase 5: Depth & Convergence
+- [ ] Phase 5: Depth & Convergence (incl. Rust)
 - [ ] Phase 6: Market Entry
 
 > **Pace check (the only numbers that matter):** hours logged ÷ hours budgeted
@@ -334,7 +334,8 @@ the topic changes.
 - [ ] Work through the [NeetCode roadmap](https://neetcode.io/roadmap) (the
   NeetCode 150), pattern by pattern, in order. Start with arrays & hashing.
 - **Language:** Python first. Once you're in Phase 3, solve every third problem
-  in Go as well.
+  in Go as well. Once you start Rust in Phase 5, solve every third problem in
+  Rust instead: LeetCode is a good way to fight the borrow checker on small problems.
 - **The 30-minute rule:** try for 30 minutes before looking at a solution. If you
   looked, re-solve it from scratch the next Saturday without looking.
 - **Log every problem** in `notes/leetcode.md`: problem, pattern, what tripped
@@ -895,7 +896,7 @@ down and rebuild it in one sitting.
 ---
 
 ## Phase 5: Depth & Convergence
-**Effort budget: ~200 h**
+**Effort budget: ~320 h** (~200 h for 5a–5d, ~120 h for Rust in 5e)
 
 This is the phase that makes you look senior. Phases 1–4 gave you a stack you
 can operate on-prem and in the cloud. Phase 5 is about **designing systems**,
@@ -979,8 +980,47 @@ build work. That's also why the skill is scarce and well paid.
 - [ ] Progressive delivery: automated canary analysis tied to your SLIs.
 - [ ] Contribute to one CNCF project. Issues, reviews, and docs count; one real code change is the goal.
 
+### 5e. Rust: the specialization
+
+**Why Rust, and why here.** Rust keeps moving into the infrastructure layer:
+proxies (Linkerd's data plane, Cloudflare's Pingora), observability pipelines
+(Vector), VM and container runtimes (Firecracker, Bottlerocket), and eBPF
+tooling. Go is still the main language for SRE and Platform work, so Rust
+doesn't replace it. It's the differentiator: far fewer infrastructure engineers
+know it, which means less competition and often better offers for the roles
+that need it.
+
+It comes after Go on purpose. Learning two new languages at once is a trap, and
+Rust is much easier once you've already written production Go and done the
+Back to Basics C and OS modules. Ownership and borrowing make sense when you
+already know what the stack, the heap, and a data race are.
+
+> **Honest trade-off:** this topic adds ~120 hours. If the pace check says you're
+> behind the 3-year cap, Rust is the first topic to move to *after you're hired*.
+> It's a specialization, not a foundation.
+
+**Core**
+- [ ] [The Rust Programming Language](https://doc.rust-lang.org/book/) ("the Book"): read it all, doing the exercises. Chapters 4 (ownership), 10 (generics, traits, lifetimes), and 16 (concurrency) are the ones to read twice.
+- [ ] [Rustlings](https://github.com/rust-lang/rustlings): small exercises alongside the Book; this is where the borrow checker stops feeling hostile
+- [ ] [Command Line Applications in Rust](https://rust-cli.github.io/book/)
+- [ ] [Tokio tutorial](https://tokio.rs/tokio/tutorial): async Rust, which nearly every infrastructure project uses
+- [ ] **Build 1:** rewrite your Phase 1 Python tool in Rust with `clap`, `serde`, and proper error handling. Compare the three versions in a post.
+- [ ] **Build 2:** a Prometheus exporter in Rust (`tokio` + `axum`) for something in your lab or your on-prem object storage, deployed to your cluster via GitOps.
+
+**Go deeper**
+- [ ] [Rust by Example](https://doc.rust-lang.org/rust-by-example/): reference while you build
+- [ ] [Comprehensive Rust](https://google.github.io/comprehensive-rust/): Google's internal course, a fast second pass
+- [ ] [kube-rs](https://kube.rs): rewrite a small piece of your Go operator as a Rust controller. "The same operator in Go and Rust" is a strong post.
+- [ ] [Aya](https://aya-rs.dev/book/): eBPF in Rust. Tracing syscalls or packets on your own nodes combines Phase 1 internals with Rust, and very few candidates can show it.
+- [ ] [Zero To Production in Rust](https://www.zero2prod.com) (book): building and operating a production Rust service
+- [ ] [Rust Atomics and Locks](https://marabos.nl/atomics/) (free online): low-level concurrency, for when you want real depth
+
+**Done when:** the Rust exporter runs in your cluster with tests and a README,
+and you can explain ownership, borrowing, and lifetimes to someone who knows Go.
+
 ### Gate to Phase 6
 - [ ] Operator running.
+- [ ] Rust exporter running (or Rust formally moved to post-hire in a quarterly review).
 - [ ] Golden path used by someone other than you.
 - [ ] 12+ posts published.
 - [ ] Design sessions practised out loud at least five times.
@@ -990,7 +1030,7 @@ build work. That's also why the skill is scarce and well paid.
 ---
 
 ## Phase 6: Market Entry
-**Effort budget: ~100 h of prep, then the campaign**
+**Effort budget: ~70 h of prep, then the campaign**
 
 This phase is a **campaign**, not a curriculum. The engineering is done; now you
 turn it into offers. Keep the weekly SadServers scenario and the monthly game day
@@ -1096,7 +1136,7 @@ for *after* you're hired. Past a handful of certs, each extra one signals
 
 ---
 
-## 7. Portfolio: The Six Artifacts
+## 7. Portfolio: The Seven Artifacts
 
 These carry your job search. Each lives in a public repo with a README that
 explains the design decisions and tradeoffs. **The README is the artifact**,
@@ -1110,6 +1150,7 @@ because it's what a hiring manager actually reads.
 | 4 | **The AWS environment**: the same platform on EKS, multi-environment Terraform with CI, remote state, drift detection, and a written cost model | Phase 4 |
 | 5 | **The operator**: a Go controller solving an actual problem in your lab | Phase 5 |
 | 6 | **The platform**: golden path, policy as code, multi-tenancy, written for its users | Phase 5 |
+| 7 | **The Rust tool**: the exporter (and optionally an eBPF or kube-rs project), with a README comparing it to the Go version | Phase 5 |
 
 ---
 
@@ -1200,6 +1241,14 @@ SRE and DevOps roles appear on the critical skills list. The salary threshold is
 lower for listed occupations and higher otherwise. It's English-speaking and has
 a large cluster of US tech EMEA headquarters, which overlaps strongly with the
 companies most likely to recognize your skill set.
+
+### Using Rust in the search
+Search for **Rust + infrastructure / SRE / platform** specifically, not just
+"Rust developer": companies building proxies, CDNs and edge networks, databases,
+observability pipelines, and cloud runtimes. These roles get fewer qualified
+applicants, so a Rust exporter plus solid SRE fundamentals stands out. Lead with
+SRE in your CV and use Rust as the differentiator; most of your offers will
+still come from Go and Kubernetes roles.
 
 ### Remote-first / US contract
 Highest bar and highest ceiling. Realistically a **Phase 6 target**:
@@ -1315,6 +1364,7 @@ Kept out of the phase flow because you consult these rather than read them throu
 | Drill | Cadence | Phases |
 |---|---|---|
 | [SadServers](https://sadservers.com) scenario, timed | Weekly | 1 → 6 |
+| [This Week in Rust](https://this-week-in-rust.org), skim | Weekly | 5 → forever |
 | [PromQL](https://promlabs.com/promql-cheat-sheet) queries against live data | Weekly | 2 → 6 |
 | Game day / deliberate breakage + postmortem | Monthly | 3 → 6 |
 | Post per completed topic | Per topic | 1 → 6 |
