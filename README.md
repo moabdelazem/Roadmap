@@ -35,8 +35,9 @@ Read this section at every quarterly review. It is what you agreed to.
 |---|---|
 | **Starting point** | Working DevOps engineer, early in the career. On-prem datacenters, S3-compatible object storage, real hardware. **Comfortable with:** Linux + Bash, Docker, CI/CD, Kubernetes (as a user). **Not yet:** Terraform/Ansible, Prometheus/Grafana, SLOs, Go, cloud. |
 | **The gap to senior** | Depth (internals, not commands), design (systems, not tickets), reliability math (SLOs, error budgets, capacity), and influence (written work that changes how others build). |
-| **Time budget** | 10–14 focused hours per week. Non-negotiable floor: 8 hours. |
-| **Horizon** | ~1,150 focused hours total. At ~12–13 h/week that takes about 2 years; at ~8–9 h/week, about 3. |
+| **Time budget** | 12–15 focused hours per week: the main track plus 3 h of **Back to Basics Saturday**. Non-negotiable floor: 11 hours (8 main + 3 Saturday). |
+| **Horizon** | ~1,120 hours on the main track. At ~11–12 h/week on it, that takes about 2 years; at ~8 h/week, about 3. Back to Basics runs alongside and never ends. |
+| **Standing track** | **Back to Basics Saturday:** computer science from the start, plus LeetCode, every week. It keeps you relevant when tools change and keeps you interview-ready at all times. |
 | **Progression** | **Gates, not dates.** A topic is done when its "done when" check passes. A phase is done when its gate passes. Topics you already use at work start with a **Prove it** test. |
 | **Order** | Fundamentals, then platform, then reliability, and **cloud last**. Cloud gets easier once you already know Linux, Kubernetes and Terraform. |
 | **Languages** | Python for automation first, then **Go** as the production language. |
@@ -157,14 +158,16 @@ these behaviours are the real bar.
 
 ## 4. The Weekly Operating System
 
-Without deadlines, cadence is what keeps the plan moving. Target **~12 hours**.
+Without deadlines, cadence is what keeps the plan moving. Target **~13–15 hours**.
 
 | Slot | Duration | Purpose |
 |---|---|---|
 | **Two weekday evenings** | 1.5 h each | **Theory.** Core resources for the current topic. Notes go in `notes/`. |
 | **One weekday evening** | 1.5 h | **Deliberate practice.** SadServers scenario, PromQL drills, Go exercises, `strace` on something real. Timed. No tutorials. |
-| **Saturday block** | 4 h | **Build.** The topic artifact. Uninterrupted. This is the most valuable slot, so protect it above all others. |
-| **Sunday** | 1.5–2 h | **Consolidate.** Flashcard review, turn the week's notes into prose, draft the topic post. |
+| **Optional 4th evening** | 1.5 h | **Theory or build overflow.** Add it when you want the 2-year pace instead of the 3-year one. |
+| **Saturday: Back to Basics** | 3 h | **CS fundamentals + LeetCode.** Not tied to the current phase. See [Back to Basics Saturday](#back-to-basics-saturday). |
+| **Sunday: Build** | 4 h | **Build.** The topic artifact. Uninterrupted. This is the most valuable slot for the main track, so protect it. |
+| **Sunday: Consolidate** | 45 min | Right after the build: flashcard review, turn the week's notes into prose, draft the topic post. |
 
 ### How to move through a topic
 
@@ -188,7 +191,10 @@ Read the Core list  →  Build the artifact  →  Explain it (note / post)
 
 ### Rules of the cadence
 - **Deload every 7th week.** No new material. Review notes, fix the lab, rest.
-  Burnout in the second year is the most likely way a plan this long dies.
+  On Saturday, only re-solve old LeetCode problems. Burnout in the second year
+  is the most likely way a plan this long dies.
+- **Saturday is not overflow.** When a build runs long, it eats a weekday
+  evening, never Saturday. Back to Basics only works if it's every week.
 - **Miss a day, not a week.** Missing one slot doesn't matter. If you miss a full
   week twice in a row, shrink the scope; don't try to "catch up". Catch-up
   debt never gets paid.
@@ -214,12 +220,14 @@ Read the Core list  →  Build the artifact  →  Explain it (note / post)
 | **3** | Reliability lane: SLOs, incidents, data, performance, Go | ~250 h | SLO-driven service + postmortem collection |
 | **4** | Cloud: AWS, mapped onto everything above | ~120 h | **AWS SAA-C03** + lab platform running on AWS |
 | **5** | Depth: distributed systems, platform-as-product, Go in prod | ~200 h | Operator + golden-path platform |
-| **6** | Market entry | ~100 h prep, then campaign | Offers |
-| | **Total** | **~1,150 h** | |
+| **6** | Market entry | ~70 h prep, then campaign | Offers |
+| | **Total (main track)** | **~1,120 h** | |
+| **∞** | **Back to Basics Saturday** (runs alongside every phase) | ~3 h/week | CS fundamentals + NeetCode 150 |
 
 Phases 0–2 are shorter than they'd be for a beginner because you already use
 Linux, Docker, CI/CD, and Kubernetes. The hours go into what you *don't* get from
-daily use: internals, Terraform, and monitoring.
+daily use: internals, Terraform, and monitoring. Phase 6 is shorter than usual
+because Back to Basics Saturday has already done most of the coding prep.
 
 Progress:
 
@@ -235,6 +243,118 @@ Progress:
 > for the phases you've completed. If you've used much more than the budget, the
 > stall rule is not being applied. If you're under 8 h/week for a whole quarter,
 > something structural changed and the plan needs to be re-scoped, not pushed through.
+
+---
+
+## Back to Basics Saturday
+**Every Saturday, alongside every phase, and after you're hired too · ~3 h/week**
+
+Tools change every few years. Computer science doesn't. This standing track
+relearns CS from the start while the main track teaches you the stack. It does
+three things for you:
+
+- **Keeps you relevant.** When today's tools are replaced, the people who
+  understand memory, concurrency, and data structures adapt in weeks. People who
+  only know the tools start over.
+- **Fills the self-taught gaps.** Most DevOps engineers never studied algorithms,
+  operating systems, or databases formally. Senior engineers are expected to
+  reason about all three.
+- **Keeps you interview-ready.** Coding becomes a weekly habit instead of a
+  panic before interviews. You can take an opportunity whenever it shows up.
+
+### The shape of a Saturday
+
+| Block | Duration | What |
+|---|---|---|
+| **CS fundamentals** | 1.5 h | The next chunk of the current module below. Notes go in `notes/cs/`. |
+| **LeetCode** | 1.5 h | 2–3 problems from the NeetCode list. |
+| *Last Saturday of the month* | | Swap the CS block for **Stay current** (below). |
+
+This track has **no gates and no effort budget**, and it doesn't wait for the
+main track. Modules are in order, and each has a "done when" check. Some pair
+naturally with a phase (noted below); if the timing lines up, great, but don't
+hold one track for the other.
+
+The map for this whole track: [Teach Yourself Computer Science](https://teachyourselfcs.com).
+Follow it loosely; the modules below are the core of it, trimmed to fit 1.5 h a week.
+
+### CS fundamentals, from the start
+
+**B1. How a computer works**
+- [ ] [CS50x](https://cs50.harvard.edu/x/): weeks 0–5 only (C, memory, pointers, data structures). The C is the point: it's where you see memory for real.
+- [ ] [Code: The Hidden Language of Computer Hardware and Software](https://www.charlespetzold.com/code/) by Charles Petzold (book, easy weekend reading)
+- [ ] *Go deeper:* [Nand2Tetris](https://www.nand2tetris.org): build a computer from logic gates up
+
+**Done when:** you can explain what a pointer is in terms of memory addresses,
+why a buffer overflow happens, and what the CPU cache is for.
+
+**B2. Data structures & algorithms**
+- [ ] [Big O](https://samwho.dev/big-o)
+- [ ] [Grokking Algorithms](https://www.manning.com/books/grokking-algorithms-second-edition) (book, the gentlest good introduction)
+- [ ] [Tech Interview Handbook: algorithms study cheatsheet](https://www.techinterviewhandbook.org/algorithms/study-cheatsheet/)
+
+**Done when:** you've implemented a hash map, a heap, a trie, and BFS/DFS from
+scratch in Python, and can state the complexity of each operation.
+
+**B3. Operating systems** *(pairs with Phase 1)*
+- [ ] [Operating Systems: Three Easy Pieces (OSTEP)](https://pages.cs.wisc.edu/~remzi/OSTEP/): free, and the best OS book for engineers. Core: the virtualization and concurrency parts. Persistence is *Go deeper*.
+- [ ] *Go deeper:* [Computer Systems: A Programmer's Perspective](https://csapp.cs.cmu.edu/): the memory hierarchy and linking chapters
+
+**Done when:** you've written a small program with threads and a race condition,
+fixed it with a lock, and can explain how a virtual address becomes a physical one.
+
+**B4. Networking fundamentals** *(pairs with Phase 1b)*
+- [ ] [Computer Networking: A Top-Down Approach](https://gaia.cs.umass.edu/kurose_ross/index.php) by Kurose & Ross: chapters 1–3 (application and transport layers)
+- [ ] [Beej's Guide to Network Programming](https://beej.us/guide/bgnet/): the sockets API
+
+**Done when:** you've written a TCP echo server and a minimal HTTP server using
+raw sockets, with no framework.
+
+**B5. Databases** *(pairs with Phase 3d)*
+- [ ] [CMU 15-445: Intro to Database Systems](https://15445.courses.cs.cmu.edu/): the lectures on storage, indexes (B+ trees), transactions, and recovery
+- [ ] *Go deeper:* the rest of the course, including the projects
+
+**Done when:** you can explain how a B+ tree index works, what a write-ahead log
+is for, and what each isolation level prevents.
+
+**B6. Distributed systems** *(pairs with Phase 5)*
+- [ ] [Designing Data-Intensive Applications](https://dataintensive.net) by Martin Kleppmann: the most useful book for a senior SRE after the Google SRE book. Read all of it, slowly.
+- [ ] [The Raft consensus algorithm](https://raft.github.io): read the paper and play with the visualization
+- [ ] *Go deeper:* [MIT 6.5840 Distributed Systems](https://pdos.csail.mit.edu/6.824/): lectures and labs
+
+**Done when:** you can explain Raft leader election and log replication, and
+why etcd needs a quorum, well enough to teach it.
+
+**After B6:** go back to your weakest module, or pick a new area from Teach
+Yourself CS (compilers, security, and so on). The Saturday never stops; only
+the topic changes.
+
+### LeetCode
+
+- [ ] Work through the [NeetCode roadmap](https://neetcode.io/roadmap) (the
+  NeetCode 150), pattern by pattern, in order. Start with arrays & hashing.
+- **Language:** Python first. Once you're in Phase 3, solve every third problem
+  in Go as well.
+- **The 30-minute rule:** try for 30 minutes before looking at a solution. If you
+  looked, re-solve it from scratch the next Saturday without looking.
+- **Log every problem** in `notes/leetcode.md`: problem, pattern, what tripped
+  you up. Review the "tripped" column on deload weeks.
+- **Mix in ops-flavoured problems**, because SRE coding rounds favour them: log
+  parsing, rate limiters, LRU cache, top-K, merging intervals, and simple
+  concurrency (a worker pool, a bounded queue).
+- **Milestone, not deadline:** NeetCode 150 done before Phase 6. After that, keep
+  doing 1–2 problems a week to stay warm, forever.
+
+### Stay current (last Saturday of the month)
+
+Spend the CS block catching up with the field, then write one paragraph in
+`notes/current.md`: what changed, and does it matter for me? **Note tools; don't
+chase them** (see failure mode 4 in §12).
+
+- [ ] [SRE Weekly](https://sreweekly.com): the best weekly roundup of incidents and reliability writing
+- [ ] [CNCF on YouTube](https://www.youtube.com/@cncf): KubeCon talks; watch one, skip the vendor pitches
+- [ ] [Thoughtworks Technology Radar](https://www.thoughtworks.com/radar): twice a year, a sober view of what's rising and falling
+- [ ] [A collection of public postmortems](https://github.com/danluu/post-mortems): read one real outage a month and ask how you'd have caught it
 
 ---
 
@@ -297,7 +417,7 @@ filesystems, and packets. Engineers who skip this phase get stuck at mid-level,
 because they can only debug down to the abstraction boundary. **This phase
 decides whether you become senior.**
 
-Work 1a and 1c together (theory evenings on Linux, Saturday builds in Python
+Work 1a and 1c together (theory evenings on Linux, Sunday builds in Python
 that automate your Linux work), then move to 1b.
 
 ### 1a. Linux internals
@@ -439,7 +559,7 @@ that level and Kubernetes stops being magic.
 **Core**
 - [ ] [Anti-Patterns When Building Container Images](https://jpetazzo.github.io/2021/11/30/docker-build-container-images-antipatterns)
 - [ ] **Exercise:** build a container from scratch with `unshare`, `cgcreate`, and
-  `pivot_root`. No Docker. One Saturday, and you won't be confused about
+  `pivot_root`. No Docker. One build session, and you won't be confused about
   containers again.
 
 **Go deeper**
@@ -782,8 +902,8 @@ can operate on-prem and in the cloud. Phase 5 is about **designing systems**,
 building the platform as a product, and producing evidence that you operate
 above your years of experience.
 
-Start the coding drip from Phase 6 (6b) at the beginning of this phase: 2–3
-problems a week.
+Keep Back to Basics Saturday going. By now it should be in module B6
+(distributed systems), which pairs directly with 5a.
 
 ### 5a. Distributed systems & architecture
 
@@ -864,6 +984,7 @@ build work. That's also why the skill is scarce and well paid.
 - [ ] Golden path used by someone other than you.
 - [ ] 12+ posts published.
 - [ ] Design sessions practised out loud at least five times.
+- [ ] Back to Basics: NeetCode 150 done and modules B1–B6 core done.
 - [ ] You meet most of the senior rubric *in evidence*, even if not yet in title.
 
 ---
@@ -894,19 +1015,22 @@ confidence: people fail these rounds on communication, not knowledge.
   strategy, and the on-call story. That is what separates an SRE answer from a
   generic backend answer, and most candidates never make that shift.
 
-### 6b. Coding & algorithms (drip-fed from the start of Phase 5)
+### 6b. Coding & algorithms (final polish)
+
+Back to Basics Saturday has done the groundwork, so this is polish, not
+learning: timed mock interviews, talking while you code, and company-specific
+question lists for the places you're applying to.
 
 SRE coding rounds are usually gentler than SWE rounds. Expect practical
 manipulation, parsing, and concurrency more often than dynamic programming. The
 bar at large companies is still real, though, and Google-style SRE loops ask
 proper algorithm questions.
 
-- [ ] [Big O](https://samwho.dev/big-o)
 - [ ] [Hacking a Google Interview – Handout 1](http://courses.csail.mit.edu/iap/interview/Hacking_a_Google_Interview_Handout_1.pdf)
 - [ ] [Hacking a Google Interview – Handout 2](http://courses.csail.mit.edu/iap/interview/Hacking_a_Google_Interview_Handout_2.pdf)
 - [ ] [Hacking a Google Interview – Handout 3](http://courses.csail.mit.edu/iap/interview/Hacking_a_Google_Interview_Handout_3.pdf)
-- [ ] [AlgoExpert](https://www.algoexpert.io) or LeetCode: ~100–150 problems is enough for SRE
-- [ ] Focus: arrays, strings, hashmaps, heaps, graphs, plus log/text parsing in Python and Go
+- [ ] [AlgoExpert](https://www.algoexpert.io) or LeetCode company tags for your target list
+- [ ] At least five timed mock interviews with another person, out loud
 
 ### 6c. Domain interview prep
 
@@ -1124,6 +1248,8 @@ deadline. Write the answers into `notes/reviews/YYYY-QN.md`.
 5. What did I learn that changed my mind about something?
 6. What am I avoiding because it's hard? (Usually the highest-value item.)
 7. What goes into `notes/parked.md` so I can move on?
+8. **Back to Basics:** which module am I on, how many problems did I solve,
+   and which patterns still trip me up? Did any Saturday get skipped for the build?
 
 **Re-planning is expected.** A multi-year plan that survives contact with reality
 unchanged wasn't a plan, it was a fantasy. Change scope deliberately at these
@@ -1159,7 +1285,11 @@ at every quarterly review and check honestly whether you're living one of them.
    same as understanding it. The **Prove it** tests exist so you skip only what
    you can actually explain. If you wave through a Prove it test, you'll find the
    gap in an interview instead.
-9. **Waiting to feel ready.** You won't feel ready. Mid-level candidates who
+9. **Dropping Saturdays.** When a phase gets exciting, Back to Basics is the
+   first thing to go, because nothing breaks if you skip it for a month. Then
+   you're two years in, rusty on algorithms, and cramming before interviews.
+   Protect the Saturday.
+10. **Waiting to feel ready.** You won't feel ready. Mid-level candidates who
    apply beat senior-capable candidates who don't. **Start Phase 6 when its gate
    passes, or at month 30, whichever comes first**, whether or not every box is ticked.
 
@@ -1188,7 +1318,8 @@ Kept out of the phase flow because you consult these rather than read them throu
 | [PromQL](https://promlabs.com/promql-cheat-sheet) queries against live data | Weekly | 2 → 6 |
 | Game day / deliberate breakage + postmortem | Monthly | 3 → 6 |
 | Post per completed topic | Per topic | 1 → 6 |
-| Coding problems (2–3) | Weekly | 5 → 6 |
+| Back to Basics: CS module + 2–3 LeetCode | Weekly (Saturday) | 0 → forever |
+| Stay current: newsletters, talks, public postmortems | Monthly (last Saturday) | 0 → forever |
 | Hours log | Every session | 0 → 6 |
 | Quarterly review | Quarterly | 0 → 6 |
 
