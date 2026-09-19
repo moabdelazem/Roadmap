@@ -1,20 +1,28 @@
-# SRE & Platform Engineering: A Mastery Roadmap
+# From DevOps Engineer to Senior SRE / Platform Engineer
 
 > **Owner:** Mohamed Abdelazem
 > **Started:** September 2026 · **Target:** 2 years · **Hard cap:** 3 years
-> **Goal:** mid-to-senior Site Reliability Engineer *or* Platform Engineer at a strong
+> **Goal:** Senior Site Reliability Engineer *or* Platform Engineer at a strong
 > engineering organization, with a credible path to EU relocation (Germany /
 > Netherlands / Ireland) or a remote-first international role.
 
-This is not a link dump, and it is not a calendar. It is a **sequenced plan**:
+This plan does not start from zero. You already work as a DevOps engineer: you
+use Linux, Bash, Docker, CI/CD pipelines, and Kubernetes every day. What
+separates you from a senior engineer isn't knowing *more tools*. It's knowing
+**why** the tools behave the way they do, **designing** systems instead of
+operating them, and **reasoning about reliability with numbers**. This plan is
+built around closing that gap.
+
+It is not a link dump, and it is not a calendar. It is a **sequenced plan**:
 phases, topics inside each phase, a build artifact for every topic, and a clear
 "done when" test. There are no dates. **You finish a topic, prove it, and move
-to the next one.**
+to the next one.** For the things you already use at work, you prove it first
+and only study what the proof exposes.
 
 Each resource sits in the phase where you can actually use it, so you read
 things when you can apply them and not before.
 
-> **▶ Current focus:** Phase 0: Baseline & Instrumentation
+> **▶ Current focus:** Phase 0: Gap Audit & Instrumentation
 > *(Update this line every time you pass a gate.)*
 
 ---
@@ -25,10 +33,11 @@ Read this section at every quarterly review. It is what you agreed to.
 
 | | |
 |---|---|
-| **Starting point** | Junior, under 2 years of ops experience. On-prem datacenters, S3-compatible object storage, real hardware. |
+| **Starting point** | Working DevOps engineer, early in the career. On-prem datacenters, S3-compatible object storage, real hardware. **Comfortable with:** Linux + Bash, Docker, CI/CD, Kubernetes (as a user). **Not yet:** Terraform/Ansible, Prometheus/Grafana, SLOs, Go, cloud. |
+| **The gap to senior** | Depth (internals, not commands), design (systems, not tickets), reliability math (SLOs, error budgets, capacity), and influence (written work that changes how others build). |
 | **Time budget** | 10–14 focused hours per week. Non-negotiable floor: 8 hours. |
-| **Horizon** | ~1,300 focused hours total. At ~14 h/week that takes about 2 years; at ~9–10 h/week, about 3. |
-| **Progression** | **Gates, not dates.** A topic is done when its "done when" check passes. A phase is done when its gate passes. |
+| **Horizon** | ~1,150 focused hours total. At ~12–13 h/week that takes about 2 years; at ~8–9 h/week, about 3. |
+| **Progression** | **Gates, not dates.** A topic is done when its "done when" check passes. A phase is done when its gate passes. Topics you already use at work start with a **Prove it** test. |
 | **Order** | Fundamentals, then platform, then reliability, and **cloud last**. Cloud gets easier once you already know Linux, Kubernetes and Terraform. |
 | **Languages** | Python for automation first, then **Go** as the production language. |
 | **Target markets** | EU relocation (DE / NL / IE) and remote-first international roles. |
@@ -45,10 +54,11 @@ Read this section at every quarterly review. It is what you agreed to.
 3. **Write it down publicly.** One post per completed topic. In the EU and
    remote markets, a public body of work stands in for the brand-name employer
    you don't have yet.
-4. **Use your on-prem job.** You have things most cloud-only juniors never get:
-   bare metal, a real network topology, real storage failure domains, real
-   capacity limits. That is raw material for senior-level SRE work. Section 9
-   covers how to turn it into evidence.
+4. **Your job is your biggest lab.** You already run real clusters and real
+   pipelines on bare metal, with real storage failure domains and real capacity
+   limits. A build done at work beats the same build in a home lab, because it
+   has real users and real consequences. Section 9 covers how to turn it into
+   senior-level evidence.
 
 ---
 
@@ -112,10 +122,12 @@ fluent in both is what makes you portable across companies.
 Track yourself against this honestly at each quarterly review. Titles are noise;
 these behaviours are the real bar.
 
-### Junior (where you are)
-- Executes runbooks; resolves alerts that have a known cause.
-- Writes scripts that automate a task for themselves.
-- Understands the stack one layer deep.
+### Junior DevOps (where you are)
+- Uses Docker, CI/CD, and Kubernetes fluently, mostly by following existing patterns.
+- Resolves alerts and failures that have a known cause; escalates the unfamiliar ones.
+- Writes Bash that automates tasks for themselves and the team.
+- Debugs at the tool level (`kubectl describe`, pipeline logs) but not yet
+  below it (syscalls, packets, kernel, cgroups).
 
 ### Mid-level (target: Phase 3 gate)
 - **Owns** the SLOs of at least one service and defends the error budget.
@@ -134,10 +146,12 @@ these behaviours are the real bar.
 - On the platform side: defines the abstractions other engineers build on and
   treats the platform as a product with users, adoption metrics, and a roadmap.
 
-> **Realistic expectation:** in 2–3 years of self-study plus your day job, you can
-> become a *strong mid-level* engineer with *senior-shaped evidence*. The senior
-> title usually comes from a year or two of doing this on a real team. The plan
-> is built to get you onto that team.
+> **Realistic expectation:** by the end of this plan you'll have your current
+> DevOps experience plus 2–3 more years of deliberate work, which puts you at 4–5
+> years of hands-on infrastructure. That is the normal range for a senior SRE or
+> Platform title. The plan gives you the depth; your job has to give you the
+> *scope* (owning services, leading incidents, influencing other teams), so push
+> for that at work in parallel (§9).
 
 ---
 
@@ -153,6 +167,16 @@ Without deadlines, cadence is what keeps the plan moving. Target **~12 hours**.
 | **Sunday** | 1.5–2 h | **Consolidate.** Flashcard review, turn the week's notes into prose, draft the topic post. |
 
 ### How to move through a topic
+
+**Topics you already use at work** (marked with a **Prove it** box) start with a
+cold test. Do the **Prove it** task *before* reading anything:
+- **Pass it cleanly?** Skip the Core reading, do only the build, and move on.
+- **Stumble anywhere?** That's your gap. Read only the Core items that cover it.
+
+Be honest here. Using a tool daily and being able to explain it are different
+skills, and interviews for senior roles test the second one.
+
+**Everything else** follows the full loop:
 
 ```
 Read the Core list  →  Build the artifact  →  Explain it (note / post)
@@ -184,18 +208,22 @@ Read the Core list  →  Build the artifact  →  Explain it (note / post)
 
 | Phase | Theme | Effort budget | Exit artifact |
 |---|---|---|---|
-| **0** | Baseline, lab, habits | ~60 h | Home lab + notes system + hours log running |
-| **1** | The spine: Linux, networking, Python | ~280 h | Troubleshooting fluency + a real Python tool |
-| **2** | Platform lane: containers, K8s, IaC, CI/CD, observability | ~300 h | **CKA** + GitOps-managed lab platform |
+| **0** | Gap audit, lab, habits | ~30 h | Honest baseline + lab + hours log running |
+| **1** | The spine: Linux & networking *internals*, Python | ~220 h | Below-the-abstraction debugging + a real Python tool |
+| **2** | Platform lane: K8s internals, IaC, GitOps, observability | ~230 h | **CKA** + GitOps-managed lab platform |
 | **3** | Reliability lane: SLOs, incidents, data, performance, Go | ~250 h | SLO-driven service + postmortem collection |
 | **4** | Cloud: AWS, mapped onto everything above | ~120 h | **AWS SAA-C03** + lab platform running on AWS |
 | **5** | Depth: distributed systems, platform-as-product, Go in prod | ~200 h | Operator + golden-path platform |
 | **6** | Market entry | ~100 h prep, then campaign | Offers |
-| | **Total** | **~1,300 h** | |
+| | **Total** | **~1,150 h** | |
+
+Phases 0–2 are shorter than they'd be for a beginner because you already use
+Linux, Docker, CI/CD, and Kubernetes. The hours go into what you *don't* get from
+daily use: internals, Terraform, and monitoring.
 
 Progress:
 
-- [ ] Phase 0: Baseline & Instrumentation
+- [ ] Phase 0: Gap Audit & Instrumentation
 - [ ] Phase 1: The Spine
 - [ ] Phase 2: Platform Lane
 - [ ] Phase 3: Reliability Lane
@@ -210,53 +238,60 @@ Progress:
 
 ---
 
-## Phase 0: Baseline & Instrumentation
-**Effort budget: ~60 h**
+## Phase 0: Gap Audit & Instrumentation
+**Effort budget: ~30 h**
 
-You can't improve what you don't measure, and you can't build without somewhere
-to run it. Phase 0 sets up the tooling for the rest of the plan. Don't skip it:
-the people who skip Phase 0 tend to be the ones who quit a few months in.
+You already know a lot, but "I use it every day" hides gaps. Phase 0 finds out
+exactly where your knowledge stops, and sets up the tooling for the rest of the
+plan. It's short, but don't skip it: the audit decides how much of Phases 1–2
+you can test out of.
 
 ### Build
-1. **The lab.** Three Linux VMs (Proxmox, or libvirt/KVM on a spare box; one
-   32 GB machine is enough). Rules: no clicking, everything reproducible.
-   Start with plain shell + Ansible; Terraform comes in Phase 2.
-2. **The notes repo.** Markdown in git, in this repository under `notes/`. One
+1. **The gap audit.** Work through the SRE Checklist and the sysadmin question
+   set below *cold*, before studying anything. Score each area as **Explain**
+   (I can teach it), **Use** (I do it at work but couldn't explain why it works),
+   or **Gap** (I don't know it). Commit the result to `notes/baseline.md`.
+   Expect a lot of **Use** on Linux, Docker, and Kubernetes. Those are exactly
+   the areas this plan turns into **Explain**.
+2. **The lab.** Three Linux VMs (Proxmox, or libvirt/KVM on a spare box; one
+   32 GB machine is enough). Rules: no clicking, everything reproducible. Start
+   with the Bash you already write; Terraform and Ansible replace it in Phase 2.
+   Anything you can safely do on non-production systems at work counts too.
+3. **The notes repo.** Markdown in git, in this repository under `notes/`. One
    file per topic. Add an Anki deck (or `.md` flashcards) for facts you must
-   recall under interview pressure: port numbers, syscalls, exit codes, PromQL
-   functions.
-3. **The hours log.** `notes/hours.md`, one line per session. This replaces the
+   recall under interview pressure: syscalls, signals, exit codes, TCP states,
+   PromQL functions.
+4. **The hours log.** `notes/hours.md`, one line per session. This replaces the
    calendar.
-4. **Baseline self-assessment.** Work through the SRE Checklist and the
-   sysadmin question set below *cold*, before studying. Score yourself and commit
-   the result to `notes/baseline.md`. By the end, this will be the most
-   motivating file in the repo.
-5. **Git fluency.** You'll be in git for the whole plan. Spend one evening on it properly.
+5. **The work log.** Start `notes/work-log.md` now (see §9). What you do at work
+   over the next two years is half your evidence.
 
 ### Core
-- [ ] [Useful git commands for SRE and DevOps engineers](https://reliabilityengineering.substack.com/p/useful-git-commands-for-sre-and-devops)
-- [ ] [What happens when you type google.com into your browser's address box and press enter?](https://github.com/alex/what-happens-when)
-- [ ] [Processes and Threads](https://planetscale.com/blog/processes-and-threads)
-- [ ] [SRE Checklist](https://github.com/bregman-arie/sre-checklist): the baseline instrument
+- [ ] [SRE Checklist](https://github.com/bregman-arie/sre-checklist): the audit instrument
 - [ ] [Sysadmin Test Questions](https://github.com/trimstray/test-your-sysadmin-skills): score yourself cold
-- [ ] [School of SRE](https://linkedin.github.io/school-of-sre): read it once, quickly, to get the map
-
-### Go deeper
-- [ ] Simple version: [What happens when you type in 'www.cnn.com' in your browser?](https://syedali.net/2013/08/18/what-happens-when-you-type-in-www-cnn-com-in-your-browser)
-- [ ] [Introduction to Linux – Full Course for Beginners](https://www.youtube.com/watch?v=sWbUDq4S6Y8): skim to find gaps, don't learn from it linearly
+- [ ] [What happens when you type google.com into your browser's address box and press enter?](https://github.com/alex/what-happens-when): explain every step out loud before reading; each step you can't explain goes in the audit
+- [ ] [School of SRE](https://linkedin.github.io/school-of-sre): skim once to see the full map, and mark the parts that are new to you
 - [ ] [Things That Makes a Good Site Reliability Engineer](https://reliabilityengineering.substack.com/p/things-that-makes-a-good-site-reliability)
 
+### Refreshers (only if the audit shows a gap)
+- [ ] [Useful git commands for SRE and DevOps engineers](https://reliabilityengineering.substack.com/p/useful-git-commands-for-sre-and-devops)
+- [ ] [Processes and Threads](https://planetscale.com/blog/processes-and-threads)
+- [ ] Simple version: [What happens when you type in 'www.cnn.com' in your browser?](https://syedali.net/2013/08/18/what-happens-when-you-type-in-www-cnn-com-in-your-browser)
+- [ ] [Introduction to Linux – Full Course for Beginners](https://www.youtube.com/watch?v=sWbUDq4S6Y8): skim only for specific gaps
+
 ### Gate to Phase 1
+- [ ] Gap audit committed, with every area scored Explain / Use / Gap.
 - [ ] Lab rebuilds from scratch with one command.
 - [ ] Four consecutive weeks of cadence in the hours log.
-- [ ] Baseline committed.
 
 ---
 
 ## Phase 1: The Spine
-**Effort budget: ~280 h**
+**Effort budget: ~220 h**
 
-Everything senior is built on this phase. Kubernetes, service meshes, and
+You use Linux every day. This phase is about going *under* what you use: the
+syscalls behind your commands, the kernel behind your containers, the packets
+behind your services. Everything senior is built on this phase. Kubernetes, service meshes, and
 whatever replaces them later are all abstractions over Linux processes, memory,
 filesystems, and packets. Engineers who skip this phase get stuck at mid-level,
 because they can only debug down to the abstraction boundary. **This phase
@@ -269,7 +304,13 @@ that automate your Linux work), then move to 1b.
 
 The highest-leverage body of knowledge in this roadmap.
 
-**Core**
+**Prove it** (cold, on a lab VM, no notes). Explain out loud and write it down:
+- [ ] What happens, syscall by syscall, when Bash runs `cat file | grep x > out`? Who opens which file descriptor, and when?
+- [ ] A process is using 4 GB of "memory" according to `top`. How much of that is really its own? What are RSS, VSZ, page cache, and shared memory?
+- [ ] A service was killed and `dmesg` shows `oom-kill`. Walk from that line to the cgroup limit that caused it.
+- [ ] `df` says the disk has space but writes fail with "No space left on device". Name two causes and how to confirm each.
+
+**Core** (only for the parts you couldn't explain)
 - [ ] [What every SRE should know about GNU/Linux shell related internals: file descriptors, pipes, terminals, user sessions, process groups and daemons](https://biriukov.dev/docs/fd-pipe-session-terminal/0-sre-should-know-about-gnu-linux-shell-related-internals-file-descriptors-pipes-terminals-user-sessions-process-groups-and-daemons)
 - [ ] [SRE deep dive into Linux Page Cache](https://biriukov.dev/docs/page-cache/0-linux-page-cache-for-sre)
 - [ ] [Processes in Linux - Everything You Need to Know](https://reliabilityengineering.substack.com/p/everything-you-need-to-know-about)
@@ -282,7 +323,8 @@ The highest-leverage body of knowledge in this roadmap.
 - [ ] [Linux Kernel System Calls](http://learnlinuxconcepts.blogspot.com/2014/02/system-calls.html)
 - [ ] [Linux Kernel Process Management](http://learnlinuxconcepts.blogspot.com/2014/03/process-management.html)
 
-**Troubleshooting**: this is a *skill*, not a reading list. Drill it weekly.
+**Troubleshooting**: this is a *skill*, not a reading list. Drill it weekly,
+even if the Prove it test went well.
 - [ ] [Linux Performance Analysis in 60,000 Milliseconds](https://medium.com/netflix-techblog/linux-performance-analysis-in-60-000-milliseconds-accc10403c55): memorize this checklist
 - [ ] [Linux troubleshooting tools](https://syedali.net/2013/08/20/linux-troubleshooting-tools)
 - [ ] [strace](https://www.dedoimedo.com/computers/strace.html)
@@ -317,6 +359,11 @@ explain an OOM kill from `dmesg` to the cgroup that caused it, and reach for
 This is where on-prem experience makes you much better than cloud-only peers,
 because you can actually see the topology.
 
+**Prove it:**
+- [ ] A client gets `connection refused` from one service and a timeout from another. What does each mean at the TCP level, and how do you tell them apart with `ss` and `tcpdump`?
+- [ ] `curl` to a service takes 5 seconds, but only the first time. Name the likely culprit and how you'd prove it.
+- [ ] Draw the path of a packet from a pod on one node to a pod on another node in your work cluster, including every NAT and every virtual interface.
+
 **Core**
 - [ ] [The Internet explained from first principles](https://explained-from-first-principles.com/internet)
 - [ ] [Beej's Guide to Networking Concepts](https://beej.us/guide/bgnet0)
@@ -336,14 +383,18 @@ and name every hop, lookup, and translation along the way.
 
 ### 1c. Python for operations
 
-Enough Python to automate anything and pass a coding screen. Go comes in Phase 3.
-**Pick one** of the courses below. Don't do all three.
+You already automate with Bash. Python is where you go when a script outgrows
+Bash: structured data, APIs, error handling, tests. It's also the usual language
+for SRE coding interviews. Go comes in Phase 3. If you already write Python,
+skip the courses and do the build. Otherwise **pick one** course; don't do all three.
 
 - [ ] [Python For Everyone](https://www.py4e.com/)
 - [ ] [Python Basics](https://pythonbasics.org/)
 - [ ] [Complete Python Tutorial](https://www.scaler.com/topics/python/)
-- [ ] **Build:** a real CLI tool for your job or lab, e.g. a log parser, a
-  health-checker for your object storage, or an inventory report. It needs
+- [ ] **Build:** a real CLI tool *for your job*, e.g. a log parser, a
+  health-checker for your object storage, or a report on your Kubernetes
+  resources through its API. Ideally, replace one of your team's Bash scripts
+  that has become painful. It needs
   argument parsing, error handling, tests, and a README.
 
 **Done when:** someone else could clone the tool, run it, and understand the
@@ -364,25 +415,35 @@ code without asking you.
 ---
 
 ## Phase 2: The Platform Lane
-**Effort budget: ~300 h**
+**Effort budget: ~230 h**
 
-Now you build the thing other engineers use. This phase is where the "Platform
-Engineer" half of your title comes from, and it is deliberately hands-on: about
-40% reading, 60% building. Everything runs **in your lab**, with no cloud bill.
+You already *use* containers, pipelines, and Kubernetes. This phase takes you
+from user to **builder and operator**: you'll know how they work inside, you'll
+provision them from code, and you'll be able to see what they're doing. That's
+where the "Platform Engineer" half of your title comes from.
+
+Where your hours go: 2a, 2b, and 2d are mostly **Prove it** plus internals, since
+you use these daily. 2c (Terraform/Ansible) and 2e (monitoring) are new to you,
+so they get the full treatment. Everything runs **in your lab**, with no cloud bill.
 
 ### 2a. Containers, first and properly
 
 Containers are Linux namespaces + cgroups + a filesystem trick. Learn them at
 that level and Kubernetes stops being magic.
 
+**Prove it:**
+- [ ] Which namespaces does a container get, and which does it share with the host by default?
+- [ ] A container's memory limit is 512 MB. Where exactly is that enforced, and what happens at 513 MB?
+- [ ] Why is a 1.2 GB image slow to deploy, and what are three ways to fix it without changing the app?
+
 **Core**
-- [ ] [Introduction to Docker and Containers](http://container.training/intro-selfpaced.yml.html)
 - [ ] [Anti-Patterns When Building Container Images](https://jpetazzo.github.io/2021/11/30/docker-build-container-images-antipatterns)
 - [ ] **Exercise:** build a container from scratch with `unshare`, `cgcreate`, and
   `pivot_root`. No Docker. One Saturday, and you won't be confused about
   containers again.
 
 **Go deeper**
+- [ ] [Introduction to Docker and Containers](http://container.training/intro-selfpaced.yml.html): refresher only
 - [ ] [Containers Patterns](https://l0rd.github.io/containerspatterns)
 - [ ] [Docker Container Anti Patterns](https://blog.couchbase.com/docker-container-anti-patterns/)
 
@@ -391,10 +452,18 @@ kernel features.
 
 ### 2b. Kubernetes
 
-The largest block in the roadmap. Install it the hard way once, then never again.
+You deploy to Kubernetes at work. The senior step is being the person who
+understands the control plane, the network, and the failure modes when it
+breaks. Install it the hard way once (kubeadm, or Kubernetes the Hard Way), then
+never again.
+
+**Prove it:**
+- [ ] A pod is stuck in `Pending`. List every component that could be responsible, in order, and how you'd check each one.
+- [ ] Explain how a `ClusterIP` Service actually routes traffic. Where do the rules live, and who writes them?
+- [ ] etcd loses quorum. What still works in the cluster, and what stops?
+- [ ] A Deployment rollout hangs at 50%. What decides that, and how do you find out why?
 
 **Core**
-- [ ] [Deploying and Scaling Microservices with Docker and Kubernetes](http://container.training/kube-selfpaced.yml.html)
 - [ ] [What happens when ... Kubernetes edition!](https://github.com/jamiehannaford/what-happens-when-k8s/blob/master/README.md): the most important document in this section
 - [ ] [THE KUBERNETES NETWORKING GUIDE](https://www.tkng.io): networking is the part everyone fakes, so don't
 - [ ] [Kubernetes networking: service, kube-proxy, load balancing](https://learnkube.com/kubernetes-services-and-load-balancing)
@@ -407,6 +476,7 @@ The largest block in the roadmap. Install it the hard way once, then never again
   this topic; a paid exam slot is the one deadline worth having.
 
 **Go deeper**
+- [ ] [Deploying and Scaling Microservices with Docker and Kubernetes](http://container.training/kube-selfpaced.yml.html): refresher only
 - [ ] [Demystifying the Kubernetes Iceberg](https://asankov.dev/post/demystifying-the-kubernetes-iceberg-1)
 - [ ] [Kubernetes Learning Roadmap](https://github.com/techiescamp/kubernetes-learning-path)
 - [ ] [A Guide to the Kubernetes Networking Model](https://sookocheff.com/post/kubernetes/understanding-kubernetes-networking-model)
@@ -420,6 +490,8 @@ API server → etcd → controller → scheduler → kubelet → CRI → cgroups
 
 ### 2c. Infrastructure as Code
 
+**New to you, so this gets the full loop.** For a DevOps engineer this is the
+biggest gap on the CV: nearly every SRE and Platform job ad asks for Terraform.
 Target your **lab** (the Proxmox or libvirt Terraform provider), not a cloud.
 The concepts are identical, and you'll reuse all of it in Phase 4.
 
@@ -433,9 +505,18 @@ The concepts are identical, and you'll reuse all of it in Phase 4.
 - [ ] [Terraform Roadmap](https://roadmap.sh/terraform)
 
 **Done when:** your lab VMs are provisioned by Terraform and configured by
-Ansible, with state and modules you can explain.
+Ansible, with state and modules you can explain, *and* you've brought one piece
+of it to work (a Terraform module or an Ansible role replacing a manual process).
 
 ### 2d. CI/CD & delivery
+
+You build pipelines already. The gap is usually on the *delivery* side: how
+changes reach production safely, and how to recover when they don't.
+
+**Prove it:**
+- [ ] For a service at work: if a bad release goes out right now, how long until it's rolled back, and who has to do what?
+- [ ] Argue blue/green vs. canary vs. rolling for a stateful service. Which would you choose, and what would make you change your mind?
+- [ ] What's the difference between push-based CD (your pipeline runs `kubectl apply`) and pull-based GitOps, and what failure does each one handle better?
 
 **Core**
 - [ ] [Continuous Integration](https://martinfowler.com/articles/continuousIntegration.html)
@@ -453,7 +534,7 @@ and a deleted cluster comes back from git.
 
 ### 2e. Observability foundations
 
-Prometheus comes here, not in the reliability phase, because you need telemetry
+**New to you, so this gets the full loop.** Prometheus comes here, not in the reliability phase, because you need telemetry
 *before* you can do SLOs in Phase 3.
 
 **Core**
@@ -468,7 +549,9 @@ Prometheus comes here, not in the reliability phase, because you need telemetry
 - [ ] [Avoid These 6 Mistakes When Getting Started With Prometheus](https://promlabs.com/blog/2022/12/11/avoid-these-6-mistakes-when-getting-started-with-prometheus)
 
 **Done when:** Prometheus, Grafana, and Alertmanager run on real workloads in
-the lab, deployed via GitOps, with at least one alert that has actually fired.
+the lab, deployed via GitOps, with at least one alert that has actually fired,
+*and* you've added a dashboard or an alert at work for something that wasn't
+monitored before.
 
 ### Gate to Phase 3
 - [ ] CKA passed.
@@ -476,10 +559,12 @@ the lab, deployed via GitOps, with at least one alert that has actually fired.
 - [ ] Observability stack running and alerting.
 - [ ] Six posts published in total.
 
-> **Optional early move.** Once you pass this gate, you are a credible candidate
-> for DevOps / Platform roles in your *local or regional* market. Getting paid to
-> run Kubernetes all day speeds up every later phase more than any amount of lab
-> time. See §10. If you move, keep the plan and continue from Phase 3.
+> **Optional job move.** Once you pass this gate, you are a credible candidate
+> for Platform Engineer or SRE-titled roles (not only DevOps) in your *local or
+> regional* market. If your current job doesn't give you room to grow into SRE
+> work (on-call, SLOs, owning services, IaC), a move here speeds up every later
+> phase more than any amount of lab time. See §10. If you move, keep the plan
+> and continue from Phase 3.
 
 ---
 
@@ -926,11 +1011,16 @@ often generates the inbound interest in the first place.
 
 ---
 
-## 9. Converting Your On-Prem Job Into Senior Experience
+## 9. Growing Your DevOps Job Into Senior Experience
 
-Your day job is an asset, not a limitation. Cloud-only engineers never learn what
-a failure domain physically *is*. Go after these at work, in parallel with
-whatever phase you're in:
+Your day job is the most valuable part of this plan. The lab teaches you how
+things work; only a real job gives you *scope*: real users, real outages, real
+organizational friction. Senior interviews are mostly about scope. And your
+on-prem setup is an asset: cloud-only engineers never learn what a failure
+domain physically *is*.
+
+The shift to make, in parallel with whatever phase you're in, is from **doing
+the tickets** to **owning the outcomes**:
 
 - **Volunteer for on-call and for incident write-ups.** Nothing builds SRE
   judgment faster. Then quietly raise the standard of the postmortems.
@@ -941,12 +1031,21 @@ whatever phase you're in:
 - **Own the object storage story.** You already run S3-compatible storage on
   bare metal: durability, replication, capacity, failure modes. Very few
   candidates can speak to that. Go deep and make it your specialty.
-- **Push for IaC and CI adoption internally.** Doing this against real
+- **Own one thing end to end.** A cluster, a pipeline platform, or the storage
+  service: its upgrades, its alerts, its capacity, its documentation. "I owned
+  X" is a much stronger interview story than "I worked on X".
+- **Bring each phase to work.** Every topic in this plan has a "at work" version:
+  a Terraform module, a new alert, an SLO, a runbook, a Go tool. Lab work proves
+  you learned it; work proves you can apply it.
+- **Push for IaC and GitOps adoption internally.** Doing this against real
   organizational friction is exactly the "influence without authority" story
   senior interviews probe for.
 - **Keep an evidence log.** `notes/work-log.md`, updated weekly: what broke,
   what you did, what it saved. You won't remember any of it two years from now,
   and this file is where your CV and STAR stories come from.
+- **Write things others use.** A design doc, an onboarding guide, a runbook the
+  whole team follows. Written work that changes how others operate is one of
+  the clearest senior signals.
 
 ---
 
@@ -986,12 +1085,13 @@ portfolio, excellent written communication (async work is writing), overlapping
 hours with the team, and a clean contractor/invoicing setup.
 
 ### What to do, and when (by phase, not by date)
-- **Phases 0–2:** build skills. Don't apply internationally. Applying while
-  underqualified burns companies you'll want later.
-- **After the Phase 2 gate (optional):** a *local or regional* move into a
-  DevOps / Platform / SRE role is worth taking if it comes. Professional
-  Kubernetes experience speeds up everything after it, and it makes the
-  international campaign much stronger. Continue the plan from where you are.
+- **Phases 0–2:** build skills and grow scope at your current job. Don't apply
+  internationally. Applying while underqualified burns companies you'll want later.
+- **After the Phase 2 gate (optional):** if your current job has stopped giving
+  you room to grow, a *local or regional* move into a Platform or SRE-titled role
+  is worth taking. Stronger teams and on-call ownership speed up everything
+  after it and make the international campaign much stronger. Continue the plan
+  from where you are.
 - **Phases 3–4:** start a passive presence. LinkedIn in English, open to work
   *quietly*, and take recruiter calls purely to learn what the market asks for.
   It's free market research with zero risk.
@@ -1055,7 +1155,11 @@ at every quarterly review and check honestly whether you're living one of them.
    connection. Depth is what gets hired at senior level.
 7. **Silence.** Doing all the work and telling nobody. Without public evidence,
    an international employer has no way to judge what you're worth.
-8. **Waiting to feel ready.** You won't feel ready. Mid-level candidates who
+8. **Skipping what you think you know.** Using Kubernetes every day is not the
+   same as understanding it. The **Prove it** tests exist so you skip only what
+   you can actually explain. If you wave through a Prove it test, you'll find the
+   gap in an interview instead.
+9. **Waiting to feel ready.** You won't feel ready. Mid-level candidates who
    apply beat senior-capable candidates who don't. **Start Phase 6 when its gate
    passes, or at month 30, whichever comes first**, whether or not every box is ticked.
 
@@ -1094,5 +1198,6 @@ Kept out of the phase flow because you consult these rather than read them throu
 
 The original resource collection in this repository comes from the
 community-maintained SRE interview preparation lists. The phasing, cadence,
-rubric, and strategy are personal to this plan. If you fork it, re-derive the
-effort budgets for your own starting point rather than adopting these.
+rubric, and strategy are personal to this plan, which assumes a working DevOps
+engineer as the starting point. If you fork it, re-derive the effort budgets for
+your own starting point rather than adopting these.
