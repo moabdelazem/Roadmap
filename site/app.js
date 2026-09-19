@@ -143,6 +143,7 @@
     });
 
     groupIntoSections();
+    if (window.RoadmapMap) content.querySelector('.intro').after(window.RoadmapMap());
     wireTasks();
     buildToc();
     addFooter();
@@ -223,6 +224,10 @@
 
   function buildToc() {
     toc.innerHTML = '';
+    if (document.getElementById('visual-map')) {
+      toc.append(el('li', { class: 'toc-item kind-map' },
+        el('a', { href: '#visual-map', class: 'toc-link' }, el('span', { class: 'toc-title', text: 'Visual map' }))));
+    }
     for (const s of sections) {
       const link = el('a', { href: `#${s.id}`, class: 'toc-link' }, el('span', { class: 'toc-title', text: s.title }));
       const item = el('li', { class: `toc-item kind-${s.kind}` }, link);

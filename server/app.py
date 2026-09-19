@@ -64,8 +64,8 @@ class Handler(BaseHTTPRequestHandler):
         path = self.path.split("?", 1)[0].split("#", 1)[0]
         if path == "/api/progress":
             return self.send_json(HTTPStatus.OK, read_state())
-        if path == "/README.md":
-            target = README
+        if path in ("/README.md", "/roadmap.excalidraw"):
+            target = ROOT / path[1:]
         else:
             target = (SITE / (path.lstrip("/") or "index.html")).resolve()
             if target.is_dir():
@@ -74,7 +74,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self.send_error(HTTPStatus.NOT_FOUND)
         if not target.is_file():
             return self.send_error(HTTPStatus.NOT_FOUND)
-        ctype = "text/markdown" if target.suffix == ".md" else (mimetypes.guess_type(target.name)[0] or "application/octet-stream")
+        ctype = {".md": "text/markdown", ".excalidraw": "application/json"}.get(target.suffix) \
+            or mimetypes.guess_type(target.name)[0] or "application/octet-stream"
         if ctype.startswith("text/") or ctype in ("application/javascript", "application/json"):
             ctype += "; charset=utf-8"
         self.send_body(HTTPStatus.OK, target.read_bytes(), ctype)
