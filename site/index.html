@@ -26,6 +26,7 @@
       <span>Roadmap</span>
       <span class="brand-sub">DevOps → Senior SRE</span>
     </a>
+    <span class="sync" id="sync-status" hidden></span>
     <div class="overall" title="Overall progress across every checklist item">
       <div class="bar"><span id="overall-fill"></span></div>
       <span id="overall-label" aria-live="polite">0%</span>
@@ -41,11 +42,14 @@
         <input type="search" id="filter" placeholder="Filter sections…" aria-label="Filter sections" autocomplete="off">
         <ol id="toc" class="toc"></ol>
         <div class="progress-tools">
+          <p class="hint" id="git-hint" hidden>Ticks are written to README.md, committed, and pushed to GitHub, so they survive any machine.</p>
+          <div id="local-tools">
           <p class="hint">Ticks are saved in this browser. Export them to move to another device.</p>
           <div class="tool-row">
             <button type="button" id="export-btn">Export</button>
             <label class="file-btn">Import<input type="file" id="import-input" accept="application/json,.json" hidden></label>
             <button type="button" id="reset-btn" class="danger">Reset</button>
+          </div>
           </div>
         </div>
       </div>

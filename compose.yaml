@@ -1,3 +1,8 @@
+# The container clones the repo from GitHub, serves the site from that clone,
+# and saves every tick back into README.md, committing and pushing it.
+# GitHub is the source of truth, so on a new machine you only need:
+#   cp .env.example .env   # then fill in GITHUB_TOKEN
+#   docker compose up -d --build
 services:
   roadmap:
     build: .
@@ -5,10 +10,13 @@ services:
     container_name: roadmap
     restart: always
     ports:
-      - "0.0.0.0:8080:80"
-    # Serve the working copy, so edits to README.md or site/ show up on refresh
-    # without rebuilding. The whole directory is mounted (not single files) so
-    # edits that replace a file, like git pull, are still picked up. nginx only
-    # serves site/ and README.md from it. The image also works without this mount.
+      - "0.0.0.0:8080:8080"
+    env_file: .env
     volumes:
-      - .:/srv/roadmap:ro
+      # Only a cache of the clone. Losing it loses nothing that was pushed.
+      - roadmap-data:/data
+    # Time to commit and push unsaved ticks on docker stop / shutdown.
+    stop_grace_period: 30s
+
+volumes:
+  roadmap-data:

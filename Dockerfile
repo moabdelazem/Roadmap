@@ -1,10 +1,20 @@
-FROM nginx:1.27-alpine
+FROM python:3.13-alpine
 
-COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
-COPY site/ /srv/roadmap/site/
-COPY README.md /srv/roadmap/README.md
+RUN apk add --no-cache git \
+ && adduser -D -u 1000 roadmap \
+ && mkdir /data && chown roadmap /data
 
-EXPOSE 80
+USER roadmap
+WORKDIR /app
+COPY server/app.py .
 
-HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
-  CMD wget -q -O /dev/null http://127.0.0.1/ || exit 1
+ENV DATA_DIR=/data \
+    PORT=8080 \
+    PYTHONUNBUFFERED=1
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3 \
+  CMD wget -q -O /dev/null http://127.0.0.1:8080/api/status || exit 1
+
+CMD ["python", "app.py"]
