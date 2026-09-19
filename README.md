@@ -426,7 +426,7 @@ that automate your Linux work), then move to 1b.
 The highest-leverage body of knowledge in this roadmap.
 
 **Prove it** (cold, on a lab VM, no notes). Explain out loud and write it down:
-- [x] What happens, syscall by syscall, when Bash runs `cat file | grep x > out`? Who opens which file descriptor, and when?
+- [ ] What happens, syscall by syscall, when Bash runs `cat file | grep x > out`? Who opens which file descriptor, and when?
 - [ ] A process is using 4 GB of "memory" according to `top`. How much of that is really its own? What are RSS, VSZ, page cache, and shared memory?
 - [ ] A service was killed and `dmesg` shows `oom-kill`. Walk from that line to the cgroup limit that caused it.
 - [ ] `df` says the disk has space but writes fail with "No space left on device". Name two causes and how to confirm each.

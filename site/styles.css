@@ -146,54 +146,6 @@ button, input { font: inherit; color: inherit; }
 .icon-btn:hover { border-color: var(--ink-3); }
 .menu-btn { display: none; }
 
-/* ---------- sync status ---------- */
-.sync {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin-left: auto;
-  padding: 4px 10px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--surface);
-  font-size: 0.78rem;
-  color: var(--ink-2);
-  white-space: nowrap;
-}
-.sync::before {
-  content: "";
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--ink-3);
-}
-.sync[data-state="synced"]::before { background: var(--accent); }
-.sync[data-state="saving"]::before,
-.sync[data-state="pending"]::before { background: var(--warn); animation: pulse 1.2s ease-in-out infinite; }
-.sync[data-state="error"] { color: #c0392b; border-color: currentColor; }
-.sync[data-state="error"]::before { background: #c0392b; }
-.sync:not([hidden]) + .overall { margin-left: 0; }
-@keyframes pulse { 50% { opacity: 0.3; } }
-
-.toast {
-  position: fixed;
-  left: 50%;
-  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
-  z-index: 40;
-  max-width: min(92vw, 30rem);
-  padding: 10px 16px;
-  border-radius: 10px;
-  background: var(--ink);
-  color: var(--bg);
-  font-size: 0.9rem;
-  box-shadow: var(--shadow);
-  opacity: 0;
-  transform: translate(-50%, 12px);
-  transition: opacity 0.2s, transform 0.2s;
-  pointer-events: none;
-}
-.toast.show { opacity: 1; transform: translate(-50%, 0); }
-
 /* ---------- progress bars ---------- */
 .bar {
   position: relative;
@@ -291,6 +243,7 @@ button, input { font: inherit; color: inherit; }
   border-top: 1px solid var(--line);
 }
 .hint { margin: 0 0 10px; font-size: 0.8rem; line-height: 1.5; color: var(--ink-3); }
+.hint.error { color: #c0392b; }
 .tool-row { display: flex; gap: 8px; flex-wrap: wrap; }
 .tool-row button, .file-btn {
   padding: 5px 12px;
@@ -506,7 +459,6 @@ hr { display: none; }
   .topbar { gap: 10px; padding-inline: 12px; }
   .brand-sub { display: none; }
   .overall .bar { width: 72px; }
-  .sync { font-size: 0; gap: 0; padding: 7px; }
   h2 { font-size: 1.45rem; }
   td:first-child { white-space: normal; }
 }

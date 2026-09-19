@@ -2,7 +2,6 @@
   'use strict';
 
   const PROGRESS_KEY = 'roadmap-progress-v1';
-  const MIGRATED_KEY = 'roadmap-progress-migrated';
   const THEME_KEY = 'roadmap-theme';
   const REPO_URL = 'https://github.com/moabdelazem/Roadmap';
 
@@ -21,13 +20,46 @@
 
   let progress = {};
   try { progress = JSON.parse(store.get(PROGRESS_KEY) || '{}') || {}; } catch { progress = {}; }
-  const saveProgress = () => store.set(PROGRESS_KEY, JSON.stringify(progress));
 
-  // 'git': the server saves ticks into README.md and pushes them to GitHub.
-  // 'local': static hosting, ticks live in this browser only.
-  let mode = 'local';
-  let totalTasks = 0;
-  const syncEl = document.getElementById('sync-status');
+  // When served by server/app.py, progress also lives in progress.json in the repo.
+  let fileMode = false;
+  let putTimer;
+  const hintEl = document.getElementById('progress-hint');
+
+  function saveProgress() {
+    store.set(PROGRESS_KEY, JSON.stringify(progress));
+    if (!fileMode) return;
+    clearTimeout(putTimer);
+    putTimer = setTimeout(async () => {
+      try {
+        const res = await fetch('api/progress', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ progress }),
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        hintEl.textContent = 'Ticks are saved to progress.json in the repo. Commit and push it to keep them.';
+        hintEl.classList.remove('error');
+      } catch {
+        hintEl.textContent = "Couldn't save to progress.json. Ticks are kept in this browser for now.";
+        hintEl.classList.add('error');
+      }
+    }, 300);
+  }
+
+  async function loadFileProgress() {
+    try {
+      const res = await fetch('api/progress', { cache: 'no-store' });
+      if (!res.ok) return;
+      const data = await res.json();
+      const saved = data && typeof data.progress === 'object' ? data.progress : {};
+      const localOnly = Object.keys(progress).some((k) => !(k in saved));
+      progress = { ...progress, ...saved };
+      fileMode = true;
+      hintEl.textContent = 'Ticks are saved to progress.json in the repo. Commit and push it to keep them.';
+      if (localOnly) saveProgress(); // ticks made in this browser before the state file existed
+    } catch { /* static hosting: browser storage only */ }
+  }
 
   // ---------- helpers ----------
   const slugCounts = new Map();
@@ -149,7 +181,6 @@
 
   function wireTasks() {
     const seen = new Map();
-    let index = 0;
     for (const s of sections) {
       s.node.querySelectorAll('input[type="checkbox"]').forEach((box) => {
         const li = box.closest('li');
@@ -163,29 +194,21 @@
         seen.set(key, dup + 1);
         if (dup) key += `-${dup}`;
 
-        const inReadme = box.hasAttribute('checked'); // "- [x]" in README.md
         box.removeAttribute('disabled');
         box.dataset.key = key;
-        box.dataset.index = String(index++);
-        box.dataset.text = text;
-        box.checked = mode === 'git' ? inReadme : Boolean(progress[key]) || inReadme;
+        box.checked = Boolean(progress[key]);
         box.setAttribute('aria-label', text.slice(0, 120));
         li.classList.toggle('done', box.checked);
 
         box.addEventListener('change', () => {
-          li.classList.toggle('done', box.checked);
-          updateAllProgress();
-          if (mode === 'git') {
-            saveToRepo(box);
-            return;
-          }
           if (box.checked) progress[key] = Date.now();
           else delete progress[key];
+          li.classList.toggle('done', box.checked);
           saveProgress();
+          updateAllProgress();
         });
         s.tasks.push(box);
       });
-      totalTasks = index;
 
       if (s.tasks.length) {
         const { bar, fill } = progressBar();
@@ -337,117 +360,6 @@
   scrim.addEventListener('click', closeMenu);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
 
-  // ---------- saving to the repo ----------
-  let toastTimer;
-  function toast(message) {
-    let node = document.getElementById('toast');
-    if (!node) {
-      node = el('div', { id: 'toast', class: 'toast', role: 'status' });
-      document.body.append(node);
-    }
-    node.textContent = message;
-    node.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => node.classList.remove('show'), 4000);
-  }
-
-  function setSync(kind, detail = '') {
-    const labels = {
-      local: 'Browser only',
-      saving: 'Saving…',
-      pending: 'Pushing to GitHub…',
-      synced: 'Saved to GitHub',
-      error: 'Sync problem',
-    };
-    syncEl.hidden = false;
-    syncEl.dataset.state = kind;
-    syncEl.textContent = labels[kind];
-    syncEl.title = detail || {
-      local: 'No server found: ticks are stored in this browser only.',
-      pending: 'Ticks are saved on the server and will be committed and pushed shortly.',
-      synced: 'Every tick is committed to README.md and pushed to GitHub.',
-    }[kind] || '';
-  }
-
-  async function postTask(box) {
-    const res = await fetch('api/tasks', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        index: Number(box.dataset.index),
-        checked: box.checked,
-        text: box.dataset.text,
-        total: totalTasks,
-      }),
-    });
-    if (res.status === 409) {
-      toast('The plan changed since this page loaded. Reloading…');
-      setTimeout(() => location.reload(), 1500);
-      throw new Error('stale');
-    }
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  }
-
-  async function saveToRepo(box) {
-    setSync('saving');
-    box.disabled = true;
-    try {
-      await postTask(box);
-      setSync('pending');
-    } catch (err) {
-      if (err.message !== 'stale') {
-        box.checked = !box.checked;
-        box.closest('li')?.classList.toggle('done', box.checked);
-        updateAllProgress();
-        toast("Couldn't save that tick. Is the server running?");
-        setSync('error', err.message);
-      }
-    } finally {
-      box.disabled = false;
-    }
-  }
-
-  async function fetchStatus() {
-    try {
-      const res = await fetch('api/status', { cache: 'no-store' });
-      if (!res.ok) return null;
-      const data = await res.json();
-      return data && data.mode === 'git' ? data : null;
-    } catch {
-      return null;
-    }
-  }
-
-  async function pollStatus() {
-    const status = await fetchStatus();
-    if (!status) setSync('error', 'The server is not responding.');
-    else if (status.lastError) setSync('error', status.lastError);
-    else if (status.pending) setSync('pending');
-    else if (syncEl.dataset.state !== 'saving') setSync('synced');
-  }
-
-  // Ticks made before the repo was the source of truth: move them into README.md once.
-  async function migrateBrowserTicks() {
-    if (store.get(MIGRATED_KEY) || !Object.keys(progress).length) return;
-    const boxes = Array.from(content.querySelectorAll('input[type="checkbox"][data-key]'))
-      .filter((box) => progress[box.dataset.key] && !box.checked);
-    try {
-      for (const box of boxes) {
-        box.checked = true;
-        box.closest('li')?.classList.add('done');
-        await postTask(box);
-      }
-    } catch {
-      toast("Couldn't move your browser ticks into the repo yet. They'll be retried next time.");
-      return;
-    }
-    store.set(MIGRATED_KEY, '1');
-    store.remove(PROGRESS_KEY);
-    progress = {};
-    updateAllProgress();
-    if (boxes.length) toast(`Moved ${boxes.length} tick${boxes.length === 1 ? '' : 's'} from this browser into the repo.`);
-  }
-
   // ---------- export / import / reset ----------
   function applyProgressToBoxes() {
     content.querySelectorAll('input[type="checkbox"][data-key]').forEach((box) => {
@@ -485,24 +397,14 @@
   document.getElementById('reset-btn').addEventListener('click', () => {
     if (!confirm('Clear every tick in this browser? Export first if you want a backup.')) return;
     progress = {};
-    store.remove(PROGRESS_KEY);
+    saveProgress();
     applyProgressToBoxes();
   });
 
   // ---------- boot ----------
-  Promise.all([loadReadme(), fetchStatus()])
-    .then(([md, status]) => {
-      mode = status ? 'git' : 'local';
+  Promise.all([loadReadme(), loadFileProgress()])
+    .then(([md]) => {
       render(md);
-      if (mode === 'git') {
-        document.getElementById('local-tools').hidden = true;
-        document.getElementById('git-hint').hidden = false;
-        setSync(status.lastError ? 'error' : status.pending ? 'pending' : 'synced', status.lastError || '');
-        setInterval(pollStatus, 10000);
-        migrateBrowserTicks();
-      } else {
-        setSync('local');
-      }
       if (location.hash) {
         const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
         target?.scrollIntoView();

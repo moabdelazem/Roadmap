@@ -1,22 +1,14 @@
-# The container clones the repo from GitHub, serves the site from that clone,
-# and saves every tick back into README.md, committing and pushing it.
-# GitHub is the source of truth, so on a new machine you only need:
-#   cp .env.example .env   # then fill in GITHUB_TOKEN
-#   docker compose up -d --build
+# Serves the site from this repo and saves ticks to progress.json in it.
+# Commit and push progress.json to keep your progress with the repo.
 services:
   roadmap:
     build: .
     image: roadmap-site
     container_name: roadmap
     restart: always
+    # Write progress.json as the repo owner, not root.
+    user: "${UID:-1000}:${GID:-1000}"
     ports:
       - "0.0.0.0:8080:8080"
-    env_file: .env
     volumes:
-      # Only a cache of the clone. Losing it loses nothing that was pushed.
-      - roadmap-data:/data
-    # Time to commit and push unsaved ticks on docker stop / shutdown.
-    stop_grace_period: 30s
-
-volumes:
-  roadmap-data:
+      - .:/srv/roadmap
