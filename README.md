@@ -37,16 +37,16 @@ Read this section at every quarterly review. It is what you agreed to.
 |---|---|
 | **Starting point** | Working DevOps engineer, early in the career. On-prem datacenters, S3-compatible object storage, real hardware. **Comfortable with:** Linux + Bash, Docker, CI/CD, Kubernetes (as a user). **Not yet:** Terraform/Ansible, Prometheus/Grafana, SLOs, Go, cloud, platform product work. |
 | **The gap to senior** | Depth (internals, not commands), product thinking (a platform with users, not a pile of scripts), design (abstractions and systems, not tickets), reliability with numbers (SLOs, error budgets, capacity), and influence (written work and migrations that change how others build). |
-| **Time budget** | 12–15 focused hours per week: the main track plus 3 h of **Back to Basics Saturday**. Non-negotiable floor: 12 hours (9 main + 3 Saturday). |
+| **Time budget** | 13.5–16 focused hours per week: the main track, one **Go evening**, and 3 h of **Back to Basics Saturday**. Non-negotiable floor: 13.5 hours (9 main + 1.5 Go + 3 Saturday). |
 | **Horizon** | ~1,240 hours on the main track. At ~12 h/week on it, that takes about 2 years; at ~9 h/week, about 3. Back to Basics runs alongside and never ends. |
-| **Standing track** | **Back to Basics Saturday:** computer science from the start, plus LeetCode, every week. It keeps you relevant when tools change and keeps you interview-ready at all times. |
+| **Standing tracks** | **Go Mastery Track:** Go in every phase, from the first week, until you are the Go expert on your team. **Back to Basics Saturday:** computer science from the start, plus LeetCode, every week. It keeps you relevant when tools change and keeps you interview-ready at all times. |
 | **Progression** | **Gates, not dates.** A topic is done when its "done when" check passes. A phase is done when its gate passes, and every gate names the checklist domains it checks. Topics you already use at work start with a **Prove it** test. |
 | **Order** | Fundamentals, then platform foundations, then **building the platform as a product**, then cloud, then depth. You build the platform on hardware you control first, where nothing is managed for you, then move it to AWS. |
-| **Languages** | Python for automation first, then **Go** as the platform language (Phase 3: CLIs, services, and later operators), then **Rust** as the specialization that sets you apart (Phase 5). |
+| **Languages** | **Go, in every phase, to mastery.** It is the default language for every build, from the first CLI in Phase 1 to the operator in Phase 5. Python only at the level of reading and fixing your team's existing scripts. **Rust** is the specialization that sets you apart (Phase 5). |
 | **Target markets** | EU relocation (DE / NL / IE) and remote-first international roles. Platform Engineer first; SRE and senior DevOps titles as the fallback. |
 | **Definition of done** | You can design an internal developer platform for a few hundred engineers in an interview, defend every abstraction in it, and debug the layers underneath it when it breaks. |
 
-### The five rules
+### The six rules
 
 1. **Build beats read.** A topic is not done because you finished the links.
    It is done when the artifact runs and you can explain why it breaks. Reading
@@ -65,6 +65,10 @@ Read this section at every quarterly review. It is what you agreed to.
 5. **Every platform build needs a user who isn't you.** From Phase 3 on, a
    build only counts once someone else has used it. A platform nobody uses is
    a hobby project, and interviewers can tell.
+6. **Go by default.** Every build that involves code is written in Go unless
+   the topic says otherwise, and every phase gate requires its level of the
+   [Go Mastery Track](#go-mastery-track). Mastery comes from writing Go every
+   week for two years, not from a course.
 
 ---
 
@@ -95,7 +99,7 @@ Every platform has the same layers. This plan builds them bottom up:
   ├────────────────────────────────────────────────────────────────┤
   │ INFRASTRUCTURE  bare metal · VMs · AWS, all from code          │  Phases 2, 4
   ├────────────────────────────────────────────────────────────────┤
-  │ FOUNDATIONS     Linux · networking · Python · Go               │  Phases 1, 3
+  │ FOUNDATIONS     Linux · networking · Go (every phase)          │  Phases 1+
   └────────────────────────────────────────────────────────────────┘
      reliability (SLOs, on-call, capacity) runs through every layer
 ```
@@ -142,7 +146,7 @@ these behaviours are the real bar.
 - Provisions everything from code and can explain its state, drift, and rollback story.
 - **Owns** the SLOs of at least one platform component and defends the error budget.
 - Leads an incident of moderate blast radius without escalating for direction.
-- Writes and reviews production-quality Go and Python, not just scripts.
+- Writes and reviews production-quality Go: tested, instrumented, released, and idiomatic.
 - Reduces toil measurably and can state the hours or tickets saved.
 - Debugs across layers: app → runtime → kernel → network → hardware.
 
@@ -156,6 +160,8 @@ these behaviours are the real bar.
 - Designs for failure explicitly: blast radius, tenant isolation, degradation
   modes, recovery time.
 - Influences other teams' designs *before* those designs reach production.
+- Is the Go reference on the team: reviews others' Go, can profile and fix a
+  slow or leaking service, and has Go merged in upstream projects.
 - Mentors, keeps the postmortem culture blameless, and writes things that
   change how the organization operates.
 
@@ -170,13 +176,14 @@ these behaviours are the real bar.
 
 ## 4. The Weekly Operating System
 
-Without deadlines, cadence is what keeps the plan moving. Target **~13–15 hours**.
+Without deadlines, cadence is what keeps the plan moving. Target **~14–16 hours**.
 
 | Slot | Duration | Purpose |
 |---|---|---|
 | **Two weekday evenings** | 1.5 h each | **Theory.** Core resources for the current topic. Notes go in `notes/`. |
-| **One weekday evening** | 1.5 h | **Deliberate practice.** SadServers scenario, PromQL drills, Go exercises, `kubectl` speed runs, `strace` on something real. Timed. No tutorials. |
-| **Optional 4th evening** | 1.5 h | **Theory or build overflow.** Add it when you want the 2-year pace instead of the 3-year one. |
+| **One weekday evening** | 1.5 h | **Deliberate practice.** SadServers scenario, PromQL drills, `kubectl` speed runs, `strace` on something real. Timed. No tutorials. |
+| **Go evening** | 1.5 h | **Go Mastery Track.** Required, every week, in every phase: the current level's concepts, reading, and reading real Go source. See [Go Mastery Track](#go-mastery-track). |
+| **Optional 5th evening** | 1.5 h | **Theory or build overflow.** Add it when you want the 2-year pace instead of the 3-year one. |
 | **Saturday: Back to Basics** | 3 h | **CS fundamentals + LeetCode.** Not tied to the current phase. See [Back to Basics Saturday](#back-to-basics-saturday). |
 | **Sunday: Build** | 4 h | **Build.** The topic artifact. Uninterrupted. This is the most valuable slot for the main track, so protect it. |
 | **Sunday: Consolidate** | 45 min | Right after the build: flashcard review, turn the week's notes into prose, draft the topic post. |
@@ -205,8 +212,9 @@ Read the Core list  →  Build the artifact  →  Explain it (note / post)
 - **Deload every 7th week.** No new material. Review notes, fix the lab, rest.
   On Saturday, only re-solve old LeetCode problems. Burnout in the second year
   is the most likely way a plan this long dies.
-- **Saturday is not overflow.** When a build runs long, it eats a weekday
-  evening, never Saturday. Back to Basics only works if it's every week.
+- **The Go evening and Saturday are not overflow.** When a build runs long, it eats a theory
+  evening, never the Go evening or Saturday. Both standing tracks only work if
+  they happen every week.
 - **Miss a day, not a week.** Missing one slot doesn't matter. If you miss a full
   week twice in a row, shrink the scope; don't try to "catch up". Catch-up
   debt never gets paid.
@@ -227,13 +235,14 @@ Read the Core list  →  Build the artifact  →  Explain it (note / post)
 | Phase | Theme | Effort budget | Exit artifact |
 |---|---|---|---|
 | **0** | Gap audit, lab, habits | ~30 h | Scored checklist + lab + hours log running |
-| **1** | The spine: Linux & networking *internals*, Python | ~220 h | Below-the-abstraction debugging + a real Python tool |
+| **1** | The spine: Linux & networking *internals*, Go for operations | ~220 h | Below-the-abstraction debugging + a real Go tool |
 | **2** | Platform foundations: containers, K8s internals, IaC, GitOps, observability | ~230 h | **CKA** + GitOps-managed lab platform |
-| **3** | Building the platform: product thinking, Go, golden paths, tenancy, security, platform SLOs | ~260 h | Golden path used by someone else + platform SLOs |
+| **3** | Building the platform: product thinking, a Go platform CLI, golden paths, tenancy, security, platform SLOs | ~260 h | Golden path used by someone else + platform SLOs |
 | **4** | The platform on AWS: EKS, infrastructure as APIs, cost | ~140 h | **AWS SAA-C03** + platform on EKS + cost per tenant |
 | **5** | Depth: operators, distributed systems, data services, reliability, Rust | ~290 h | Operator + self-service database + Rust exporter |
 | **6** | Market entry | ~70 h prep, then campaign | Offers |
 | | **Total (main track)** | **~1,240 h** | |
+| **∞** | **Go Mastery Track** (required in every phase) | ~1.5 h/week + every build | Levels G1 → G7, one per phase |
 | **∞** | **Back to Basics Saturday** (runs alongside every phase) | ~3 h/week | CS fundamentals + NeetCode 150 |
 
 Phases 0–2 are shorter than they'd be for a beginner because you already use
@@ -289,7 +298,7 @@ How to use it:
 |---|---|
 | A. Linux & the operating system | Phase 1 |
 | B. Networking | Phase 1 |
-| C. Programming & automation | Phases 1, 3, 5 |
+| C. Programming & automation (Go in depth: [Go Mastery Track](#go-mastery-track)) | Every phase |
 | D. Containers | Phase 2 |
 | E. Kubernetes: using & operating | Phase 2 |
 | F. Extending Kubernetes | Phase 5 |
@@ -325,7 +334,7 @@ packets. When the abstraction leaks, this is what you debug.
 - [ ] The USE method (utilization, saturation, errors), applied to every resource
 
 **Tools**
-- [ ] **Bash & coreutils** · *Deep*: scripts that fail safely (`set -euo pipefail`, quoting, `trap`), and knowing when a script should become Python or Go
+- [ ] **Bash & coreutils** · *Deep*: scripts that fail safely (`set -euo pipefail`, quoting, `trap`), and knowing when a script should become Go
 - [ ] **ps, top/htop, /proc, /sys** · *Deep*: read a process's state, memory maps, open files, and limits straight from `/proc`
 - [ ] **strace** · *Deep*: attach to a running process, filter by syscall, follow forks, and find the slow call
 - [ ] **lsof** · *Deep*: find who holds a file, a deleted-but-open file, or a port
@@ -382,26 +391,24 @@ Most "the platform is broken" tickets are networking tickets in disguise.
 ### C. Programming & automation
 
 Platform engineers write software: CLIs, small APIs, and controllers. Scripts
-are where you start, not where you stop.
+are where you start, not where you stop. Go is checked in detail level by level
+in the [Go Mastery Track](#go-mastery-track); this domain covers the rest.
 
 **Concepts**
 - [ ] Git beyond commit and push: the object model, rebase vs merge, `bisect`, `reflog`, and recovering from mistakes
-- [ ] Python: data structures, modules and packaging, virtual environments, exceptions, type hints
-- [ ] Go: types, structs, interfaces, errors and wrapping, packages and modules *(Phase 3)*
-- [ ] Go concurrency: goroutines, channels, `select`, `sync`, and `context` for cancellation and timeouts *(Phase 3)*
+- [ ] Python, at reading level: enough to understand, fix, and eventually replace your team's existing scripts
 - [ ] Testing: unit vs integration tests, table-driven tests, fakes vs mocks, testing code that calls APIs
 - [ ] CLI design people like: flags, help text, exit codes, machine-readable output (`--json`)
 - [ ] HTTP APIs: REST conventions, status codes, idempotency, pagination, retries with backoff, versioning
 - [ ] Concurrency hazards: races and deadlocks, and how locks and channels prevent them
 - [ ] Data formats: JSON, YAML and its traps, JSON Schema
 - [ ] Semantic versioning, changelogs, and releasing a tool other people depend on
-- [ ] Reading a large codebase: finding your way around Kubernetes or Terraform source *(Phase 3)*
+- [ ] Reading a large codebase: finding your way around Kubernetes or Terraform source
 
 **Tools**
 - [ ] **Git** · *Deep*: clean history, bisect a regression, undo anything
-- [ ] **Python** with pytest, argparse or Typer, and requests or httpx · *Deep*
-- [ ] **Go** with `go test`, Cobra, and `net/http` · *Deep* *(Phase 3)*
-- [ ] **client-go** · *Working*: list, watch, and patch Kubernetes objects from Go *(Phase 5)*
+- [ ] **Go** · *Deep*: every level of the [Go Mastery Track](#go-mastery-track), G1 → G7
+- [ ] **Python** · *Aware*: read and fix a script, run it in a virtual environment
 - [ ] **Make** · *Working*: one entry point for build, test, and lint
 - [ ] **jq & yq** · *Working*: slice JSON and YAML on the command line
 - [ ] **Linters & pre-commit** (ruff, golangci-lint, shellcheck) · *Working*
@@ -410,7 +417,7 @@ are where you start, not where you stop.
 
 **Prove you know it**
 - [ ] A CLI tool with tests, a README, and a tagged release that someone else uses
-- [ ] A Go HTTP service with tests, graceful shutdown, and Prometheus metrics *(Phase 3)*
+- [ ] A Go HTTP service with tests, graceful shutdown, and Prometheus metrics *(Phase 2)*
 - [ ] Answer a "how does Kubernetes actually do X?" question by reading its source *(Phase 3)*
 
 ### D. Containers
@@ -888,7 +895,7 @@ why a buffer overflow happens, and what the CPU cache is for.
 - [ ] [Tech Interview Handbook: algorithms study cheatsheet](https://www.techinterviewhandbook.org/algorithms/study-cheatsheet/)
 
 **Done when:** you've implemented a hash map, a heap, a trie, and BFS/DFS from
-scratch in Python, and can state the complexity of each operation.
+scratch in Go, and can state the complexity of each operation.
 
 **B3. Operating systems** *(pairs with Phase 1)*
 - [ ] [Operating Systems: Three Easy Pieces (OSTEP)](https://pages.cs.wisc.edu/~remzi/OSTEP/): free, and the best OS book for engineers. Core: the virtualization and concurrency parts. Persistence is *Go deeper*.
@@ -927,9 +934,10 @@ the topic changes.
 
 - [ ] Work through the [NeetCode roadmap](https://neetcode.io/roadmap) (the
   NeetCode 150), pattern by pattern, in order. Start with arrays & hashing.
-- **Language:** Python first. Once you're in Phase 3, solve every third problem
-  in Go as well. Once you start Rust in Phase 5, solve every third problem in
-  Rust instead: LeetCode is a good way to fight the borrow checker on small problems.
+- **Language:** Go, from the first problem. Algorithms in Go make you fluent with
+  slices, maps, and the standard library faster than anything else, and that
+  fluency is part of the Go Mastery Track. Once you start Rust in Phase 5, solve
+  every third problem in Rust as well: LeetCode is a good way to fight the borrow checker on small problems.
 - **The 30-minute rule:** try for 30 minutes before looking at a solution. If you
   looked, re-solve it from scratch the next Saturday without looking.
 - **Log every problem** in `notes/leetcode.md`: problem, pattern, what tripped
@@ -950,6 +958,286 @@ chase them** (see failure mode 4 in §12).
 - [ ] [CNCF on YouTube](https://www.youtube.com/@cncf): KubeCon talks; watch one, skip the vendor pitches
 - [ ] [Thoughtworks Technology Radar](https://www.thoughtworks.com/radar): twice a year, a sober view of what's rising and falling
 - [ ] [A collection of public postmortems](https://github.com/danluu/post-mortems): read one real outage a month and ask how you'd have caught it
+
+---
+
+## Go Mastery Track
+**Required in every phase, from Phase 0 to the day you're hired and beyond · one Go evening a week (1.5 h) + every build**
+
+Go is the language of the platform world: Kubernetes, etcd, containerd,
+Terraform, Prometheus, Argo CD, Crossplane, and most of the CNCF are written in
+it. A platform engineer who is a *master* of Go can read the source of every tool
+in the stack, fix it, extend it, and build the pieces nobody else has built yet.
+That is the goal of this track: not "can write some Go", but **the person on
+the team other engineers ask about Go.**
+
+How it works:
+
+- **Go is the default language for every build in this plan.** Unless a topic
+  says otherwise, anything you write is written in Go: CLIs, exporters,
+  services, operators, providers, and the LeetCode problems on Saturday.
+- **One Go evening a week**, every week, on top of the main track. It's for the
+  current level's concepts and reading. The Sunday builds are where you apply them.
+- **Seven levels, one per phase.** Each phase gate requires its Go level. The
+  levels are in order; don't skip ahead, but do go back and re-read.
+- **Read Go every week, not just write it.** Pick a file from the standard
+  library or a project you use (Kubernetes, Prometheus, Argo CD) and read it
+  until you understand why it's written that way. Masters are made by reading
+  good code.
+- **Keep `notes/go.md`**: gotchas you hit, idioms you learned, questions you
+  couldn't answer yet. Review it on deload weeks.
+
+| Level | Theme | Runs with |
+|---|---|---|
+| **G1** | The language | Phases 0–1 |
+| **G2** | Systems programming with Go | Phase 1 |
+| **G3** | Concurrency & production services | Phase 2 |
+| **G4** | Go for the platform: CLIs, Kubernetes clients, APIs, releases | Phase 3 |
+| **G5** | Go for infrastructure: cloud SDKs, Terraform providers, Crossplane | Phase 4 |
+| **G6** | Internals & performance: runtime, GC, profiling, operators | Phase 5 |
+| **G7** | Mastery in public: upstream code, reviews, teaching | Phase 6 → forever |
+
+### G1. The language
+
+**Concepts**
+- [ ] Packages, imports, visibility (exported vs unexported), and the `main` package
+- [ ] Basic types, zero values, constants and `iota`, type conversion
+- [ ] Arrays vs slices: length, capacity, `append`, and how slices share a backing array
+- [ ] Maps: iteration order, the zero value, and why maps aren't safe for concurrent use
+- [ ] Strings, bytes, and runes: UTF-8, and why `len("é")` is 2
+- [ ] Structs, embedding, and struct tags
+- [ ] Methods: value vs pointer receivers, and when each is right
+- [ ] Interfaces: implicit satisfaction, small interfaces, `any`, type assertions and type switches
+- [ ] Errors as values: `error`, wrapping with `%w`, `errors.Is` and `errors.As`, sentinel vs typed errors
+- [ ] `defer`, `panic`, and `recover`, and why you almost never use `panic`
+- [ ] Closures and first-class functions
+- [ ] Modules: `go.mod`, `go.sum`, semantic import versioning, `replace`, private modules
+- [ ] Testing basics: `go test`, table-driven tests, subtests, `t.Helper`, test coverage
+
+**Tools**
+- [ ] **go toolchain** · *Deep*: `build`, `run`, `test`, `vet`, `fmt`, `mod tidy`, `install`, `env`, cross-compiling with `GOOS`/`GOARCH`
+- [ ] **gopls** in your editor · *Deep*: go to definition, find references, rename
+- [ ] **Delve** · *Working*: breakpoints and stepping through a test
+
+**Core**
+- [ ] [A tour of Go](https://go.dev/tour/)
+- [ ] [Learn Go with Tests](https://quii.gitbook.io/learn-go-with-tests/): the best way in; test-first suits infra work. Do the "Go fundamentals" section.
+- [ ] [The Go Programming Language](https://www.gopl.io) by Donovan & Kernighan (book): the classic. Chapters 1–7 now, the rest in G3.
+- [ ] [Effective Go](https://go.dev/doc/effective_go)
+- [ ] [Go by Example](https://gobyexample.com): reference while you build
+- [ ] [Go Slices: usage and internals](https://go.dev/blog/slices-intro)
+- [ ] [Working with Errors in Go 1.13](https://go.dev/blog/go1.13-errors)
+- [ ] [Exercism Go track](https://exercism.org/tracks/go): small exercises with mentor feedback; do 20
+
+**Go deeper**
+- [ ] [The Go Programming Language Specification](https://go.dev/ref/spec): read it once end to end. It's short, and masters know it.
+- [ ] [Learning Go, 2nd Edition](https://www.oreilly.com/library/view/learning-go-2nd/9781098139285/) by Jon Bodner (book): the best "idiomatic Go" book for people who already program
+- [ ] [Go Tutorials & Examples](https://gosamples.dev)
+- [ ] [Getting up and running with Go](http://www.golangprograms.com)
+
+**Done when:** you can explain what happens to two slices that share a backing
+array after an `append`, why a nil pointer stored in an interface isn't `nil`,
+and how `errors.Is` walks a wrapped chain, and 20 Exercism exercises are done.
+
+### G2. Systems programming with Go
+
+Go applied to Phase 1: the same Linux and networking internals, from code.
+
+**Concepts**
+- [ ] `io.Reader` and `io.Writer`, and composing them (`bufio`, `io.Copy`, `io.TeeReader`)
+- [ ] Files and the filesystem: `os`, `io/fs`, `filepath.WalkDir`, permissions
+- [ ] Running processes: `os/exec`, pipes, exit codes, environment
+- [ ] Signals: `os/signal` and `signal.NotifyContext` for clean shutdown
+- [ ] Syscalls from Go: `golang.org/x/sys/unix`, and reading `/proc` directly
+- [ ] Networking: `net.Listen`, `net.Dial`, TCP and UDP servers, deadlines
+- [ ] HTTP from the standard library: `net/http` clients and servers, and why the default client has no timeout
+- [ ] Encoding: `encoding/json` (struct tags, `omitempty`, custom marshalers), YAML via a library
+- [ ] CLI basics: `flag`, exit codes, stdout vs stderr, `--json` output
+- [ ] Time: `time.Duration`, timers, tickers, and monotonic clocks
+
+**Core**
+- [ ] [Powerful Command-Line Applications in Go](https://pragprog.com/titles/rggo/powerful-command-line-applications-in-go/) by Ricardo Gerardi (book): CLIs for exactly the kind of work you do
+- [ ] [Network Programming with Go](https://nostarch.com/networkprogrammingwithgo) by Adam Woodbeck (book): TCP, UDP, TLS, and HTTP from first principles; pairs with 1b
+- [ ] [Package io](https://pkg.go.dev/io), [os/exec](https://pkg.go.dev/os/exec), and [net/http](https://pkg.go.dev/net/http) docs: read them, examples included
+- [ ] [The complete guide to Go net/http timeouts](https://blog.cloudflare.com/the-complete-guide-to-golang-net-http-timeouts/) (Cloudflare)
+
+**Builds** (these are the Phase 1 Sunday builds)
+- [ ] A `ps`-like tool that reads `/proc` directly: PID, state, RSS, open file count
+- [ ] A TCP echo server and a port checker, with deadlines
+- [ ] The Phase 1 ops CLI (1c), in Go
+
+**Done when:** the 1c tool is released, and you can explain why your HTTP client
+needs timeouts and how your CLI behaves when it receives `SIGTERM`.
+
+### G3. Concurrency & production services
+
+Go applied to Phase 2: services that run in Kubernetes and behave well there.
+
+**Concepts**
+- [ ] Goroutines, and how they differ from OS threads
+- [ ] Channels: buffered vs unbuffered, closing, ranging, nil channels, `select`
+- [ ] The `sync` package: `Mutex`, `RWMutex`, `WaitGroup`, `Once`, and `sync/atomic`
+- [ ] Patterns: worker pools, fan-out/fan-in, pipelines, bounded concurrency with semaphores
+- [ ] `context.Context`: cancellation, deadlines, propagation through a call chain, and what not to put in it
+- [ ] `errgroup` for groups of goroutines that can fail
+- [ ] Goroutine leaks: how they happen and how to find them
+- [ ] The Go memory model, and data races vs race conditions
+- [ ] Production HTTP services: server timeouts, graceful shutdown, health and readiness endpoints, middleware
+- [ ] Structured logging with `log/slog`
+- [ ] Configuration: flags, environment variables, and config files, in that order of preference
+- [ ] Instrumentation: Prometheus counters, gauges, and histograms with `client_golang`
+- [ ] Container-friendly Go: static binaries, distroless images, `GOMAXPROCS` and `GOMEMLIMIT` inside cgroup limits
+
+**Tools**
+- [ ] **Race detector** (`go test -race`) · *Deep*
+- [ ] **client_golang** · *Deep*
+- [ ] **ko** · *Working*: build container images for Go apps without a Dockerfile
+
+**Core**
+- [ ] [Concurrency in Go](https://www.oreilly.com/library/view/concurrency-in-go/9781491941294/) by Katherine Cox-Buday (book)
+- [ ] [The Go Programming Language](https://www.gopl.io): chapters 8–9 (goroutines, channels, shared variables)
+- [ ] [Go Concurrency Patterns: Pipelines and cancellation](https://go.dev/blog/pipelines)
+- [ ] [Go Concurrency Patterns: Context](https://go.dev/blog/context)
+- [ ] [The Go Memory Model](https://go.dev/ref/mem)
+- [ ] [Data Race Detector](https://go.dev/doc/articles/race_detector)
+- [ ] [Instrumenting a Go application for Prometheus](https://prometheus.io/docs/guides/go-application/)
+- [ ] [Let's Go](https://lets-go.alexedwards.net) by Alex Edwards (book): building a real web service with the standard library
+
+**Builds**
+- [ ] A Prometheus exporter in Go for something in your lab or at work that has no exporter, deployed via GitOps
+- [ ] A service with graceful shutdown, readiness that flips during shutdown, `slog` logging, and RED metrics, proven to drop zero requests during a rolling update
+
+**Done when:** `go test -race` is part of your CI, the exporter runs in the lab,
+and you can explain a goroutine leak you caused and how you found it.
+
+### G4. Go for the platform
+
+Go applied to Phase 3: the tools your users touch.
+
+**Concepts**
+- [ ] CLI design with Cobra: commands, flags, config, shell completion
+- [ ] Talking to Kubernetes: client-go, the typed vs dynamic clients, informers, server-side apply
+- [ ] Generics: type parameters and constraints, and when *not* to use them
+- [ ] API design: REST with `net/http` routing, request validation, versioning, idempotent operations
+- [ ] gRPC and Protocol Buffers basics: services, streaming, and why Kubernetes and etcd use them
+- [ ] Testing in depth: fakes vs mocks, `httptest`, golden files, fuzzing, integration tests with real dependencies
+- [ ] Project layout: `cmd/`, `internal/`, package boundaries, avoiding cyclic imports
+- [ ] Dependency hygiene: minimal dependencies, `govulncheck`, upgrading modules safely
+- [ ] Releasing: versioned binaries, checksums, changelogs, images, and Homebrew/`go install` support
+- [ ] Code style: the Go Code Review Comments and Google's Go style guide
+
+**Tools**
+- [ ] **Cobra** · *Deep*
+- [ ] **client-go** · *Working*
+- [ ] **golangci-lint** · *Deep*: a config you can defend
+- [ ] **GoReleaser** · *Working*
+- [ ] **govulncheck** · *Working*
+- [ ] **testcontainers-go** · *Working*
+- [ ] **gRPC & protoc / buf** · *Working*
+
+**Core**
+- [ ] [Cobra](https://cobra.dev)
+- [ ] [client-go](https://github.com/kubernetes/client-go) and its [examples](https://github.com/kubernetes/client-go/tree/master/examples)
+- [ ] [Tutorial: Getting started with generics](https://go.dev/doc/tutorial/generics)
+- [ ] [Go Fuzzing](https://go.dev/doc/security/fuzz/)
+- [ ] [gRPC Go quick start](https://grpc.io/docs/languages/go/quickstart/)
+- [ ] [Go Code Review Comments](https://go.dev/wiki/CodeReviewComments)
+- [ ] [Style Guide](https://google.github.io/styleguide/go/guide)
+- [ ] [Style Decisions](https://google.github.io/styleguide/go/decisions)
+- [ ] [Best Practices](https://google.github.io/styleguide/go/best-practices)
+- [ ] [GoReleaser](https://goreleaser.com)
+
+**Builds**
+- [ ] The platform CLI (3b): `platform new-service`, `platform tenant create`, `platform status`, with completion, `--json` output, tests, and releases
+- [ ] Read one Kubernetes controller in the Kubernetes source (the ReplicaSet controller is a good first one) and write up how it works
+
+**Done when:** someone other than you uses the platform CLI, it's released with
+GoReleaser, and you can review a Go pull request against the style guide with
+comments the author agrees with.
+
+### G5. Go for infrastructure
+
+Go applied to Phase 4: extending the infrastructure tools themselves.
+
+**Concepts**
+- [ ] Cloud SDKs: the AWS SDK for Go v2, credentials chains, retries, pagination, waiters
+- [ ] How a Terraform provider works: schemas, CRUD, plan modifiers, state, import, and acceptance tests
+- [ ] Crossplane composition functions: turning a tenant's request into managed resources, in Go
+- [ ] Plugin architectures: how Terraform talks to providers over gRPC
+- [ ] Idempotency and reconciliation when the API underneath is slow, flaky, or eventually consistent
+
+**Core**
+- [ ] [AWS SDK for Go v2](https://aws.github.io/aws-sdk-go-v2/docs/)
+- [ ] [Implement a provider with the Terraform Plugin Framework](https://developer.hashicorp.com/terraform/tutorials/providers-plugin-framework) (HashiCorp tutorial series)
+- [ ] [Write a composition function in Go](https://docs.crossplane.io/latest/guides/write-a-composition-function-in-go/) (Crossplane)
+
+**Builds**
+- [ ] A small **Terraform provider** for something on-prem that has none, such as buckets and users on your S3-compatible store, with acceptance tests. Very few candidates have written one.
+- [ ] The 4c tenant bucket request as a Crossplane composition function in Go
+
+**Done when:** your provider plans, applies, imports, and detects drift, and
+the composition function runs in the lab.
+
+### G6. Internals & performance
+
+Go applied to Phase 5: knowing what the runtime does, so you can make Go fast
+and predictable. This is the level that separates a Go user from a Go master.
+
+**Concepts**
+- [ ] The scheduler: Gs, Ms, and Ps, work stealing, preemption, and what blocks a thread
+- [ ] Memory: stack vs heap, escape analysis, allocation costs
+- [ ] The garbage collector: tri-color mark and sweep, GC pacing, `GOGC` and `GOMEMLIMIT`
+- [ ] Data layout: struct field alignment and padding, slices of structs vs pointers
+- [ ] Profiling: CPU, heap, allocation, goroutine, block, and mutex profiles with `pprof`
+- [ ] The execution tracer, and reading a trace
+- [ ] Benchmarks that don't lie: `testing.B`, `benchstat`, avoiding compiler optimizations
+- [ ] Profile-guided optimization (PGO)
+- [ ] `unsafe`, `cgo`, and `//go:` directives: what they do and why to avoid them
+- [ ] How interfaces, maps, and channels are implemented in the runtime
+- [ ] Building controllers: controller-runtime internals (with 5a)
+
+**Tools**
+- [ ] **pprof** · *Deep*
+- [ ] **go tool trace** · *Working*
+- [ ] **benchstat** · *Working*
+- [ ] **kubebuilder & controller-runtime** · *Deep* (5a)
+
+**Core**
+- [ ] [100 Go Mistakes and How to Avoid Them](https://100go.co) by Teiva Harsanyi (book): read all of it; most of it you'll recognize from your own code by now
+- [ ] [Efficient Go](https://www.oreilly.com/library/view/efficient-go/9781098105709/) by Bartłomiej Płotka (book): written by a Prometheus and Thanos maintainer
+- [ ] [A Guide to the Go Garbage Collector](https://go.dev/doc/gc-guide)
+- [ ] [Diagnostics](https://go.dev/doc/diagnostics)
+- [ ] [Profiling Go Programs](https://go.dev/blog/pprof)
+- [ ] [Profile-guided optimization](https://go.dev/doc/pgo)
+- [ ] [Scheduling In Go](https://www.ardanlabs.com/blog/2018/08/scheduling-in-go-part1.html) (Ardan Labs, three parts)
+- [ ] [High Performance Go Workshop](https://dave.cheney.net/high-performance-go-workshop/dotgo-paris.html) by Dave Cheney
+
+**Go deeper**
+- [ ] [Go Memory Management](https://povilasv.me/go-memory-management)
+- [ ] [50 Shades of Go: Traps, Gotchas, and Common Mistakes for New Golang Devs](https://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang)
+- [ ] [Go Design Patterns](https://github.com/tmrts/go-patterns)
+- [ ] The Go runtime source: `src/runtime/proc.go` (scheduler) and `src/runtime/map*.go`
+
+**Builds**
+- [ ] Profile your exporter, operator, or CLI under load; cut CPU or allocations by a measured amount; write a post with the before and after profiles
+- [ ] Fix a memory problem in a containerized Go app by setting `GOMEMLIMIT` correctly, and show the effect on OOM kills
+
+**Done when:** you can read a CPU and heap profile of someone else's service and
+say where the time and memory go, and explain how the scheduler and GC behave
+inside a container with a CPU limit.
+
+### G7. Mastery in public
+
+From Phase 6 onward, and forever. Mastery shows in what other people can see.
+
+- [ ] **Upstream Go code.** At least one merged pull request in Go to a CNCF project you use (Kubernetes, Prometheus, Argo, Crossplane, Kyverno, or a smaller one). Start with a `good first issue`.
+- [ ] **Code review.** Review Go pull requests at work or in open source every week. Reviewing teaches as much as writing.
+- [ ] **Teach it.** A talk, a workshop, or a post series on something from G3 or G6.
+- [ ] **Interviews in Go.** Do every coding round in Go, and be ready to explain your use of slices, maps, and goroutines while you code.
+- [ ] **Keep up.** Read the release notes of every Go release ([Release History](https://go.dev/doc/devel/release)), skim [Golang Weekly](https://golangweekly.com), and watch a few [GopherCon](https://www.youtube.com/@GopherAcademy) talks a year.
+- [ ] *Go deeper:* [Contribute to Go itself](https://go.dev/doc/contribute): even a documentation fix to the standard library counts.
+
+**Done when:** never. This level is the habit that keeps you a master.
 
 ---
 
@@ -976,7 +1264,7 @@ you can test out of.
 3. **The notes repo.** Markdown in git, in this repository under `notes/`. One
    file per topic. Add an Anki deck (or `.md` flashcards) for facts you must
    recall under interview pressure: syscalls, signals, exit codes, TCP states,
-   PromQL functions.
+   PromQL functions, Go gotchas.
 4. **The hours log.** `notes/hours.md`, one line per session. This replaces the
    calendar.
 5. **The work log.** Start `notes/work-log.md` now (see §9). What you do at work
@@ -1005,7 +1293,8 @@ you can test out of.
 - [ ] Gap audit committed, with every checklist item scored Explain / Use / Gap.
 - [ ] Platform audit committed: the top developer requests and a maturity score.
 - [ ] Lab rebuilds from scratch with one command.
-- [ ] Four consecutive weeks of cadence in the hours log.
+- [ ] Four consecutive weeks of cadence in the hours log, including four Go evenings.
+- [ ] Go toolchain, `gopls`, and Delve set up; A Tour of Go finished; G1 under way.
 
 ---
 
@@ -1020,8 +1309,8 @@ filesystems, and packets. Engineers who skip this phase get stuck at mid-level,
 because they can only debug down to the abstraction boundary. **This phase
 decides whether you become senior.**
 
-Work 1a and 1c together (theory evenings on Linux, Sunday builds in Python
-that automate your Linux work), then move to 1b.
+Work 1a and 1c together (theory evenings on Linux, Sunday builds in Go that
+automate your Linux work), then move to 1b. The Go evening runs G1, then G2.
 
 ### 1a. Linux internals
 
@@ -1104,24 +1393,24 @@ because you can actually see the topology.
 **Done when:** you can trace a packet from your laptop to a process on a lab VM
 and name every hop, lookup, and translation along the way.
 
-### 1c. Python for operations
+### 1c. Go for operations
 
-You already automate with Bash. Python is where you go when a script outgrows
-Bash: structured data, APIs, error handling, tests. It's also the usual language
-for SRE coding interviews. Go comes in Phase 3. If you already write Python,
-skip the courses and do the build. Otherwise **pick one** course; don't do all three.
+You already automate with Bash. Go is where you go when a script outgrows Bash:
+structured data, APIs, error handling, tests, and a single static binary you
+can drop on any server or into any container. This topic is levels **G1 and G2**
+of the [Go Mastery Track](#go-mastery-track), applied to your job.
 
-- [ ] [Python For Everyone](https://www.py4e.com/)
-- [ ] [Python Basics](https://pythonbasics.org/)
-- [ ] [Complete Python Tutorial](https://www.scaler.com/topics/python/)
-- [ ] **Build:** a real CLI tool *for your job*, e.g. a log parser, a
+- [ ] **Build:** a real CLI tool *for your job*, in Go, e.g. a log parser, a
   health-checker for your object storage, or a report on your Kubernetes
   resources through its API. Ideally, replace one of your team's Bash scripts
-  that has become painful. It needs
-  argument parsing, error handling, tests, and a README.
+  that has become painful. It needs flags, error handling, tests, a README, and
+  a tagged release with binaries.
+- [ ] *Python, reading level only:* if your team's scripts are Python, spend an
+  evening with [Python For Everyone](https://www.py4e.com/) so you can read and
+  fix them. Don't write new tools in it.
 
 **Done when:** someone else could clone the tool, run it, and understand the
-code without asking you.
+code without asking you, and Go track levels G1 and G2 are done.
 
 ### Books for this phase
 - [ ] [UNIX and Linux System Administration Handbook (5th Edition)](https://www.amazon.com/UNIX-Linux-System-Administration-Handbook/dp/0134277554): desk reference for the whole phase
@@ -1132,9 +1421,10 @@ code without asking you.
 ### Gate to Phase 2
 - [ ] 20+ SadServers scenarios solved.
 - [ ] The packet-tracing and OOM-kill explanations written up in `notes/`.
-- [ ] Python tool published with tests.
+- [ ] Go tool published with tests and a release.
 - [ ] Three posts published.
-- [ ] Checklist A and B ticked, plus the Git and Python items in C.
+- [ ] Checklist A and B ticked, plus the Git items in C.
+- [ ] Go track: G1 and G2 done.
 
 ---
 
@@ -1286,6 +1576,7 @@ monitored before.
 - [ ] Observability stack running and alerting.
 - [ ] Six posts published in total.
 - [ ] Checklist D, E, G, and H ticked, plus the items in I not marked for a later phase.
+- [ ] Go track: G3 done; your Go exporter runs in the lab via GitOps.
 
 > **Optional job move.** Once you pass this gate, you are a credible candidate
 > for Platform Engineer or SRE-titled roles (not only DevOps) in your *local or
@@ -1339,35 +1630,20 @@ By the end of this phase you should meet the mid-level bar in §3.
 interaction mode your team uses with each of them, and which number would tell
 you the platform is helping.
 
-### 3b. Go
+### 3b. Go for the platform
 
-Go is the language of the platform world: Kubernetes, Terraform, Prometheus,
-Argo CD, Docker, etcd. Platform engineers write CLIs, small APIs, and
-controllers in it. Reading it is required to debug your stack; writing it is
-what lets you build platform pieces instead of gluing other people's together.
+This phase's Go work is level **G4** of the [Go Mastery Track](#go-mastery-track):
+Cobra, client-go, API design, deeper testing, and releases. Here you apply it to
+the platform itself.
 
-**Core**
-- [ ] [A tour of Go](https://tour.golang.org)
-- [ ] [Learn Go with Tests](https://quii.gitbook.io/learn-go-with-tests/): the best way in; test-first suits infra work
-- [ ] [Go by Example](https://gobyexample.com): reference while you build
-- [ ] [Effective Go](https://golang.org/doc/effective_go.html)
-- [ ] **Build:** a small platform CLI or HTTP service in Go, with tests and
-  Prometheus metrics. A good first one: `platform new-service <name>`, which
+- [ ] **Build: the platform CLI.** Start with `platform new-service <name>`, which
   creates a repo from your golden-path template (3c) and registers it in the
-  catalog. Rewriting your Phase 1 Python tool is the fallback.
+  catalog. Grow it with each topic: `platform tenant create` in 3d, and
+  `platform status` showing a service's SLO in 3f. Tests, metrics, and releases
+  from the first version.
 
-**Go deeper**
-- [ ] [Go Tutorials & Examples](https://gosamples.dev)
-- [ ] [Getting up and running with Go](http://www.golangprograms.com)
-- [ ] [Style Guide](https://google.github.io/styleguide/go/guide)
-- [ ] [Style Decisions](https://google.github.io/styleguide/go/decisions)
-- [ ] [Best Practices](https://google.github.io/styleguide/go/best-practices)
-- [ ] [Go Design Patterns](https://github.com/tmrts/go-patterns)
-- [ ] [Go Memory Management](https://povilasv.me/go-memory-management)
-- [ ] [50 Shades of Go: Traps, Gotchas, and Common Mistakes for New Golang Devs](https://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang)
-
-**Done when:** the Go tool or service runs in your cluster, deployed via GitOps,
-with metrics you use in an SLO (3f).
+**Done when:** the CLI runs against your lab, deployed and released through your
+own pipeline, with metrics you use in an SLO (3f).
 
 ### 3c. Golden paths & self-service
 
@@ -1485,7 +1761,7 @@ days have run with postmortems, and runbooks exist for the alerts that fired.
 - [ ] Signed, scanned images verified at admission; no plain-text secrets in git.
 - [ ] Platform SLOs published, with a burn-rate alert that has fired for real.
 - [ ] At least three postmortems written, and the monthly game day is now a habit.
-- [ ] Go service or CLI running in the lab.
+- [ ] Go track: G4 done; the platform CLI is used by someone other than you.
 - [ ] Checklist I, J, and K ticked, plus C and L except items marked *(Phase 5)*.
 - [ ] You meet most of the mid-level rubric in §3, with evidence.
 - [ ] Nine posts published in total.
@@ -1570,6 +1846,7 @@ without writing Terraform, and see what it costs.
 - [ ] Cost model written, with cost per tenant.
 - [ ] A tenant gets a bucket through the platform without writing Terraform.
 - [ ] Checklist N ticked, plus the Phase 4 items in G.
+- [ ] Go track: G5 done; your Terraform provider plans, applies, and imports.
 
 ---
 
@@ -1702,7 +1979,7 @@ already know what the stack, the heap, and a data race are.
 - [ ] [Rustlings](https://github.com/rust-lang/rustlings): small exercises alongside the Book; this is where the borrow checker stops feeling hostile
 - [ ] [Command Line Applications in Rust](https://rust-cli.github.io/book/)
 - [ ] [Tokio tutorial](https://tokio.rs/tokio/tutorial): async Rust, which nearly every infrastructure project uses
-- [ ] **Build 1:** rewrite your Phase 1 Python tool in Rust with `clap`, `serde`, and proper error handling. Compare the three versions in a post.
+- [ ] **Build 1:** rewrite your Phase 1 Go tool in Rust with `clap`, `serde`, and proper error handling. Compare the two versions in a post.
 - [ ] **Build 2:** a Prometheus exporter in Rust (`tokio` + `axum`) for something in your lab or your on-prem object storage, deployed to your cluster via GitOps.
 
 **Go deeper**
@@ -1723,6 +2000,7 @@ and you can explain ownership, borrowing, and lifetimes to someone who knows Go.
 - [ ] 12+ posts published.
 - [ ] Design sessions practised out loud at least five times.
 - [ ] Back to Basics: NeetCode 150 done and modules B1–B6 core done.
+- [ ] Go track: G6 done, with a profiling post published.
 - [ ] Checklist F, M, and O ticked, and the rest of L. Every other domain ticked or consciously parked.
 - [ ] You meet most of the senior rubric *in evidence*, even if not yet in title.
 
@@ -1774,7 +2052,8 @@ proper algorithm questions.
 - [ ] [Hacking a Google Interview – Handout 2](http://courses.csail.mit.edu/iap/interview/Hacking_a_Google_Interview_Handout_2.pdf)
 - [ ] [Hacking a Google Interview – Handout 3](http://courses.csail.mit.edu/iap/interview/Hacking_a_Google_Interview_Handout_3.pdf)
 - [ ] [AlgoExpert](https://www.algoexpert.io) or LeetCode company tags for your target list
-- [ ] At least five timed mock interviews with another person, out loud
+- [ ] At least five timed mock interviews with another person, out loud, coding in Go
+- [ ] Go track G7: keep it running during the campaign. A merged upstream Go PR is a strong line to bring to every interview.
 
 ### 6c. Domain interview prep
 
@@ -1857,7 +2136,7 @@ because it's what a hiring manager actually reads.
 | 2 | **Observability as a service**: Prometheus, Grafana, Alertmanager, tracing, with dashboards, alerts, and an SLO given to every new service by default | Phases 2–3 |
 | 3 | **The platform**: golden path, catalog, tenant onboarding by PR, policy as code, a signed supply chain, and a README written for its users, with the adoption and time-to-first-deploy numbers | Phase 3 |
 | 4 | **The postmortem collection**: a dozen real write-ups from platform game days. Rare, cheap to produce, and instantly credible | Phase 3 onward |
-| 5 | **The platform on AWS**: the same platform on EKS, Terraform CI with drift detection, Crossplane self-service, and cost per tenant | Phase 4 |
+| 5 | **The platform on AWS**: the same platform on EKS, Terraform CI with drift detection, Crossplane self-service, cost per tenant, and your own Terraform provider in Go | Phase 4 |
 | 6 | **The operator & data service**: a Go controller solving a real problem, and databases as a self-service platform feature | Phase 5 |
 | 7 | **The Rust tool**: the exporter (and optionally an eBPF or kube-rs project), with a README comparing it to the Go version | Phase 5 |
 
@@ -1943,7 +2222,8 @@ the tickets** to **building the thing that makes the tickets unnecessary**:
 ### What to search for
 Lead with **Platform Engineer**, and also search for *Developer Platform*,
 *Infrastructure Engineer*, *Cloud Platform Engineer*, and *Developer
-Productivity / Developer Experience*. SRE and senior DevOps roles are the second
+Productivity / Developer Experience*. Go appears in most of these ads; your
+public Go repos and upstream PRs are the evidence. SRE and senior DevOps roles are the second
 door: the same plan qualifies you for them, so apply to the good ones. Read the
 ad for the work, not the title. "Platform" sometimes means "the ops team,
 renamed"; look for words like *self-service*, *golden path*, *internal
@@ -2031,6 +2311,8 @@ deadline. Write the answers into `notes/reviews/YYYY-QN.md`.
 9. **Users:** who used something I built this quarter, at work or in the lab,
    and what did they say? Which platform number moved?
 10. **Checklist:** how many items moved from Gap or Use to ticked?
+11. **Go:** which level am I on, did every week have a Go evening, and what Go
+    did I read this quarter that I couldn't have read a quarter ago?
 
 **Re-planning is expected.** A multi-year plan that survives contact with reality
 unchanged wasn't a plan, it was a fantasy. Change scope deliberately at these
@@ -2076,7 +2358,10 @@ at every quarterly review and check honestly whether you're living one of them.
 11. **Building for yourself.** A platform designed without talking to its users
    solves the platform team's problems, not theirs. If no one else has used a
    build, it doesn't count yet (rule 5).
-12. **Waiting to feel ready.** You won't feel ready. Mid-level candidates who
+12. **Go stuck at tutorial level.** Finishing courses while every real build
+   quietly falls back to Bash or YAML. If a quarter passes without new Go in a
+   repo, the Go evening has turned into reading. Rule 6 exists for this.
+13. **Waiting to feel ready.** You won't feel ready. Mid-level candidates who
    apply beat senior-capable candidates who don't. **Start Phase 6 when its gate
    passes, or at month 30, whichever comes first**, whether or not every box is ticked.
 
@@ -2091,6 +2376,11 @@ Kept out of the phase flow because you consult these rather than read them throu
 - [ ] [Linux Pocket Guide, 3rd Edition](http://shop.oreilly.com/product/0636920040927.do): desk reference
 - [ ] [TCP/IP Illustrated, Volume 1](https://www.amazon.com/TCP-Illustrated-Protocols-Addison-Wesley-Professional/dp/0321336313): Phase 1 reference
 - [ ] [Linux Kernel Development (3rd Edition)](https://www.amazon.com/Linux-Kernel-Development-Robert-Love/dp/0672329468): Phase 1 stretch
+- [ ] [The Go Programming Language](https://www.gopl.io): Go track G1–G3
+- [ ] [Learning Go, 2nd Edition](https://www.oreilly.com/library/view/learning-go-2nd/9781098139285/): Go track G1
+- [ ] [Concurrency in Go](https://www.oreilly.com/library/view/concurrency-in-go/9781491941294/): Go track G3
+- [ ] [100 Go Mistakes and How to Avoid Them](https://100go.co): Go track G6
+- [ ] [Efficient Go](https://www.oreilly.com/library/view/efficient-go/9781098105709/): Go track G6
 - [ ] [Team Topologies](https://teamtopologies.com/book): Phase 3
 - [ ] [Platform Engineering](https://www.oreilly.com/library/view/platform-engineering/9781098153632/) (Fournier & Nowland): Phase 3
 - [ ] [Accelerate](https://itrevolution.com/product/accelerate/): Phase 3
@@ -2111,7 +2401,8 @@ Kept out of the phase flow because you consult these rather than read them throu
 | Game day / deliberate breakage + postmortem | Monthly | 3 → 6 |
 | Talk to a platform user (at work or a lab tester) | Monthly | 3 → forever |
 | Post per completed topic | Per topic | 1 → 6 |
-| Back to Basics: CS module + 2–3 LeetCode | Weekly (Saturday) | 0 → forever |
+| Go evening: current Go level + reading real Go source | Weekly | 0 → forever |
+| Back to Basics: CS module + 2–3 LeetCode (in Go) | Weekly (Saturday) | 0 → forever |
 | Stay current: newsletters, talks, public postmortems | Monthly (last Saturday) | 0 → forever |
 | Hours log | Every session | 0 → 6 |
 | Quarterly review | Quarterly | 0 → 6 |
