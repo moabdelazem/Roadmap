@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Roadmap · DevOps to Senior SRE</title>
-  <meta name="description" content="A gates-not-dates plan from DevOps engineer to Senior SRE / Platform Engineer, with progress tracking.">
+  <title>Platform Engineering Roadmap</title>
+  <meta name="description" content="A gates-not-dates plan from DevOps engineer to Senior Platform Engineer, with Go, system design, and CS fundamentals every week, and progress tracking.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..700&family=Martian+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script>
     try {
@@ -17,20 +17,21 @@
   </script>
 </head>
 <body>
+  <a class="skip" href="#content">Skip to the plan</a>
   <header class="topbar">
     <button class="icon-btn menu-btn" id="menu-btn" aria-label="Toggle navigation" aria-controls="sidebar" aria-expanded="false">
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
     </button>
     <a class="brand" href="#top">
-      <span class="brand-mark" aria-hidden="true"></span>
-      <span>Roadmap</span>
-      <span class="brand-sub">DevOps → Senior SRE</span>
+      <svg class="brand-mark" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 20h18M6 20V9M12 20V5M18 20v-7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+      <span class="brand-name">Roadmap</span>
+      <span class="brand-sub">DevOps to Senior Platform Engineer</span>
     </a>
-    <div class="overall" title="Overall progress across every checklist item">
+    <div class="overall">
       <div class="bar"><span id="overall-fill"></span></div>
       <span id="overall-label" aria-live="polite">0%</span>
     </div>
-    <button class="icon-btn" id="theme-btn" aria-label="Toggle dark mode">
+    <button class="icon-btn" id="theme-btn" aria-label="Switch between light and dark">
       <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
     </button>
   </header>
@@ -38,14 +39,14 @@
   <div class="layout">
     <nav class="sidebar" id="sidebar" aria-label="Plan sections">
       <div class="sidebar-inner">
-        <input type="search" id="filter" placeholder="Filter sections…" aria-label="Filter sections" autocomplete="off">
+        <input type="search" id="filter" placeholder="Find a section or topic" aria-label="Find a section or topic" autocomplete="off">
         <ol id="toc" class="toc"></ol>
         <div class="progress-tools">
           <p class="hint" id="progress-hint">Ticks are saved in this browser. Export them to move to another device.</p>
           <div class="tool-row">
-            <button type="button" id="export-btn">Export</button>
-            <label class="file-btn">Import<input type="file" id="import-input" accept="application/json,.json" hidden></label>
-            <button type="button" id="reset-btn" class="danger">Reset</button>
+            <button type="button" id="export-btn">Export ticks</button>
+            <label class="file-btn">Import ticks<input type="file" id="import-input" accept="application/json,.json" hidden></label>
+            <button type="button" id="reset-btn" class="danger">Clear all</button>
           </div>
         </div>
       </div>

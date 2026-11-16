@@ -99,7 +99,7 @@
     svg.removeAttribute('width');
     svg.removeAttribute('height');
     svg.setAttribute('role', 'img');
-    svg.setAttribute('aria-label', 'Visual map of the roadmap: phases 0 to 6, the Back to Basics Saturday track, and what to do at work');
+    svg.setAttribute('aria-label', 'Visual map of the roadmap: phases 0 to 6, the standing tracks, and what to do at work');
     viewport.replaceChildren(svg);
     linkTexts(svg);
     applyScale();

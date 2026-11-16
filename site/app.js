@@ -108,6 +108,13 @@
   }
 
   // ---------- render ----------
+  // Standing tracks run alongside every phase; each gets its own lane colour.
+  const LANES = [
+    { key: 'go', prefix: 'Go Mastery', name: 'Go mastery', span: 'G1 to G7' },
+    { key: 'design', prefix: 'System Design', name: 'System design', span: 'SD1 to SD6' },
+    { key: 'basics', prefix: 'Back to Basics', name: 'Back to Basics', span: 'every Saturday' },
+  ];
+
   const sections = []; // { id, title, node, tasks: [input], tocItem, tocFill, tocCount, sectionFill, sectionLabel, subs: [] }
 
   function render(markdown) {
@@ -145,6 +152,7 @@
     groupIntoSections();
     if (window.RoadmapMap) content.querySelector('.intro').after(window.RoadmapMap());
     wireTasks();
+    buildHero();
     buildToc();
     addFooter();
     updateAllProgress();
@@ -167,7 +175,11 @@
         const title = node.dataset.title;
         const kind = /^Phase \d/.test(title) ? 'phase' : /^(Back to Basics|Go Mastery|System Design)/.test(title) ? 'track' : 'guide';
         current.classList.add(`kind-${kind}`);
-        sections.push({ id: node.id, title, node: current, heading: node, kind, tasks: [], subs: [] });
+        const lane = kind === 'track' ? LANES.find((l) => title.startsWith(l.prefix)) : null;
+        if (lane) current.classList.add(`lane-${lane.key}`);
+        const num = kind === 'phase' ? title.match(/^Phase (\d)/)[1] : null;
+        if (num) node.dataset.num = num;
+        sections.push({ id: node.id, title, node: current, heading: node, kind, lane, num, tasks: [], subs: [] });
       }
       current.append(node);
     }
@@ -222,14 +234,77 @@
     }
   }
 
+  // The gate track: phases in order, standing tracks as lanes underneath.
+  function buildHero() {
+    const intro = content.querySelector('.intro');
+    const focusText = intro.querySelector('.callout-focus')?.textContent || '';
+    const currentNum = (focusText.match(/Current focus:\s*Phase (\d)/) || [])[1];
+
+    const gates = el('ol', { class: 'gate-row' });
+    for (const s of sections.filter((x) => x.kind === 'phase')) {
+      const fill = el('span');
+      const pct = el('span', { class: 'gate-pct' });
+      const name = s.title.replace(/^Phase \d:\s*/, '').replace(/\s*\(.*\)$/, '');
+      const link = el('a', { class: 'gate', href: `#${s.id}` }, [
+        el('span', { class: 'gate-num', text: s.num }),
+        el('span', { class: 'gate-name', text: name }),
+        el('span', { class: 'gate-bar' }, fill),
+        pct,
+      ]);
+      const item = el('li', {}, link);
+      if (s.num === currentNum) {
+        item.classList.add('is-current');
+        link.setAttribute('aria-current', 'step');
+        link.prepend(el('span', { class: 'gate-here', text: 'You are here' }));
+      }
+      s.gateFill = fill;
+      s.gatePct = pct;
+      gates.append(item);
+    }
+
+    const lanes = el('ul', { class: 'lane-list' });
+    for (const lane of LANES) {
+      const s = sections.find((x) => x.lane === lane);
+      if (!s) continue;
+      const fill = el('span');
+      const pct = el('span', { class: 'gate-pct' });
+      lanes.append(el('li', {}, el('a', { class: `lane lane-${lane.key}`, href: `#${s.id}` }, [
+        el('span', { class: 'lane-name', text: lane.name }),
+        el('span', { class: 'lane-span', text: lane.span }),
+        el('span', { class: 'lane-bar' }, fill),
+        pct,
+      ])));
+      s.gateFill = fill;
+      s.gatePct = pct;
+    }
+
+    const hero = el('nav', { class: 'gates', 'aria-label': 'Phases and standing tracks' }, [
+      el('p', { class: 'gates-caption', text: 'Seven gates, passed in order. Three tracks that run under all of them, every week.' }),
+      gates,
+      lanes,
+    ]);
+    intro.querySelector('h1').after(hero);
+    requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('ready')));
+  }
+
   function buildToc() {
     toc.innerHTML = '';
     if (document.getElementById('visual-map')) {
       toc.append(el('li', { class: 'toc-item kind-map' },
         el('a', { href: '#visual-map', class: 'toc-link' }, el('span', { class: 'toc-title', text: 'Visual map' }))));
     }
+    let lastGroup = null;
     for (const s of sections) {
-      const link = el('a', { href: `#${s.id}`, class: 'toc-link' }, el('span', { class: 'toc-title', text: s.title }));
+      const group = s.kind === 'phase' ? 'Phases' : s.kind === 'track' ? 'Standing tracks'
+        : sections.some((x) => x.kind === 'phase' && sections.indexOf(x) < sections.indexOf(s)) ? 'Reference' : 'The plan';
+      if (group !== lastGroup) {
+        toc.append(el('li', { class: 'toc-group', 'aria-hidden': 'true', text: group }));
+        lastGroup = group;
+      }
+      const title = s.kind === 'phase' ? s.title.replace(/^Phase \d:\s*/, '') : s.title.replace(/^\d+\.\s*/, '');
+      const link = el('a', { href: `#${s.id}`, class: 'toc-link', 'aria-label': s.title }, el('span', { class: 'toc-title', text: title }));
+      if (s.num) link.prepend(el('span', { class: 'toc-num', text: s.num }));
+      if (s.lane) link.prepend(el('span', { class: `toc-dot lane-${s.lane.key}` }));
       const item = el('li', { class: `toc-item kind-${s.kind}` }, link);
       item.dataset.search = [s.title, ...s.subs.map((x) => x.title)].join(' ').toLowerCase();
 
@@ -278,7 +353,12 @@
       total += s.tasks.length;
       done += d;
       s.sectionFill.style.width = `${pct}%`;
-      s.sectionLabel.textContent = `${d} / ${s.tasks.length} · ${pct}%`;
+      s.sectionLabel.textContent = `${d} of ${s.tasks.length} done, ${pct}%`;
+      if (s.gateFill) {
+        s.gateFill.style.width = `${pct}%`;
+        s.gatePct.textContent = `${pct}%`;
+        s.gateFill.closest('li').classList.toggle('is-passed', d === s.tasks.length);
+      }
       s.tocFill.style.width = `${pct}%`;
       s.tocCount.textContent = `${pct}%`;
       s.tocItem.classList.toggle('complete', d === s.tasks.length);
@@ -286,7 +366,7 @@
     const pct = total ? Math.round((done / total) * 100) : 0;
     document.getElementById('overall-fill').style.width = `${pct}%`;
     document.getElementById('overall-label').textContent = `${pct}%`;
-    document.querySelector('.overall').title = `${done} of ${total} checklist items done`;
+    document.querySelector('.overall').title = `${done} of ${total} items done across the whole plan`;
   }
 
   // ---------- scroll spy ----------
