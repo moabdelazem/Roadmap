@@ -37,16 +37,16 @@ Read this section at every quarterly review. It is what you agreed to.
 |---|---|
 | **Starting point** | Working DevOps engineer, early in the career. On-prem datacenters, S3-compatible object storage, real hardware. **Comfortable with:** Linux + Bash, Docker, CI/CD, Kubernetes (as a user). **Not yet:** Terraform/Ansible, Prometheus/Grafana, SLOs, Go, cloud, platform product work. |
 | **The gap to senior** | Depth (internals, not commands), product thinking (a platform with users, not a pile of scripts), design (abstractions and systems, not tickets), reliability with numbers (SLOs, error budgets, capacity), and influence (written work and migrations that change how others build). |
-| **Time budget** | 13.5–16 focused hours per week: the main track, one **Go evening**, and 3 h of **Back to Basics Saturday**. Non-negotiable floor: 13.5 hours (9 main + 1.5 Go + 3 Saturday). |
+| **Time budget** | 15–17 focused hours per week: the main track, one **Go evening**, one **design evening**, and 3 h of **Back to Basics Saturday**. Non-negotiable floor: 15 hours (9 main + 1.5 Go + 1.5 design + 3 Saturday). |
 | **Horizon** | ~1,240 hours on the main track. At ~12 h/week on it, that takes about 2 years; at ~9 h/week, about 3. Back to Basics runs alongside and never ends. |
-| **Standing tracks** | **Go Mastery Track:** Go in every phase, from the first week, until you are the Go expert on your team. **Back to Basics Saturday:** computer science from the start, plus LeetCode, every week. It keeps you relevant when tools change and keeps you interview-ready at all times. |
+| **Standing tracks** | **Go Mastery Track:** Go in every phase, from the first week, until you are the Go expert on your team. **System Design Track:** a design kata or design reading every week, and a design doc before every build, until you can design any system out loud. **Back to Basics Saturday:** computer science from the start, plus LeetCode, every week. It keeps you relevant when tools change and keeps you interview-ready at all times. |
 | **Progression** | **Gates, not dates.** A topic is done when its "done when" check passes. A phase is done when its gate passes, and every gate names the checklist domains it checks. Topics you already use at work start with a **Prove it** test. |
 | **Order** | Fundamentals, then platform foundations, then **building the platform as a product**, then cloud, then depth. You build the platform on hardware you control first, where nothing is managed for you, then move it to AWS. |
 | **Languages** | **Go, in every phase, to mastery.** It is the default language for every build, from the first CLI in Phase 1 to the operator in Phase 5. Python only at the level of reading and fixing your team's existing scripts. **Rust** is the specialization that sets you apart (Phase 5). |
 | **Target markets** | EU relocation (DE / NL / IE) and remote-first international roles. Platform Engineer first; SRE and senior DevOps titles as the fallback. |
 | **Definition of done** | You can design an internal developer platform for a few hundred engineers in an interview, defend every abstraction in it, and debug the layers underneath it when it breaks. |
 
-### The six rules
+### The seven rules
 
 1. **Build beats read.** A topic is not done because you finished the links.
    It is done when the artifact runs and you can explain why it breaks. Reading
@@ -69,6 +69,10 @@ Read this section at every quarterly review. It is what you agreed to.
    the topic says otherwise, and every phase gate requires its level of the
    [Go Mastery Track](#go-mastery-track). Mastery comes from writing Go every
    week for two years, not from a course.
+7. **Design before you build.** Every build bigger than one Sunday starts with
+   a one-page design doc in `notes/designs/`, and every phase gate requires its
+   level of the [System Design Track](#system-design-track). You learn design
+   by designing, getting it wrong, and writing down why.
 
 ---
 
@@ -147,6 +151,8 @@ these behaviours are the real bar.
 - **Owns** the SLOs of at least one platform component and defends the error budget.
 - Leads an incident of moderate blast radius without escalating for direction.
 - Writes and reviews production-quality Go: tested, instrumented, released, and idiomatic.
+- Writes a design doc before building, and can design a common system out loud
+  with numbers, tradeoffs, and failure modes.
 - Reduces toil measurably and can state the hours or tickets saved.
 - Debugs across layers: app → runtime → kernel → network → hardware.
 
@@ -160,6 +166,8 @@ these behaviours are the real bar.
 - Designs for failure explicitly: blast radius, tenant isolation, degradation
   modes, recovery time.
 - Influences other teams' designs *before* those designs reach production.
+- Designs any system end to end in 45 minutes, from users and numbers to
+  failure modes, operations, cost, and the migration plan, and leads design reviews.
 - Is the Go reference on the team: reviews others' Go, can profile and fix a
   slow or leaking service, and has Go merged in upstream projects.
 - Mentors, keeps the postmortem culture blameless, and writes things that
@@ -176,14 +184,14 @@ these behaviours are the real bar.
 
 ## 4. The Weekly Operating System
 
-Without deadlines, cadence is what keeps the plan moving. Target **~14–16 hours**.
+Without deadlines, cadence is what keeps the plan moving. Target **~15–17 hours**.
 
 | Slot | Duration | Purpose |
 |---|---|---|
 | **Two weekday evenings** | 1.5 h each | **Theory.** Core resources for the current topic. Notes go in `notes/`. |
 | **One weekday evening** | 1.5 h | **Deliberate practice.** SadServers scenario, PromQL drills, `kubectl` speed runs, `strace` on something real. Timed. No tutorials. |
 | **Go evening** | 1.5 h | **Go Mastery Track.** Required, every week, in every phase: the current level's concepts, reading, and reading real Go source. See [Go Mastery Track](#go-mastery-track). |
-| **Optional 5th evening** | 1.5 h | **Theory or build overflow.** Add it when you want the 2-year pace instead of the 3-year one. |
+| **Design evening** | 1.5 h | **System Design Track.** Required, every week, in every phase. Odd weeks: the current level's reading. Even weeks: one timed design kata, out loud. See [System Design Track](#system-design-track). |
 | **Saturday: Back to Basics** | 3 h | **CS fundamentals + LeetCode.** Not tied to the current phase. See [Back to Basics Saturday](#back-to-basics-saturday). |
 | **Sunday: Build** | 4 h | **Build.** The topic artifact. Uninterrupted. This is the most valuable slot for the main track, so protect it. |
 | **Sunday: Consolidate** | 45 min | Right after the build: flashcard review, turn the week's notes into prose, draft the topic post. |
@@ -212,9 +220,9 @@ Read the Core list  →  Build the artifact  →  Explain it (note / post)
 - **Deload every 7th week.** No new material. Review notes, fix the lab, rest.
   On Saturday, only re-solve old LeetCode problems. Burnout in the second year
   is the most likely way a plan this long dies.
-- **The Go evening and Saturday are not overflow.** When a build runs long, it eats a theory
-  evening, never the Go evening or Saturday. Both standing tracks only work if
-  they happen every week.
+- **The Go evening, the design evening, and Saturday are not overflow.** When a
+  build runs long, it eats a theory evening, never a standing track. The
+  standing tracks only work if they happen every week.
 - **Miss a day, not a week.** Missing one slot doesn't matter. If you miss a full
   week twice in a row, shrink the scope; don't try to "catch up". Catch-up
   debt never gets paid.
@@ -243,6 +251,7 @@ Read the Core list  →  Build the artifact  →  Explain it (note / post)
 | **6** | Market entry | ~70 h prep, then campaign | Offers |
 | | **Total (main track)** | **~1,240 h** | |
 | **∞** | **Go Mastery Track** (required in every phase) | ~1.5 h/week + every build | Levels G1 → G7, one per phase |
+| **∞** | **System Design Track** (required in every phase) | ~1.5 h/week + a design doc per build | Levels SD1 → SD6 + a 40-design journal |
 | **∞** | **Back to Basics Saturday** (runs alongside every phase) | ~3 h/week | CS fundamentals + NeetCode 150 |
 
 Phases 0–2 are shorter than they'd be for a beginner because you already use
@@ -310,7 +319,7 @@ How to use it:
 | L. Reliability | Phases 3, 5 |
 | M. Data, storage & stateful services | Phase 5 |
 | N. Cloud & FinOps | Phase 4 |
-| O. Distributed systems & architecture | Phase 5 |
+| O. System design & distributed systems (in depth: [System Design Track](#system-design-track)) | Every phase |
 | P. Ways of working | Every phase |
 
 ### A. Linux & the operating system
@@ -793,12 +802,19 @@ The same platform on a substrate someone else runs, with a bill attached.
 - [ ] A monthly cost per tenant you can explain line by line
 - [ ] Explain why a pod on EKS can or can't reach an S3 bucket, layer by layer: network, IAM, bucket policy
 
-### O. Distributed systems & architecture
+### O. System design & distributed systems
 
 What the system design round tests, and what you need to design a platform for
-hundreds of engineers instead of a lab for one.
+hundreds of engineers instead of a lab for one. The
+[System Design Track](#system-design-track) teaches it level by level.
 
 **Concepts**
+- [ ] Back-of-the-envelope estimation: requests per second, storage, bandwidth, and the latency numbers behind them
+- [ ] The core building blocks and when to use each: load balancers, caches, CDNs, SQL and NoSQL databases, queues, logs, object storage
+- [ ] Control plane vs data plane, and designing for the control plane being down
+- [ ] Blast radius by design: failure domains, cells, shuffle sharding
+- [ ] Timeouts, retries with backoff and jitter, and retry storms
+- [ ] Disaster recovery: RPO, RTO, and the four DR strategies
 - [ ] CAP and PACELC, and consistency models (strong, eventual, read-your-writes)
 - [ ] Consensus and quorum: Raft, and why etcd wants an odd number of members
 - [ ] Replication, partitioning (sharding), and rebalancing
@@ -821,6 +837,8 @@ hundreds of engineers instead of a lab for one.
 - [ ] A 45-minute design out loud: an internal developer platform for 300 engineers
 - [ ] A 45-minute design out loud: a multi-tenant metrics or logging pipeline
 - [ ] A 45-minute design out loud: a CI system that runs 10,000 jobs a day
+- [ ] A design journal in `notes/designs/` with 40+ katas and design docs
+- [ ] A design doc at work that was reviewed, and the review changed the design
 
 ### P. Ways of working
 
@@ -1241,6 +1259,246 @@ From Phase 6 onward, and forever. Mastery shows in what other people can see.
 
 ---
 
+## System Design Track
+**Required in every phase, from Phase 0 to the day you're hired and beyond · one design evening a week (1.5 h) + a design doc before every build**
+
+Senior platform engineers are hired on design, and they spend the job on it:
+choosing abstractions, isolating tenants, drawing failure domains, planning
+migrations. The system design round is the highest-weight round in senior
+Platform and SRE loops, and it can't be crammed in the last month. Design is a
+skill built by **doing many designs and getting them wrong**, not by reading
+other people's solutions.
+
+The goal of this track: **design any system out loud in 45 minutes, start from
+the users and the numbers, defend every tradeoff, and volunteer how it fails
+and how you'd operate it**, without being asked.
+
+How it works:
+
+- **One design evening a week**, every week, on top of the main track. Alternate:
+  - *Odd weeks:* the current level's concepts and reading.
+  - *Even weeks:* one **design kata**. Take a prompt, set a 45-minute timer, and
+    design it out loud on [Excalidraw](https://excalidraw.com). Then spend 30
+    minutes comparing it with a reference answer and writing down what you missed.
+- **Design before you build** (rule 7). Every build bigger than one Sunday starts
+  with a one-page design doc: the problem, the users, requirements and numbers,
+  the options you considered, the decision, how it fails, and how you'll know it
+  works. When the build is done, add a section called "What I got wrong".
+- **Keep a design journal** in `notes/designs/`: every kata and every design doc,
+  one file each. Aim for 40+ by Phase 6. It is your interview revision and the
+  raw material for posts.
+- **Every design answers the same five questions**, in this order:
+  1. **Who uses it, and what must it do?** Functional and non-functional requirements.
+  2. **How big is it?** Back-of-the-envelope numbers: requests per second, storage, bandwidth.
+  3. **What's the design?** Components, APIs, data model, and how a request flows.
+  4. **How does it fail?** Blast radius, failure domains, what degrades and what stops.
+  5. **How do you run it?** SLIs and SLOs, rollout, on-call, and cost.
+
+  Questions 4 and 5 are where a platform engineer beats a generic backend
+  candidate. Never skip them.
+- **Six levels, one per phase.** Each phase gate requires its level. Katas get
+  harder as you go; re-do old ones on deload weeks and see how your answer has changed.
+
+| Level | Theme | Runs with |
+|---|---|---|
+| **SD1** | Foundations: how a request flows, numbers, estimation | Phases 0–1 |
+| **SD2** | Building blocks: load balancers, caches, databases, queues, APIs | Phase 2 |
+| **SD3** | Designing platforms: control planes, abstractions, tenancy, design docs | Phase 3 |
+| **SD4** | Designing for the cloud: zones, regions, disaster recovery, cost | Phase 4 |
+| **SD5** | Distributed systems depth: consistency, consensus, partitioning | Phase 5 |
+| **SD6** | The interview, and design in public | Phase 6 → forever |
+
+### SD1. Foundations
+
+**Concepts**
+- [ ] What happens when you type a URL, hop by hop: DNS, TCP, TLS, load balancer, app, database, and back
+- [ ] Latency numbers and orders of magnitude: memory vs SSD vs disk vs network vs cross-region
+- [ ] Back-of-the-envelope estimation: requests per second from daily users, storage per year, bandwidth, peak vs average
+- [ ] Functional vs non-functional requirements, and availability in nines: how much downtime each nine allows per month
+- [ ] Vertical vs horizontal scaling, stateless services, and why the state is always the hard part
+- [ ] The interview framework: requirements → estimates → API → high-level design → deep dive → failure and operations
+
+**Core**
+- [ ] [The System Design Primer](https://github.com/donnemartin/system-design-primer): the canonical reference
+- [ ] [Latency numbers every programmer should know](https://colin-scott.github.io/personal_website/research/interactive_latency.html): learn them, then learn them again
+- [ ] [Web Architecture 101](https://medium.com/storyblocks-engineering/web-architecture-101-a3224e126947)
+- [ ] [Scale From Zero To Millions Of Users](https://bytebytego.com/courses/system-design-interview/scale-from-zero-to-millions-of-users)
+- [ ] [Back-of-the-envelope estimation](https://bytebytego.com/courses/system-design-interview/back-of-the-envelope-estimation)
+- [ ] [A framework for system design interviews](https://bytebytego.com/courses/system-design-interview/a-framework-for-system-design-interviews)
+- [ ] [System Design in a Hurry](https://www.hellointerview.com/learn/system-design/in-a-hurry/introduction) (Hello Interview): a fast, modern overview of the whole interview
+- [ ] **Exercise: draw your workplace.** From memory, draw your company's
+  production architecture on one diagram: every component, and how a request
+  moves through it. Use levels 1 and 2 of the [C4 model](https://c4model.com).
+  Then walk a colleague through it and fix what they correct.
+- [ ] **Exercise: ten estimates.** Write ten estimation drills in
+  `notes/designs/estimates.md`. Use your own job where you can: "how much log
+  storage does our cluster need per year?", "how many requests per second does
+  our busiest service see at peak?". Check each one against the real number.
+
+**Done when:** you can estimate requests per second, storage, and bandwidth for
+a described system in five minutes without a calculator, and explain every hop
+of a request through your workplace's stack.
+
+### SD2. Building blocks
+
+Every design is assembled from the same dozen parts. For each one, know when
+you'd use it, what it costs, and how it fails.
+
+**Concepts**
+- [ ] Load balancing: L4 vs L7, algorithms, health checks, and sticky sessions
+- [ ] Caching: cache-aside, write-through, write-back, TTLs, invalidation, stampedes, and CDNs
+- [ ] Databases: SQL vs NoSQL, indexes, read replicas, connection pooling, and how to choose
+- [ ] Replication and sharding, first pass: leader and followers, choosing a shard key, hot partitions
+- [ ] Queues vs logs: work queues, Kafka-style logs, at-least-once delivery, dead-letter queues
+- [ ] Object vs block vs file storage, and when each fits
+- [ ] API design: REST vs gRPC, pagination, idempotency keys, versioning
+- [ ] Rate limiting algorithms, and where in the stack to enforce them
+- [ ] Reverse proxies, API gateways, and service meshes: what each one is actually for
+
+**Core**
+- [ ] [Load Balancing](https://samwho.dev/load-balancing): interactive and genuinely excellent
+- [ ] [Caching](https://planetscale.com/blog/caching)
+- [ ] [Scaling your API with rate limiters](https://stripe.com/blog/rate-limiters) (Stripe)
+- [ ] [Designing robust and predictable APIs with idempotency](https://stripe.com/blog/idempotency) (Stripe)
+- [ ] [System Design Interview, Volume 1](https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF) by Alex Xu (book): read it across SD1 and SD2, one chapter per odd week
+- [ ] **Katas:** a URL shortener, a rate limiter, a distributed cache, a
+  notification system, and a file-sharing service backed by S3-compatible
+  storage (you run that at work, so go deep on it).
+- [ ] **Build:** implement the rate limiter you designed, in Go: token-bucket
+  HTTP middleware with tests and a benchmark. Then write down where the design
+  and the code disagreed.
+- [ ] **Design doc:** write one for the lab's observability stack (2e) *before*
+  you build it.
+
+**Go deeper**
+- [ ] [System Design 101](https://github.com/ByteByteGoHq/system-design-101)
+- [ ] [What's in a Production Web Application?](https://web.archive.org/web/20210106095747/http://stephenmann.io/post/whats-in-a-production-web-application)
+
+*Structured courses (pick at most one; they overlap heavily and don't replace the katas):*
+- [ ] [SystemsExpert course from AlgoExpert](https://www.algoexpert.io/systems/product)
+- [ ] [Grokking the System Design Interview](https://www.educative.io/courses/grokking-modern-system-design-interview-for-engineers-managers)
+
+**Done when:** five katas are done, timed and journaled, and for every concept
+above you can say when you'd use it, what it costs, and how it fails.
+
+### SD3. Designing platforms
+
+This is your home ground: the designs platform interviews ask for, and the
+designs you'll write at work. The systems you build in Phase 3 are designed here first.
+
+**Concepts**
+- [ ] Control plane vs data plane, and why the data plane must keep working when the control plane is down
+- [ ] Declarative APIs and reconciliation loops as a general design pattern, not just a Kubernetes feature
+- [ ] Designing abstractions: what to hide, what to expose, where the escape hatches go, and what a leaky abstraction costs
+- [ ] Multi-tenancy: isolation models, noisy neighbours, and fairness
+- [ ] Blast radius and failure domains: what one bad change, one bad tenant, or one bad node can break
+- [ ] Migration patterns: strangler fig, dual running, feature flags, and a rollback plan for every step
+- [ ] Design docs, RFCs, and ADRs: writing a decision so that others can review it
+
+**Core**
+- [ ] [Design Docs at Google](https://www.industrialempathy.com/posts/design-docs-at-google/): what a good design doc contains, and when not to write one
+- [ ] [Architecture Decision Records](https://adr.github.io)
+- [ ] [Borg, Omega, and Kubernetes](https://queue.acm.org/detail.cfm?id=2898444): ten years of lessons from designing cluster platforms at Google
+- [ ] [Control planes vs data planes](https://brooker.co.za/blog/2019/03/17/control.html) by Marc Brooker
+- [ ] **Katas:** an internal developer platform for 300 engineers, a CI system
+  that runs 10,000 jobs a day, a deployment system with progressive rollout, a
+  multi-tenant logging pipeline, a secrets service, a feature-flag service, and
+  an artifact cache for an on-prem datacenter.
+- [ ] **Design docs:** the golden path (3c) and the tenancy model (3d), each
+  reviewed by at least one engineer at work *before* you build. Record the big
+  decisions as ADRs in the lab repo.
+
+**Go deeper**
+- [ ] [Fundamentals of Software Architecture](https://www.oreilly.com/library/view/fundamentals-of-software/9781492043447/) by Mark Richards & Neal Ford (book)
+- [ ] [Kubernetes design principles](https://github.com/kubernetes/design-proposals-archive/blob/main/architecture/principles.md)
+
+**Done when:** two design docs have been reviewed by someone else and their
+feedback changed the design, and you can design the 300-engineer platform out
+loud in 45 minutes.
+
+### SD4. Designing for the cloud
+
+**Concepts**
+- [ ] Availability zones and regions, correlated failures, and static stability
+- [ ] Multi-AZ by default; multi-region only when you can justify the cost. Active-passive vs active-active.
+- [ ] Disaster recovery: RPO and RTO; backup and restore vs pilot light vs warm standby vs multi-site
+- [ ] Cells and shuffle sharding: limiting the blast radius by design
+- [ ] Timeouts, retries with backoff and jitter, and how retries turn a blip into an outage
+- [ ] Managed vs self-hosted as a design decision: cost, control, and who gets paged
+- [ ] Cost as a design constraint: data transfer, storage tiers, per-request pricing
+
+**Core**
+- [ ] [The Amazon Builders' Library](https://aws.amazon.com/builders-library/): the best free writing on designing systems that stay up. Skim the index, then read the four below.
+- [ ] [Timeouts, retries, and backoff with jitter](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/) (Builders' Library)
+- [ ] [Static stability using Availability Zones](https://aws.amazon.com/builders-library/static-stability-using-availability-zones/) (Builders' Library)
+- [ ] [Workload isolation using shuffle-sharding](https://aws.amazon.com/builders-library/workload-isolation-using-shuffle-sharding/) (Builders' Library)
+- [ ] [Avoiding insurmountable queue backlogs](https://aws.amazon.com/builders-library/avoiding-insurmountable-queue-backlogs/) (Builders' Library)
+- [ ] [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html): the reliability and cost optimization pillars
+- [ ] [Reducing the scope of impact with cell-based architecture](https://docs.aws.amazon.com/wellarchitected/latest/reducing-scope-of-impact-with-cell-based-architecture/reducing-scope-of-impact-with-cell-based-architecture.html)
+- [ ] [Disaster recovery options in the cloud](https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html)
+- [ ] **Katas:** the platform in two regions (active-passive), a metrics
+  pipeline on AWS with a monthly cost estimate, moving an on-prem service to AWS
+  with zero downtime, and an object storage service. Every kata from now on
+  ends with a cost estimate.
+- [ ] **Design doc:** disaster recovery for the platform on EKS, with stated RPO
+  and RTO. Then test it in a game day and record the RTO you actually got.
+
+**Go deeper**
+- [ ] [System Design Interview, Volume 2](https://www.amazon.com/System-Design-Interview-Insiders-Guide/dp/1736049119) by Alex Xu & Sahn Lam (book)
+
+**Done when:** the DR drill's measured RTO is within your design, and you can
+explain the monthly cost of every kata you did at this level.
+
+### SD5. Distributed systems depth
+
+Runs with Phase 5b and Back to Basics B6 (DDIA). This is the level where you
+stop drawing boxes and start explaining what happens *between* them.
+
+**Concepts**
+- [ ] Consistency models: linearizable, sequential, causal, eventual, read-your-writes
+- [ ] Consensus and leader election, and what a quorum buys you
+- [ ] Partitioning and rebalancing; consistent hashing
+- [ ] Time and order: why wall clocks lie, logical clocks, fencing tokens
+- [ ] Exactly-once as at-least-once plus idempotency
+- [ ] Backpressure, load shedding, and metastable failures
+
+**Core**
+- [ ] [Understanding Distributed Systems](https://understandingdistributed.systems) by Roberto Vitillo (book): the bridge between interview prep and DDIA
+- [ ] [Patterns of Distributed Systems](https://martinfowler.com/articles/patterns-of-distributed-systems/) by Unmesh Joshi
+- [ ] [Consistency models](https://jepsen.io/consistency) (Jepsen)
+- [ ] [Dynamo: Amazon's Highly Available Key-value Store](https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf) (paper)
+- [ ] [Large-scale cluster management at Google with Borg](https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/) (paper)
+- [ ] **Katas:** a distributed key-value store, a distributed job scheduler, a
+  Kafka-like log, and a global rate limiter. For each, state the consistency it
+  gives and what happens during a network partition.
+- [ ] **Build:** a consistent-hash ring in Go with virtual nodes. Measure how
+  many keys move when a node joins or leaves, and write it up.
+
+**Go deeper**
+- [ ] [Metastable Failures in Distributed Systems](https://sigops.org/s/conferences/hotos/2021/papers/hotos21-s11-bronson.pdf) (paper)
+- [ ] [Database Internals](https://www.databass.dev) by Alex Petrov (book)
+
+**Done when:** 5b's "done when" passes, and for every SD5 kata you can say what
+consistency it gives and how it behaves during a partition.
+
+### SD6. The interview, and design in public
+
+Runs with Phase 6a, and never stops. By now the journal holds 40+ designs; this
+level turns them into interview performance and into influence at work.
+
+- [ ] **Ten mock design interviews with another person**: peers, colleagues, or
+  a paid service such as [interviewing.io](https://interviewing.io). Get written
+  feedback every time. At least three should be platform-flavoured.
+- [ ] **Review designs at work.** Comment in writing on other people's design
+  docs. Reviewing well is part of the senior bar.
+- [ ] **Publish two design docs** from the lab as posts, including "what I got wrong".
+- [ ] **One kata a month, forever**, after you're hired too.
+
+**Done when:** three mock design interviews in a row came back at senior level,
+including one platform design.
+
+---
+
 ## Phase 0: Gap Audit & Instrumentation
 **Effort budget: ~30 h**
 
@@ -1295,6 +1553,7 @@ you can test out of.
 - [ ] Lab rebuilds from scratch with one command.
 - [ ] Four consecutive weeks of cadence in the hours log, including four Go evenings.
 - [ ] Go toolchain, `gopls`, and Delve set up; A Tour of Go finished; G1 under way.
+- [ ] Design journal started in `notes/designs/`; SD1 under way.
 
 ---
 
@@ -1425,6 +1684,7 @@ code without asking you, and Go track levels G1 and G2 are done.
 - [ ] Three posts published.
 - [ ] Checklist A and B ticked, plus the Git items in C.
 - [ ] Go track: G1 and G2 done.
+- [ ] System design: SD1 done; your workplace diagram reviewed by a colleague.
 
 ---
 
@@ -1577,6 +1837,7 @@ monitored before.
 - [ ] Six posts published in total.
 - [ ] Checklist D, E, G, and H ticked, plus the items in I not marked for a later phase.
 - [ ] Go track: G3 done; your Go exporter runs in the lab via GitOps.
+- [ ] System design: SD2 done; the observability stack had a design doc before it was built.
 
 > **Optional job move.** Once you pass this gate, you are a credible candidate
 > for Platform Engineer or SRE-titled roles (not only DevOps) in your *local or
@@ -1762,6 +2023,7 @@ days have run with postmortems, and runbooks exist for the alerts that fired.
 - [ ] Platform SLOs published, with a burn-rate alert that has fired for real.
 - [ ] At least three postmortems written, and the monthly game day is now a habit.
 - [ ] Go track: G4 done; the platform CLI is used by someone other than you.
+- [ ] System design: SD3 done; golden path and tenancy design docs reviewed by someone else.
 - [ ] Checklist I, J, and K ticked, plus C and L except items marked *(Phase 5)*.
 - [ ] You meet most of the mid-level rubric in §3, with evidence.
 - [ ] Nine posts published in total.
@@ -1847,6 +2109,7 @@ without writing Terraform, and see what it costs.
 - [ ] A tenant gets a bucket through the platform without writing Terraform.
 - [ ] Checklist N ticked, plus the Phase 4 items in G.
 - [ ] Go track: G5 done; your Terraform provider plans, applies, and imports.
+- [ ] System design: SD4 done; DR drill run against your design's RTO.
 
 ---
 
@@ -1881,24 +2144,16 @@ that explains the reconcile design and its failure modes.
 
 ### 5b. Distributed systems & architecture
 
+The main-track side of System Design level **SD5**. The building blocks are
+already covered in SD1–SD2; this topic is about what happens between them.
+
 **Core**
 - [ ] [Distributed systems](http://book.mixu.net/distsys/single-page.html): start here; short and dense
-- [ ] [The System Design Primer](https://github.com/donnemartin/system-design-primer): the canonical reference
-- [ ] [Load Balancing](https://samwho.dev/load-balancing): interactive and genuinely excellent
-- [ ] [Caching](https://planetscale.com/blog/caching)
 - [ ] [Failover](https://blog.alexewerlof.com/p/failover)
 - [ ] [The principles of extreme fault tolerance](https://planetscale.com/blog/the-principles-of-extreme-fault-tolerance)
 
 **Go deeper**
-- [ ] [System Design 101](https://github.com/ByteByteGoHq/system-design-101)
-- [ ] [Web Architecture 101](https://medium.com/storyblocks-engineering/web-architecture-101-a3224e126947)
-- [ ] [What's in a Production Web Application?](https://web.archive.org/web/20210106095747/http://stephenmann.io/post/whats-in-a-production-web-application)
 - [ ] [Monoliths, Service Architecture, and Microservices](https://architecturenotes.co/granularity-of-systems)
-- [ ] [Scale From Zero To Millions Of Users](https://bytebytego.com/courses/system-design-interview/scale-from-zero-to-millions-of-users)
-
-*Structured courses (pick at most one; they overlap heavily and don't replace the reading above):*
-- [ ] [SystemsExpert course from AlgoExpert](https://www.algoexpert.io/systems/product)
-- [ ] [Grokking the System Design Interview](https://www.educative.io/courses/grokking-modern-system-design-interview-for-engineers-managers)
 
 **Done when:** you can run a 45-minute design session out loud (an internal
 developer platform for 300 engineers, a multi-tenant metrics pipeline, a CI
@@ -1998,7 +2253,7 @@ and you can explain ownership, borrowing, and lifetimes to someone who knows Go.
 - [ ] A tenant can get a database through the platform, with tested restores.
 - [ ] Rust exporter running (or Rust formally moved to post-hire in a quarterly review).
 - [ ] 12+ posts published.
-- [ ] Design sessions practised out loud at least five times.
+- [ ] System design: SD5 done; 30+ designs in the journal.
 - [ ] Back to Basics: NeetCode 150 done and modules B1–B6 core done.
 - [ ] Go track: G6 done, with a profiling post published.
 - [ ] Checklist F, M, and O ticked, and the rest of L. Every other domain ticked or consciously parked.
@@ -2019,6 +2274,10 @@ applications, and outreach.
 Design is the highest-weight round for mid-to-senior SRE and Platform roles.
 Practise **out loud, timed, on a whiteboard**. Reading solutions builds false
 confidence: people fail these rounds on communication, not knowledge.
+
+This is System Design level **SD6**. If the track ran every week, you arrive
+here with 40+ designs in the journal; this topic turns them into interview
+performance with mock interviews and the prompts below.
 
 - [ ] [Crack the System Design Interview](https://tianpan.co/notes/2016-02-13-crack-the-system-design-interview)
 - [ ] [System design interview for IT companies](https://github.com/checkcheckzz/system-design-interview)
@@ -2313,6 +2572,8 @@ deadline. Write the answers into `notes/reviews/YYYY-QN.md`.
 10. **Checklist:** how many items moved from Gap or Use to ticked?
 11. **Go:** which level am I on, did every week have a Go evening, and what Go
     did I read this quarter that I couldn't have read a quarter ago?
+12. **System design:** which level am I on, how many katas and design docs went
+    into the journal, and which of the five questions do I keep skipping?
 
 **Re-planning is expected.** A multi-year plan that survives contact with reality
 unchanged wasn't a plan, it was a fantasy. Change scope deliberately at these
@@ -2361,7 +2622,11 @@ at every quarterly review and check honestly whether you're living one of them.
 12. **Go stuck at tutorial level.** Finishing courses while every real build
    quietly falls back to Bash or YAML. If a quarter passes without new Go in a
    repo, the Go evening has turned into reading. Rule 6 exists for this.
-13. **Waiting to feel ready.** You won't feel ready. Mid-level candidates who
+13. **Reading designs instead of doing them.** Watching walkthroughs and reading
+   other people's answers feels like progress and builds nothing. If the
+   journal didn't grow this month, the design evening has turned into reading.
+   Do the kata first, then read the reference.
+14. **Waiting to feel ready.** You won't feel ready. Mid-level candidates who
    apply beat senior-capable candidates who don't. **Start Phase 6 when its gate
    passes, or at month 30, whichever comes first**, whether or not every box is ticked.
 
@@ -2390,6 +2655,8 @@ Kept out of the phase flow because you consult these rather than read them throu
 - [ ] [Building Secure and Reliable Systems](https://sre.google/books/building-secure-reliable-systems): Phase 3
 - [ ] [Programming Kubernetes](https://www.oreilly.com/library/view/programming-kubernetes/9781492047094/): Phase 5
 - [ ] [Designing Data-Intensive Applications](https://dataintensive.net): Back to Basics B6 and Phase 5
+- [ ] [System Design Interview, Volume 1](https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF): System Design SD1–SD2
+- [ ] [Understanding Distributed Systems](https://understandingdistributed.systems): System Design SD5
 - [ ] [Systems Performance, 2nd Edition](https://www.informit.com/store/systems-performance-9780136820154?ranMID=24808): Phase 5, slowly
 
 ### Standing drills
@@ -2402,6 +2669,7 @@ Kept out of the phase flow because you consult these rather than read them throu
 | Talk to a platform user (at work or a lab tester) | Monthly | 3 → forever |
 | Post per completed topic | Per topic | 1 → 6 |
 | Go evening: current Go level + reading real Go source | Weekly | 0 → forever |
+| Design evening: SD reading (odd weeks) or a timed design kata (even weeks) | Weekly | 0 → forever |
 | Back to Basics: CS module + 2–3 LeetCode (in Go) | Weekly (Saturday) | 0 → forever |
 | Stay current: newsletters, talks, public postmortems | Monthly (last Saturday) | 0 → forever |
 | Hours log | Every session | 0 → 6 |

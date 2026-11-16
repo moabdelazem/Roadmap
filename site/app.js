@@ -165,7 +165,7 @@
         current = el('section', { class: 'plan-section', 'aria-labelledby': node.id });
         content.append(current);
         const title = node.dataset.title;
-        const kind = /^Phase \d/.test(title) ? 'phase' : /^(Back to Basics|Go Mastery)/.test(title) ? 'track' : 'guide';
+        const kind = /^Phase \d/.test(title) ? 'phase' : /^(Back to Basics|Go Mastery|System Design)/.test(title) ? 'track' : 'guide';
         current.classList.add(`kind-${kind}`);
         sections.push({ id: node.id, title, node: current, heading: node, kind, tasks: [], subs: [] });
       }
