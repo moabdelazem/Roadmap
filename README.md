@@ -70,7 +70,7 @@ Read this section at every quarterly review. It is what you agreed to.
    [Go Mastery Track](#go-mastery-track). Mastery comes from writing Go every
    week for two years, not from a course.
 7. **Design before you build.** Every build bigger than one Sunday starts with
-   a one-page design doc in `notes/designs/`, and every phase gate requires its
+   a one-page design doc in the Notion **Design Journal**, and every phase gate requires its
    level of the [System Design Track](#system-design-track). You learn design
    by designing, getting it wrong, and writing down why.
 
@@ -188,7 +188,7 @@ Without deadlines, cadence is what keeps the plan moving. Target **~15–17 hour
 
 | Slot | Duration | Purpose |
 |---|---|---|
-| **Two weekday evenings** | 1.5 h each | **Theory.** Core resources for the current topic. Notes go in `notes/`. |
+| **Two weekday evenings** | 1.5 h each | **Theory.** Core resources for the current topic. Notes go in the Notion **Notes** database. |
 | **One weekday evening** | 1.5 h | **Deliberate practice.** SadServers scenario, PromQL drills, `kubectl` speed runs, `strace` on something real. Timed. No tutorials. |
 | **Go evening** | 1.5 h | **Go Mastery Track.** Required, every week, in every phase: the current level's concepts, reading, and reading real Go source. See [Go Mastery Track](#go-mastery-track). |
 | **Design evening** | 1.5 h | **System Design Track.** Required, every week, in every phase. Odd weeks: the current level's reading. Even weeks: one timed design kata, out loud. See [System Design Track](#system-design-track). |
@@ -228,13 +228,14 @@ Read the Core list  →  Build the artifact  →  Explain it (note / post)
   debt never gets paid.
 - **The stall rule.** Each phase lists an *effort budget* in hours. It is a
   sizing guide, not a deadline. If a phase runs past **1.5× its budget**, stop.
-  Write what's left into `notes/parked.md` and move on. You can come back later.
+  Write what's left into the Notion **Parked** database and move on. You can come back later.
   Perfectionism is how self-paced plans stretch from 2 years to 5.
-- **Log your hours.** One line per session in `notes/hours.md`. That log is how
+- **Log your hours.** One row per session in the Notion **Hours** database. That log is how
   you know whether the 3-year cap is still realistic, since there are no dates
   to tell you.
-- **Notes are a build artifact.** Keep `notes/` in this repo. It becomes your
-  blog backlog, your interview revision, and proof of the work.
+- **Notes are a build artifact.** Keep them in the Notion workspace (Phase 0,
+  step 3). It becomes your blog backlog, your interview revision, and proof of
+  the work. Export it to Markdown & CSV at every quarterly review as a backup.
 
 ---
 
@@ -293,12 +294,12 @@ it; this list is how you check it. Each domain has three kinds of items:
 
 How to use it:
 
-1. **In Phase 0**, score every item Explain / Use / Gap in `notes/baseline.md`.
+1. **In Phase 0**, score every item Explain / Use / Gap in the Notion **Gap Audit** database.
    Don't tick anything yet.
 2. **Tick an item only when you could defend it in an interview.** Having read
    about it doesn't count.
 3. **Every phase gate names the domains it checks.** A gate passes when those
-   items are ticked, or consciously moved to `notes/parked.md`. Items marked
+   items are ticked, or consciously moved to **Parked** in Notion. Items marked
    *(Phase N)* belong to a later gate.
 4. **Tools change; concepts don't.** If a tool here is replaced by something
    better, swap the tool. Leave the concepts alone.
@@ -837,7 +838,7 @@ hundreds of engineers instead of a lab for one. The
 - [ ] A 45-minute design out loud: an internal developer platform for 300 engineers
 - [ ] A 45-minute design out loud: a multi-tenant metrics or logging pipeline
 - [ ] A 45-minute design out loud: a CI system that runs 10,000 jobs a day
-- [ ] A design journal in `notes/designs/` with 40+ katas and design docs
+- [ ] A Notion **Design Journal** with 40+ katas and design docs
 - [ ] A design doc at work that was reviewed, and the review changed the design
 
 ### P. Ways of working
@@ -885,7 +886,7 @@ three things for you:
 
 | Block | Duration | What |
 |---|---|---|
-| **CS fundamentals** | 1.5 h | The next chunk of the current module below. Notes go in `notes/cs/`. |
+| **CS fundamentals** | 1.5 h | The next chunk of the current module below. Notes go in **Notes** (Track = CS). |
 | **LeetCode** | 1.5 h | 2–3 problems from the NeetCode list. |
 | *Last Saturday of the month* | | Swap the CS block for **Stay current** (below). |
 
@@ -958,8 +959,8 @@ the topic changes.
   every third problem in Rust as well: LeetCode is a good way to fight the borrow checker on small problems.
 - **The 30-minute rule:** try for 30 minutes before looking at a solution. If you
   looked, re-solve it from scratch the next Saturday without looking.
-- **Log every problem** in `notes/leetcode.md`: problem, pattern, what tripped
-  you up. Review the "tripped" column on deload weeks.
+- **Log every problem** in the Notion **LeetCode** database: problem, pattern, what tripped
+  you up. Review the "Tripped" property on deload weeks.
 - **Mix in ops-flavoured problems**, because platform and SRE coding rounds favour them: log
   parsing, rate limiters, LRU cache, top-K, merging intervals, and simple
   concurrency (a worker pool, a bounded queue).
@@ -969,7 +970,7 @@ the topic changes.
 ### Stay current (last Saturday of the month)
 
 Spend the CS block catching up with the field, then write one paragraph in
-`notes/current.md`: what changed, and does it matter for me? **Note tools; don't
+the Notion **Stay Current** page: what changed, and does it matter for me? **Note tools; don't
 chase them** (see failure mode 4 in §12).
 
 - [ ] [SRE Weekly](https://sreweekly.com): the best weekly roundup of incidents and reliability writing
@@ -1002,7 +1003,7 @@ How it works:
   library or a project you use (Kubernetes, Prometheus, Argo CD) and read it
   until you understand why it's written that way. Masters are made by reading
   good code.
-- **Keep `notes/go.md`**: gotchas you hit, idioms you learned, questions you
+- **Keep a Notion Go Notes page**: gotchas you hit, idioms you learned, questions you
   couldn't answer yet. Review it on deload weeks.
 
 | Level | Theme | Runs with |
@@ -1284,8 +1285,8 @@ How it works:
   with a one-page design doc: the problem, the users, requirements and numbers,
   the options you considered, the decision, how it fails, and how you'll know it
   works. When the build is done, add a section called "What I got wrong".
-- **Keep a design journal** in `notes/designs/`: every kata and every design doc,
-  one file each. Aim for 40+ by Phase 6. It is your interview revision and the
+- **Keep a design journal** in the Notion **Design Journal**: every kata and every design doc,
+  one page each. Aim for 40+ by Phase 6. It is your interview revision and the
   raw material for posts.
 - **Every design answers the same five questions**, in this order:
   1. **Who uses it, and what must it do?** Functional and non-functional requirements.
@@ -1331,7 +1332,7 @@ How it works:
   moves through it. Use levels 1 and 2 of the [C4 model](https://c4model.com).
   Then walk a colleague through it and fix what they correct.
 - [ ] **Exercise: ten estimates.** Write ten estimation drills in
-  `notes/designs/estimates.md`. Use your own job where you can: "how much log
+  an **Estimates** page in the Design Journal. Use your own job where you can: "how much log
   storage does our cluster need per year?", "how many requests per second does
   our busiest service see at peak?". Check each one against the real number.
 
@@ -1512,25 +1513,40 @@ you can test out of.
    then the SRE Checklist and the sysadmin question set below, *cold*, before
    studying anything. Score each item as **Explain**
    (I can teach it), **Use** (I do it at work but couldn't explain why it works),
-   or **Gap** (I don't know it). Commit the result to `notes/baseline.md`.
+   or **Gap** (I don't know it). Record the result in the Notion **Gap Audit** database.
    Expect a lot of **Use** on Linux, Docker, and Kubernetes. Those are exactly
    the areas this plan turns into **Explain**.
 2. **The lab.** Three Linux VMs (Proxmox, or libvirt/KVM on a spare box; one
    32 GB machine is enough). Rules: no clicking, everything reproducible. Start
    with the Bash you already write; Terraform and Ansible replace it in Phase 2.
    Anything you can safely do on non-production systems at work counts too.
-3. **The notes repo.** Markdown in git, in this repository under `notes/`. One
-   file per topic. Add an Anki deck (or `.md` flashcards) for facts you must
-   recall under interview pressure: syscalls, signals, exit codes, TCP states,
-   PromQL functions, Go gotchas.
-4. **The hours log.** `notes/hours.md`, one line per session. This replaces the
-   calendar.
-5. **The work log.** Start `notes/work-log.md` now (see §9). What you do at work
+3. **The Notion workspace.** One top-level page, **Roadmap**, holding these
+   databases and pages. Use database properties, not folders, so every view
+   (by phase, by track, by week) is one filter away.
+
+   | Item | Type | Key properties |
+   |---|---|---|
+   | **Notes** | Database | Topic, Phase, Track (Gate / Go / SD / CS), Status (Draft / Prose / Posted) |
+   | **Gap Audit** | Database | Item, Domain, Score (Explain / Use / Gap), Phase |
+   | **Hours** | Database | Date, Hours, Session (Theory / Practice / Go / SD / Build / CS / LeetCode), Phase |
+   | **Design Journal** | Database | Title, Type (Kata / Design doc), SD level, Date, Minutes. Holds the **Estimates** page. |
+   | **LeetCode** | Database | Problem, Pattern, Tripped, Date, Re-solved |
+   | **Work Log** | Database | Week, What broke, What I built, Who used it, What it saved |
+   | **Parked** | Database | Item, Phase, Why parked |
+   | **Reviews** | Database | Quarter (`YYYY-QN`), one page per quarterly review |
+   | **Platform Audit**, **Platform Users**, **Go Notes**, **Stay Current**, **On-prem vs AWS** | Pages | — |
+
+   Notion's toggles and synced blocks are fine for notes, but keep Anki for
+   facts you must recall under interview pressure: syscalls, signals, exit
+   codes, TCP states, PromQL functions, Go gotchas.
+4. **The hours log.** The **Hours** database, one row per session. This
+   replaces the calendar.
+5. **The work log.** Start the **Work Log** database now (see §9). What you do at work
    over the next two years is half your evidence.
 6. **The platform audit.** List the ten most common requests developers send
    your team at work (tickets, chat messages, "can you just..."), and score
-   your workplace against the CNCF Platform Engineering Maturity Model. Commit
-   it to `notes/platform-audit.md`. Every request on that list that a developer
+   your workplace against the CNCF Platform Engineering Maturity Model. Write
+   it up in the Notion **Platform Audit** page. Every request on that list that a developer
    could do themselves is a candidate feature for your Phase 3 platform.
 
 ### Core
@@ -1553,7 +1569,7 @@ you can test out of.
 - [ ] Lab rebuilds from scratch with one command.
 - [ ] Four consecutive weeks of cadence in the hours log, including four Go evenings.
 - [ ] Go toolchain, `gopls`, and Delve set up; A Tour of Go finished; G1 under way.
-- [ ] Design journal started in `notes/designs/`; SD1 under way.
+- [ ] Design Journal started in Notion; SD1 under way.
 
 ---
 
@@ -1679,7 +1695,7 @@ code without asking you, and Go track levels G1 and G2 are done.
 
 ### Gate to Phase 2
 - [ ] 20+ SadServers scenarios solved.
-- [ ] The packet-tracing and OOM-kill explanations written up in `notes/`.
+- [ ] The packet-tracing and OOM-kill explanations written up in Notion **Notes**.
 - [ ] Go tool published with tests and a release.
 - [ ] Three posts published.
 - [ ] Checklist A and B ticked, plus the Git items in C.
@@ -1877,7 +1893,7 @@ By the end of this phase you should meet the mid-level bar in §3.
 - [ ] [DORA](https://dora.dev): the four key metrics and the capabilities that drive them
 - [ ] **Exercise:** interview three developers at work. Ask what slows them down,
   what they file tickets for, and what they never want to touch. Write it up in
-  `notes/platform-users.md`. Together with the Phase 0 platform audit, this is
+  a Notion **Platform Users** page. Together with the Phase 0 platform audit, this is
   your backlog for the rest of the phase.
 
 **Go deeper**
@@ -2055,7 +2071,7 @@ having.
 - [ ] [The Open Guide to Amazon Web Services](https://github.com/open-guides/og-aws): the best non-marketing AWS resource there is
 - [ ] Official SAA-C03 exam guide + one video course + one practice-exam bank
 - [ ] Build every core service by hand once, then again in Terraform: VPC/subnets/route tables, EC2, S3, IAM, RDS, ALB, ASG, CloudWatch
-- [ ] **Map AWS onto your on-prem world.** Write `notes/onprem-vs-aws.md`: your
+- [ ] **Map AWS onto your on-prem world.** Write an **On-prem vs AWS** page in Notion: your
   S3-compatible store vs. real S3 (consistency, durability, storage classes);
   your physical network vs. VPC; your hypervisor vs. EC2 placement. This
   comparison makes a strong interview story, because most candidates only know
@@ -2463,9 +2479,9 @@ the tickets** to **building the thing that makes the tickets unnecessary**:
 - **Bring each phase to work.** Every topic in this plan has an "at work"
   version: a Terraform module, a new alert, a golden-path template, a policy, a
   Go tool. Lab work proves you learned it; work proves you can apply it.
-- **Keep an evidence log.** `notes/work-log.md`, updated weekly: what broke,
+- **Keep an evidence log.** The Notion **Work Log** database, updated weekly: what broke,
   what you built, who used it, what it saved. You won't remember any of it two
-  years from now, and this file is where your CV and STAR stories come from.
+  years from now, and this log is where your CV and STAR stories come from.
 - **Write things others use.** A design doc, an onboarding guide, a platform
   README, a runbook the whole team follows. Written work that changes how others
   operate is one of the clearest senior signals.
@@ -2554,7 +2570,7 @@ hours with the team, and a clean contractor/invoicing setup.
 ## 11. The Quarterly Review
 
 90 minutes, last Sunday of each quarter. The review is a fixed cadence, not a
-deadline. Write the answers into `notes/reviews/YYYY-QN.md`.
+deadline. Write the answers into a new page in the Notion **Reviews** database, titled `YYYY-QN`.
 
 1. Which artifacts actually shipped this quarter? (Reading doesn't count.)
 2. Hours logged this quarter, and hours per week on average. If below 8, what
@@ -2564,7 +2580,7 @@ deadline. Write the answers into `notes/reviews/YYYY-QN.md`.
 4. Where am I against the §3 rubric, with evidence rather than vibes?
 5. What did I learn that changed my mind about something?
 6. What am I avoiding because it's hard? (Usually the highest-value item.)
-7. What goes into `notes/parked.md` so I can move on?
+7. What goes into **Parked** so I can move on?
 8. **Back to Basics:** which module am I on, how many problems did I solve,
    and which patterns still trip me up? Did any Saturday get skipped for the build?
 9. **Users:** who used something I built this quarter, at work or in the lab,
@@ -2593,7 +2609,7 @@ at every quarterly review and check honestly whether you're living one of them.
 2. **Drift without deadlines.** Self-paced plans don't fail loudly. They
    stretch: one topic takes three months "because it's interesting," and the
    2-year plan quietly becomes 5. The defences are the hours log, the stall
-   rule, and `notes/parked.md`. Use them.
+   rule, and the **Parked** database. Use them.
 3. **Reading all of *Go deeper*.** It exists so you have somewhere to go when a
    topic hooks you, not as a to-do list. Core plus the build is enough to pass
    every gate.
