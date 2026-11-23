@@ -41,7 +41,7 @@ Read this section at every quarterly review. It is what you agreed to.
 | **Horizon** | ~1,240 hours on the main track. At ~12 h/week on it, that takes about 2 years; at ~9 h/week, about 3. Back to Basics runs alongside and never ends. |
 | **Standing tracks** | **Go Mastery Track:** Go in every phase, from the first week, until you are the Go expert on your team. **System Design Track:** a design kata or design reading every week, and a design doc before every build, until you can design any system out loud. **Back to Basics Saturday:** computer science from the start, plus LeetCode, every week. It keeps you relevant when tools change and keeps you interview-ready at all times. |
 | **Progression** | **Gates, not dates.** A topic is done when its "done when" check passes. A phase is done when its gate passes, and every gate names the checklist domains it checks. Topics you already use at work start with a **Prove it** test. |
-| **Order** | Fundamentals, then platform foundations, then **building the platform as a product**, then cloud, then depth. You build the platform on hardware you control first, where nothing is managed for you, then move it to AWS. |
+| **Order** | Fundamentals, then platform foundations, with **AWS and Terraform from Phase 2**, then **building the platform as a product**, then moving it onto EKS, then depth. You learn the cloud early because the stronger employers you're aiming for run on it; your on-prem work is the depth that makes you stand out there. |
 | **Languages** | **Go, in every phase, to mastery.** It is the default language for every build, from the first CLI in Phase 1 to the operator in Phase 5. Python only at the level of reading and fixing your team's existing scripts. **Rust** is the specialization that sets you apart (Phase 5). |
 | **Target markets** | EU relocation (DE / NL / IE) and remote-first international roles. Platform Engineer first; SRE and senior DevOps titles as the fallback. |
 | **Definition of done** | You can design an internal developer platform for a few hundred engineers in an interview, defend every abstraction in it, and debug the layers underneath it when it breaks. |
@@ -115,12 +115,15 @@ any other service. That is why the SRE material stays in the plan, taught as
 *operating your platform* (Phase 3) and *reliability depth* (Phase 5). It also
 keeps SRE roles open to you.
 
-**Why cloud comes after the platform.** AWS learned before Linux and Kubernetes
-is a list of service names to memorize. Learned after them, it is a translation
-exercise: VPC is a network you've already built, EKS is a cluster you've already
-run, and IAM is RBAC with more knobs. Moving a working platform onto AWS is also
-the best test of your Phase 3 abstractions: if app teams don't notice the
-substrate changed, the platform works.
+**Why cloud comes in Phase 2.** You work on-prem, but most of the organizations
+you want to join next run on a cloud, and their job ads ask for AWS and
+Terraform first. So the cloud can't wait until year two. It comes straight after
+the Linux and networking spine. That's the point where AWS stops being a list of
+service names and becomes a translation exercise: VPC is a network you already
+understand, and IAM is RBAC with more knobs. From Phase 2 on, every Terraform
+module you write runs against AWS as well as the lab. Phase 4 then moves your
+whole platform onto EKS, and that move tests your Phase 3 abstractions: if app
+teams don't notice the substrate changed, the platform works.
 
 **The difference that matters in interviews:** a Platform Engineer is judged on
 whether other engineers ship faster and more safely without filing a ticket. An
@@ -245,9 +248,9 @@ Read the Core list  →  Build the artifact  →  Explain it (note / post)
 |---|---|---|---|
 | **0** | Gap audit, lab, habits | ~30 h | Scored checklist + lab + hours log running |
 | **1** | The spine: Linux & networking *internals*, Go for operations | ~220 h | Below-the-abstraction debugging + a real Go tool |
-| **2** | Platform foundations: containers, K8s internals, IaC, GitOps, observability | ~230 h | **CKA** + GitOps-managed lab platform |
+| **2** | Platform foundations: containers, K8s internals, Terraform on lab **and AWS**, GitOps, observability, AWS fundamentals | ~300 h | **CKA** + **AWS SAA-C03** + GitOps-managed lab platform |
 | **3** | Building the platform: product thinking, a Go platform CLI, golden paths, tenancy, security, platform SLOs | ~260 h | Golden path used by someone else + platform SLOs |
-| **4** | The platform on AWS: EKS, infrastructure as APIs, cost | ~140 h | **AWS SAA-C03** + platform on EKS + cost per tenant |
+| **4** | The platform on EKS: the same platform on AWS, infrastructure as APIs, cost | ~70 h | Platform on EKS + cost per tenant |
 | **5** | Depth: operators, distributed systems, data services, reliability, Rust | ~290 h | Operator + self-service database + Rust exporter |
 | **6** | Market entry | ~70 h prep, then campaign | Offers |
 | | **Total (main track)** | **~1,240 h** | |
@@ -268,7 +271,7 @@ Progress:
 - [ ] Phase 1: The Spine
 - [ ] Phase 2: Platform Foundations
 - [ ] Phase 3: Building the Platform
-- [ ] Phase 4: The Platform on AWS
+- [ ] Phase 4: The Platform on EKS
 - [ ] Phase 5: Depth & Convergence (incl. Rust)
 - [ ] Phase 6: Market Entry
 
@@ -319,7 +322,7 @@ How to use it:
 | K. Platform as a product | Phase 3 |
 | L. Reliability | Phases 3, 5 |
 | M. Data, storage & stateful services | Phase 5 |
-| N. Cloud & FinOps | Phase 4 |
+| N. Cloud & FinOps | Phases 2, 4 |
 | O. System design & distributed systems (in depth: [System Design Track](#system-design-track)) | Every phase |
 | P. Ways of working | Every phase |
 
@@ -781,27 +784,27 @@ The same platform on a substrate someone else runs, with a bill attached.
 - [ ] IAM: identity vs resource policies, roles and trust policies, assume-role, permission boundaries, SCPs
 - [ ] Multi-account structure: AWS Organizations and landing zones
 - [ ] Compute: EC2 instance families, Auto Scaling groups, spot instances
-- [ ] EKS: managed node groups vs Karpenter, add-ons, Pod Identity / IRSA, upgrades
+- [ ] EKS: managed node groups vs Karpenter, add-ons, Pod Identity / IRSA, upgrades *(Phase 4)*
 - [ ] Storage and data: S3 storage classes, EBS, EFS, RDS
 - [ ] Load balancing and DNS: ALB vs NLB, Route 53
 - [ ] Hybrid connectivity: VPN and Direct Connect between your datacenter and AWS
 - [ ] Where cloud money goes (compute, NAT, egress, storage), rightsizing, savings plans
-- [ ] FinOps: tagging, cost allocation, showback vs chargeback, unit economics
+- [ ] FinOps: tagging, cost allocation, showback vs chargeback, unit economics *(Phase 4)*
 - [ ] On-prem vs cloud tradeoffs you can argue from experience
 
 **Tools**
 - [ ] **AWS CLI** · *Working*
 - [ ] **Terraform AWS provider** · *Deep*
-- [ ] **EKS** · *Working*
-- [ ] **Karpenter** · *Working*
-- [ ] **OpenCost or Kubecost** · *Working*
+- [ ] **EKS** · *Working* *(Phase 4)*
+- [ ] **Karpenter** · *Working* *(Phase 4)*
+- [ ] **OpenCost or Kubecost** · *Working* *(Phase 4)*
 - [ ] **AWS Cost Explorer & Budgets** · *Working*
 - [ ] **Azure and GCP equivalents** · *Aware*: map each AWS service you use to its counterpart
 
 **Prove you know it**
-- [ ] Your platform runs on EKS from the same GitOps repo, and app teams didn't have to change anything
-- [ ] A monthly cost per tenant you can explain line by line
-- [ ] Explain why a pod on EKS can or can't reach an S3 bucket, layer by layer: network, IAM, bucket policy
+- [ ] Your platform runs on EKS from the same GitOps repo, and app teams didn't have to change anything *(Phase 4)*
+- [ ] A monthly cost per tenant you can explain line by line *(Phase 4)*
+- [ ] Explain why a pod on EKS can or can't reach an S3 bucket, layer by layer: network, IAM, bucket policy *(Phase 4)*
 
 ### O. System design & distributed systems
 
@@ -1192,7 +1195,7 @@ Go applied to Phase 4: extending the infrastructure tools themselves.
 
 **Builds**
 - [ ] A small **Terraform provider** for something on-prem that has none, such as buckets and users on your S3-compatible store, with acceptance tests. Very few candidates have written one.
-- [ ] The 4c tenant bucket request as a Crossplane composition function in Go
+- [ ] The 4b tenant bucket request as a Crossplane composition function in Go
 
 **Done when:** your provider plans, applies, imports, and detects drift, and
 the composition function runs in the lab.
@@ -1644,7 +1647,9 @@ explain an OOM kill from `dmesg` to the cgroup that caused it, and reach for
 ### 1b. Networking
 
 This is where on-prem experience makes you much better than cloud-only peers,
-because you can actually see the topology.
+because you can actually see the topology. Start the Notion **On-prem vs AWS**
+page here: for every concept (subnets, routing, NAT, firewalls, DNS, load
+balancers), write its AWS name next to it. Phase 2f builds on that page.
 
 **Prove it:**
 - [ ] A client gets `connection refused` from one service and a timeout from another. What does each mean at the TCP level, and how do you tell them apart with `ss` and `tcpdump`?
@@ -1705,7 +1710,7 @@ code without asking you, and Go track levels G1 and G2 are done.
 ---
 
 ## Phase 2: Platform Foundations
-**Effort budget: ~230 h**
+**Effort budget: ~300 h**
 
 You already *use* containers, pipelines, and Kubernetes. This phase takes you
 from user to **builder and operator**: you'll know how they work inside, you'll
@@ -1713,8 +1718,9 @@ provision them from code, and you'll be able to see what they're doing. These
 are the parts every platform is built from. Phase 3 turns them into a product.
 
 Where your hours go: 2a, 2b, and 2d are mostly **Prove it** plus internals, since
-you use these daily. 2c (Terraform/Ansible) and 2e (monitoring) are new to you,
-so they get the full treatment. Everything runs **in your lab**, with no cloud bill.
+you use these daily. 2c (Terraform/Ansible), 2e (monitoring), and 2f (AWS) are
+new to you, so they get the full treatment. Everything runs in your lab except
+2f and the AWS half of 2c, which run on a small, budget-capped AWS account.
 
 ### 2a. Containers, first and properly
 
@@ -1785,8 +1791,9 @@ API server → etcd → controller → scheduler → kubelet → CRI → cgroups
 
 **New to you, so this gets the full loop.** For a DevOps engineer this is the
 biggest gap on the CV: nearly every SRE and Platform job ad asks for Terraform.
-Target your **lab** (the Proxmox or libvirt Terraform provider), not a cloud.
-The concepts are identical, and you'll reuse all of it in Phase 4.
+Learn it against **two targets from the first week**: your lab (the Proxmox or
+libvirt provider) and AWS (the AWS provider, inside the cost guardrails in 2f).
+Your workplace uses the first; the employers you want next use the second.
 
 **Core**
 - [ ] [Terraform](https://learn.hashicorp.com/terraform)
@@ -1798,7 +1805,8 @@ The concepts are identical, and you'll reuse all of it in Phase 4.
 - [ ] [Terraform Roadmap](https://roadmap.sh/terraform)
 
 **Done when:** your lab VMs are provisioned by Terraform and configured by
-Ansible, with state and modules you can explain, *and* you've brought one piece
+Ansible, a small AWS stack (VPC, EC2, S3) comes up and goes down from the same
+repo with remote state in S3, with state and modules you can explain, *and* you've brought one piece
 of it to work (a Terraform module or an Ansible role replacing a manual process).
 
 ### 2d. CI/CD & delivery
@@ -1846,17 +1854,50 @@ the lab, deployed via GitOps, with at least one alert that has actually fired,
 *and* you've added a dashboard or an alert at work for something that wasn't
 monitored before.
 
+### 2f. AWS fundamentals & SAA-C03
+
+The cloud half of this phase. You'll move the whole platform onto EKS in
+Phase 4; here you learn AWS itself and run your Terraform against it.
+
+**Cost guardrails (do these first)**
+- [ ] Billing alarm and an AWS Budget with email alerts, set on day one.
+- [ ] Everything created by Terraform, and `terraform destroy` at the end of every session.
+- [ ] Prefer the smallest instance types, and skip NAT gateways until you need one.
+  Most of this topic costs little if you're disciplined, and a lot if you forget one NAT gateway.
+
+Book the exam when you start this topic. A paid slot is the one deadline worth
+having.
+
+**Core**
+- [ ] [The Open Guide to Amazon Web Services](https://github.com/open-guides/og-aws): the best non-marketing AWS resource there is
+- [ ] Official SAA-C03 exam guide + one video course + one practice-exam bank
+- [ ] Build every core service by hand once, then again in Terraform: VPC/subnets/route tables, EC2, S3, IAM, RDS, ALB, ASG, CloudWatch
+- [ ] **Map AWS onto your on-prem world.** Finish the **On-prem vs AWS** page you started in 1b: your
+  S3-compatible store vs. real S3 (consistency, durability, storage classes);
+  your physical network vs. VPC; your hypervisor vs. EC2 placement. This
+  comparison makes a strong interview story, because most candidates only know
+  one side of it.
+- [ ] [Getting Started With Terraform on AWS](https://spacelift.io/blog/terraform-tutorial)
+- [ ] Add CI for the Terraform: `plan` on pull request, `apply` on merge, and a
+  scheduled drift-detection job.
+- [ ] **SAA-C03 exam passed** 🎯
+
+**Done when:** exam passed, your AWS Terraform runs through CI with drift
+detection, and the on-prem vs. AWS note is published as a post.
+
 ### Gate to Phase 3
 - [ ] CKA passed.
+- [ ] SAA-C03 passed.
+- [ ] Lab and a small AWS stack both provisioned by Terraform from git, with CI and drift detection.
 - [ ] Lab rebuilds from an empty cluster via GitOps in under 30 minutes.
 - [ ] Observability stack running and alerting.
 - [ ] Six posts published in total.
-- [ ] Checklist D, E, G, and H ticked, plus the items in I not marked for a later phase.
+- [ ] Checklist D, E, G, and H ticked, plus the items in I and N not marked for a later phase.
 - [ ] Go track: G3 done; your Go exporter runs in the lab via GitOps.
 - [ ] System design: SD2 done; the observability stack had a design doc before it was built.
 
 > **Optional job move.** Once you pass this gate, you are a credible candidate
-> for Platform Engineer or SRE-titled roles (not only DevOps) in your *local or
+> for Platform, Cloud, or SRE-titled roles (not only DevOps) in your *local or
 > regional* market. If your current job doesn't give you room to grow into SRE
 > work (on-call, SLOs, owning services, IaC), a move here speeds up every later
 > phase more than any amount of lab time. See §10. If you move, keep the plan
@@ -2046,48 +2087,24 @@ days have run with postmortems, and runbooks exist for the alerts that fired.
 
 ---
 
-## Phase 4: The Platform on AWS
-**Effort budget: ~140 h**
+## Phase 4: The Platform on EKS
+**Effort budget: ~70 h**
 
-By now you have built a platform on hardware you control: Kubernetes,
-Terraform, GitOps, a golden path, tenancy, and SLOs. This phase **moves that
-platform onto AWS**, then uses the cloud's APIs to give tenants more
-self-service. It is short because you're translating what you know, not
-learning it from scratch. It also tests your Phase 3 abstractions: app teams
-shouldn't notice the move.
+By now you know AWS and Terraform (Phase 2) and have built a platform on
+hardware you control (Phase 3). This phase **moves that platform onto EKS**,
+then uses the cloud's APIs to give tenants more self-service. It is short
+because both halves are already in place. It also tests your Phase 3
+abstractions: app teams shouldn't notice the move.
 
-### Cost guardrails (do these first)
-- [ ] Billing alarm and an AWS Budget with email alerts, set on day one.
-- [ ] Everything created by Terraform, and `terraform destroy` at the end of every session.
-- [ ] Prefer the smallest instance types and tear down EKS when you aren't using it.
-  Most of this phase costs little if you're disciplined, and a lot if you forget one NAT gateway.
+Keep the Phase 2f cost guardrails on: EKS and NAT gateways are where a forgotten
+`terraform destroy` gets expensive.
 
-### 4a. AWS fundamentals & SAA-C03
+### 4a. Your platform, on EKS
 
-Book the exam when you start this topic. A paid slot is the one deadline worth
-having.
-
-**Core**
-- [ ] [The Open Guide to Amazon Web Services](https://github.com/open-guides/og-aws): the best non-marketing AWS resource there is
-- [ ] Official SAA-C03 exam guide + one video course + one practice-exam bank
-- [ ] Build every core service by hand once, then again in Terraform: VPC/subnets/route tables, EC2, S3, IAM, RDS, ALB, ASG, CloudWatch
-- [ ] **Map AWS onto your on-prem world.** Write an **On-prem vs AWS** page in Notion: your
-  S3-compatible store vs. real S3 (consistency, durability, storage classes);
-  your physical network vs. VPC; your hypervisor vs. EC2 placement. This
-  comparison makes a strong interview story, because most candidates only know
-  one side of it.
-- [ ] **SAA-C03 exam passed** 🎯
-
-**Done when:** exam passed and the on-prem vs. AWS note is published as a post.
-
-### 4b. Your platform, on AWS
-
-- [ ] [Getting Started With Terraform on AWS](https://spacelift.io/blog/terraform-tutorial)
 - [ ] **Build:** stand up EKS with Terraform (remote state in S3, locking, separate
   `dev`/`prod` workspaces or directories), then point your *existing* GitOps
   repo at it. The same platform, the same SLOs, a different substrate.
-- [ ] Add CI for the Terraform: `plan` on pull request, `apply` on merge, and a
-  scheduled drift-detection job.
+- [ ] Extend your Phase 2f Terraform CI to the EKS stack.
 - [ ] Write a cost model: what each environment costs per month and why.
 
 **Done when:** your lab platform comes up on AWS from git, and you can tear it
@@ -2097,7 +2114,7 @@ down and rebuild it in one sitting.
 - [ ] [Learning Azure](https://docs.microsoft.com/en-us/learn/azure/)
 - [ ] [Hands-On Training with GCP](https://cloud.google.com/training/badges)
 
-### 4c. Infrastructure as APIs & cost
+### 4b. Infrastructure as APIs & cost
 
 On a mature platform, developers don't write Terraform. They ask the platform
 for "a bucket" or "a database" and get one with the guardrails already applied,
@@ -2118,12 +2135,11 @@ and they can see what it costs.
 without writing Terraform, and see what it costs.
 
 ### Gate to Phase 5
-- [ ] SAA-C03 passed.
 - [ ] Platform running on EKS from the same GitOps repo.
-- [ ] Terraform CI with drift detection working.
+- [ ] Terraform CI with drift detection covering the EKS stack.
 - [ ] Cost model written, with cost per tenant.
 - [ ] A tenant gets a bucket through the platform without writing Terraform.
-- [ ] Checklist N ticked, plus the Phase 4 items in G.
+- [ ] Checklist N ticked (including its Phase 4 items), plus the Phase 4 items in G.
 - [ ] Go track: G5 done; your Terraform provider plans, applies, and imports.
 - [ ] System design: SD4 done; DR drill run against your design's RTO.
 
@@ -2388,9 +2404,9 @@ where nobody knows your employer.
 | Cert | When | Why |
 |---|---|---|
 | **CKA** | Phase 2 | Hands-on and respected. The single best cert for Platform and SRE hiring. |
-| **AWS Solutions Architect Associate** | Phase 4 | Opens cloud roles and complements your on-prem background. Much easier after Phases 1–3. |
+| **AWS Solutions Architect Associate** | Phase 2 | Opens cloud roles and gets an on-prem CV past cloud-company screening early. Much easier after the Phase 1 networking spine. |
 | CKS | Phase 3 (optional) | Kubernetes security, hands-on. Fits the platform security work in 3e. |
-| Terraform Associate | Phase 4 (optional) | Cheap, quick, often listed in EU job ads. Only if a target role asks for it. |
+| Terraform Associate | Phase 2 (optional) | Cheap, quick, often listed in EU job ads. Only if a target role asks for it. |
 | CNPA or Backstage (CBA) | Phase 3 (optional) | The Linux Foundation's platform engineering certs. New, so check that your target employers actually list them before paying. |
 
 **Two required, the rest optional.** Pick at most one optional cert. Past a
@@ -2545,7 +2561,7 @@ hours with the team, and a clean contractor/invoicing setup.
 - **Phases 0–2:** build skills and grow scope at your current job. Don't apply
   internationally. Applying while underqualified burns companies you'll want later.
 - **After the Phase 2 gate (optional):** if your current job has stopped giving
-  you room to grow, a *local or regional* move into a Platform or SRE-titled role
+  you room to grow, a *local or regional* move into a Platform, Cloud, or SRE-titled role
   is worth taking. Stronger teams and on-call ownership speed up everything
   after it and make the international campaign much stronger. Continue the plan
   from where you are.
